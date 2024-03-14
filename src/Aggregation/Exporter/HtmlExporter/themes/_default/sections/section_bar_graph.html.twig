@@ -1,0 +1,28 @@
+<div class="section default">
+    <div class="infobox">
+        <h2>{{ aggregationResult.name }}</h2>
+        <div class="description">
+            {{ aggregationResult.description }}
+        </div>
+    </div>
+    <div class="results">
+        <table>
+            <tbody>
+            {% for key, value in aggregationResult.results(false) | slice(0, options.limit) %}
+                <tr>
+                    <td style="width: 100px">
+                        {{ key | replace({'google:': 'Google '}) | raw }}
+                    </td>
+                    <td style="width: 120px">
+                        {{ value | number_format }} ({{ ((value / websiteCount) * 100) | round(2) | number_format(2) }}
+                        %)
+                    </td>
+                    <td>
+                        <div style="height: 25px; width: {{ ((value / websiteCount) * 100) | round(2) }}%; background-color: #3498db"></div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

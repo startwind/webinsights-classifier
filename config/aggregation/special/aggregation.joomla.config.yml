@@ -1,0 +1,21 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  class: Startwind\WebInsights\Aggregation\Exporter\HtmlExporter\HtmlExporter
+  options:
+    outputDirectory: /var/www/results.webinsights.info/example/joomla-all/
+    theme: webinsights_lite
+    theme_options:
+      title: "WebInsights: Joomla! websites"
+      logo: https://results.webinsights.info/assets/brands/logo.png
+
+retriever:
+  class: Startwind\WebInsights\Aggregation\Retriever\MongoDBRetriever
+  options:
+    block-size: 100
+    database: classifier
+    collection: raw_data
+    tags:
+      - "cms:system:joomla"

@@ -1,0 +1,20 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  class: Startwind\WebInsights\Aggregation\Exporter\HtmlExporter\HtmlExporter
+  options:
+    outputDirectory: /var/www/results.webinsights.info/example/cloudflare-500k/
+    theme: webinsights_lite
+    theme_options:
+      title: "WebInsights: Websites hosted by Hetzner"
+      logo: https://webinsights.info/assets/images/logo.png
+
+retriever:
+  class: Startwind\WebInsights\Aggregation\Retriever\MongoDBRetriever
+  options:
+    block-size: 100
+    database: classifier
+    collection: raw_data
+    runId: cloudflare-500000-2024_02

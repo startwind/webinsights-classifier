@@ -1,0 +1,82 @@
+<div class="section default" id="cms-list">
+    <div class="infobox">
+        <h2>{{ aggregationResult.name }}</h2>
+        <div class="description">
+            {{ aggregationResult.description }}
+        </div>
+    </div>
+    <div class="results">
+        <ul>
+            {% for key, value in aggregationResult.results | slice(0, options.limit) %}
+                <li>
+                    <div style="height: 70px"><img src="https://results.webinsights.info/assets/brands/{{ key }}.png">
+                    </div>
+                    <div class="cms">
+                        {{ key | capitalize | replace(
+                            {
+                                'Woocommerce': '<span style="position: relative; left: -8px;">WooCommerce</span>',
+                                'Wordpress': 'WordPress',
+                                'Joomla': 'Joomla!',
+                                'Cpanel-site-publisher' : "cPanel Site Publisher",
+                                'Sitejet': 'Sitejet',
+                                'Hubspot-cms-hub': 'HubSpot CMS Hub',
+                                'Godaddy-website-builder': 'GoDaddy Website Builder',
+                                'Prestashop': "PrestaShop",
+                                'Bigcommerce': "BigCommerce",
+                                'Php': "PHP",
+                                'Js': "JavaScript",
+                                "Nginx": "NGINX",
+                                "Litespeed": "LiteSpeed",
+                                "Amazon-s3": "Amazon S3"
+                            }) | raw }}
+                    </div>
+                    <div class="cms-info">
+                        {{ value | number_format }}
+                        <nobr>
+                            ({{ ((value / websiteCount) * 100) | round(2) | number_format(2) }} %)
+                        </nobr>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <style>
+        #cms-list ul {
+            margin-top: 20px;
+            padding: 10px;
+            list-style: none;
+        }
+
+        #cms-list ul li {
+            padding: 20px;
+            background-color: #F3F3F3;
+            color: #7f8c8d;
+            text-align: center;
+            width: 99px;
+            border-radius: 10px;
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            height: 113px;
+        }
+
+        #cms-list ul li .cms {
+            font-size: 17px;
+            font-weight: 400;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+        #cms-list ul li .cms-info {
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        #cms-list ul li img {
+            width: 60px;
+            margin-bottom: 10px;
+            _filter: grayscale(1) brightness(1.5);
+        }
+    </style>
+</div>

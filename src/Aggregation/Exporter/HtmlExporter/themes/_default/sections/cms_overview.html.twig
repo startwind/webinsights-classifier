@@ -1,0 +1,37 @@
+<div class="section" style="">
+    <div class="third">
+        {% if aggregationResult.results.first.image is defined %}
+            <img src="https://results.webinsights.info/assets/brands/{{ aggregationResult.results.first.name | lower }}.png"/>
+        {% endif %}
+        The content management system (CMS) that is most used is
+        <strong>{{ aggregationResult.results.first.name }}</strong>
+        with <strong>{{ aggregationResult.results.first.count | number_format }} installations</strong> and a share
+        of <strong>{{ aggregationResult.results.first.percent }} %</strong>.
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<style>
+    .third {
+        width: calc(33% - 10px);
+        float: left;
+        line-height: 25px;
+        padding-right: 30px;
+        margin-right: 30px;
+        border-right: 2px solid #eee;
+        color: #34495e;
+        font-weight: 300;
+    }
+
+    .third img {
+        float: left;
+        height: 80px;
+        margin-right: 25px;
+    }
+
+    .third:last-child {
+        border: none;
+        margin-right: 0;
+        padding-right: 0;
+    }
+</style>

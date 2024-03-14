@@ -1,0 +1,16 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  class: Startwind\WebInsights\Aggregation\Exporter\HtmlExporter\HtmlExporter
+  options:
+    outputDirectory: /var/www/results.webinsights.info/{uuid}/
+
+retriever:
+  class: Startwind\WebInsights\Aggregation\Retriever\MongoDBRetriever
+  options:
+    block-size: 100
+    database: classifier
+    collection: raw_data
+    runId: sqm-2024-01

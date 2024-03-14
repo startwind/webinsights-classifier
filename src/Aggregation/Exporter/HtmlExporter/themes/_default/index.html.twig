@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ theme_options.title }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="https://results.webinsights.info/assets/brands/favicon.png">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<style>
+    body {
+        font-family: Roboto;
+    }
+
+    h2 {
+        font-weight: 200;
+        margin-top: 0;
+    }
+
+    .section {
+        margin-bottom: 50px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #FAFAFA;
+        margin-right: 40px;
+    }
+
+    .infobox {
+        padding: 10px;
+        font-size: 15px;
+        font-weight: 300;
+        color: black;
+        line-height: 25px;
+    }
+
+    .infobox .description {
+        min-height: 80px;
+    }
+
+    #content {
+        margin-left: 300px;
+        margin-top: 30px;
+    }
+
+    h1 {
+        font-weight: 200;
+        font-size: 30px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .summary {
+        margin-bottom: 53px;
+        font-size: 14px;
+        margin-top: 10px;
+        font-weight: 200;
+    }
+
+    .summary strong {
+        font-weight: 400;
+    }
+
+    table thead {
+        background-color: #34495e;
+        color: white;
+    }
+
+    table thead th {
+        padding: 10px;
+        text-align: left;
+        font-weight: 300;
+    }
+
+    table thead tr {
+        border-spacing: 20px;
+        border: none;
+    }
+
+    table td {
+        padding: 9px;
+        text-align: left;
+    }
+
+    table tr:nth-child(2n) {
+        background-color: #F3F3F3;
+    }
+
+    table {
+        font-size: 14px;
+        margin-top: 20px;
+        width: 100%;
+
+        border-spacing: 0;
+        border-collapse: separate;
+        border-radius: 10px;
+    }
+
+    #menu-left {
+        background-color: #FAFAFA;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 230px;
+        padding: 20px;
+    }
+
+    #menu-left ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    #menu-left ul li {
+        list-style: none;
+        color: #7f8c8d;
+        padding: 15px;
+        width: 200px;
+        cursor: pointer;
+        background-color: #F3F3F3;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    #menu-left ul li.active {
+        background-color: #2c3e50;
+        color: white;
+    }
+
+    #menu-left h2 {
+        text-transform: uppercase;
+        font-size: 11px;
+        margin-top: 30px;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
+
+    .group.active {
+        display: block;
+    }
+
+    .group {
+        display: none;
+    }
+
+    #menu-left .count {
+        background-color: #bdc3c7;
+        padding: 5px;
+        float: right;
+        margin-right: 0;
+        border-radius: 3px;
+        font-size: 13px;
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        position: relative;
+        top: -3px;
+        color: white;
+    }
+
+    #menu-left .active .count {
+        background-color: #34495e;
+        color: white;
+    }
+
+    #copyright {
+        position: absolute;
+        bottom: 64px;
+        padding: 10px;
+        background-color: #F3F3F3;
+        border-radius: 10px;
+        margin-right: 20px;
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: 300;
+        color: #7f8c8d;
+        width: calc(100% - 60px);
+    }
+
+    #copyright a {
+        text-decoration: none;
+        font-weight: 600;
+        color: black;
+    }
+
+    .results {
+        height: 380px;
+    }
+
+    .section.default {
+        width: calc(50% - 80px);
+        float: left;
+        max-width: 630px;
+    }
+
+    td:first-child,
+    th:first-child {
+        border-radius: 10px 0 0 10px;
+    }
+
+    td:last-child,
+    th:last-child {
+        border-radius: 0 10px 10px 0;
+    }
+
+    .out_of {
+        font-size: 20px;
+        padding-top: 37px;
+        font-weight: 300
+    }
+</style>
+
+<script>
+    function selectGroup(groupName) {
+        console.log(groupName)
+        {% for sectionName, sectionGroups in groups %}
+        {% for groupName, values in sectionGroups %}
+        document.querySelector("li[data-name='{{ groupName }}']").classList.remove("active");
+        document.querySelector("div[data-name='{{ groupName }}']").classList.remove("active");
+        {% endfor %}
+        document.querySelector("li[data-name='" + groupName + "']").classList.add("active");
+        document.querySelector("div[data-name='" + groupName + "']").classList.add("active");
+        {% endfor %}
+        window.location.hash = groupName;
+    }
+
+</script>
+
+<body>
+
+<div id="menu-left">
+    <a href="https://webinsights.info">
+        <img src="{{ theme_options.logo }}"
+             style="width: calc(100% - 5px); margin-bottom: 9px">
+    </a>
+
+    {% for sectionName, sectionGroups in groups %}
+        <h2>{{ sectionName }}</h2>
+        <ul>
+            {% for groupName, values in sectionGroups %}
+                <li onclick="selectGroup('{{ groupName }}')"
+                    class="{% if groupName is same as(active) %}active{% endif %}"
+                    data-name="{{ groupName }}">
+                    {{ groupName }}
+                    <div class="count">{{ values | length }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    <div id="copyright">
+        Report created via <a href="https://webinsights.info">webinsights</a>.
+    </div>
+</div>
+
+<div id="content">
+    {% for sectionName, sectionGroups in groupedSections %}
+        {% for groupName, sections in sectionGroups %}
+            <div data-name="{{ groupName }}" class="group{% if groupName is same as(active) %} active{% endif %}">
+                <h1>{{ sectionName }} | <strong>{{ groupName }}</strong></h1>
+                <div class="summary">Analyzed a total of <strong>{{ websiteCount | number_format }} websites</strong>
+                    on <strong>{{ "now" | date('Y-m-d') }}</strong> at {{ "now" | date('h:i') }}.
+                </div>
+
+                {% for section in sections %}
+                    {{ section | raw }}
+                {% endfor %}
+
+                <div style="clear: both"></div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+<script>
+    google.charts.load('current', {'packages': ['corechart', 'geochart']});
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawCharts);
+
+    function drawCharts() {
+        {% for key in keys %}
+        if (typeof drawChart_{{ key }} === "function") {
+            drawChart_{{ key }}()
+        }
+        {% endfor %}
+    }
+
+    const hash = decodeURI(window.location.hash.replace('#', ''))
+    if (hash) selectGroup(hash)
+
+</script>
+</body>
+</html>

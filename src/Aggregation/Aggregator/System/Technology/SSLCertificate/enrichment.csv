@@ -1,0 +1,15 @@
+"sectigo_limited","Sectigo","https://www.sectigo.com/"
+"let's_encrypt", "Let's encrypt", "https://letsencrypt.org"
+"google_trust_services_llc", "Google Trust Services", "https://pki.goog/"
+"cpanel_inc", "cPanel", "https://www.cpanel.net"
+"cloudflare_inc", "Cloudflare", "https://cloudflare.com"
+"globalsign_nv-sa", "GlobalSign (by GMO)", "https://www.globalsign.com/de-de"
+zerossl, ZeroSSL, https://zerossl.com/"
+godaddy_com_inc, "GoDaddy", "https://www.godaddy.com"
+"digicert_inc", "DigiCert", "https://www.digicert.com"
+"starfield_technologies_inc", "Starfield Technologies", "https://www.starfieldtech.com/"
+"amazon", "Amazon", "https://aws.amazon.com/en/certificate-manager/"
+entrust_inc, "Entrust", "https://www.entrust.com/de/"
+r3, "Let's encrypt / R3", https://letsencrypt.org/
+unizeto_technologies_s_a, "Certum (Poland)", "https://www.certum.eu/en/"
+microsoft_corporation, "Microsoft Azure", https://azure.microsoft.com/

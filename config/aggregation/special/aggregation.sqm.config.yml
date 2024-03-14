@@ -1,0 +1,18 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  class: Startwind\WebInsights\Aggregation\Exporter\HtmlExporter\HtmlExporter
+  options:
+    outputDirectory: /var/www/results.webinsights.info/customer/sqm/ec24b1d1-54c3-4453-a33c-10f5a0fc5276/
+    theme_options:
+      logo: https://results.webinsights.info/assets/brands/webpros_logo.png
+
+retriever:
+  class: Startwind\WebInsights\Aggregation\Retriever\MongoDBRetriever
+  options:
+    block-size: 100
+    database: classifier
+    collection: raw_data
+    runId: sqm-2024-03

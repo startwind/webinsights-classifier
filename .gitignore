@@ -1,0 +1,12 @@
+.idea
+vendor
+cache
+output
+resume-*.yml
+_storage
+_log
+_output
+_tmp
+_results
+wp-plugins*.csv
+tmp

@@ -1,0 +1,32 @@
+<div class="section default">
+    <div class="infobox">
+        <h2>{{ aggregationResult.name }}</h2>
+        <div class="description">
+            {{ aggregationResult.description }}
+        </div>
+    </div>
+    <div class="results">
+        <table>
+            <thead>
+            <tr>
+                <th>{{ options.keyName }} {% if count is defined %}(top {{ count }}){% endif %}</th>
+                <th>Absolute</th>
+                <th>Percent</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, value in aggregationResult.results | slice(0, options.limit) %}
+                <tr>
+                    <td>{{ key | replace({'google:': 'Google '}) | raw }}</td>
+                    <td style="width: 50px">{{ value | number_format }}</td>
+                    <td style="width: 50px; text-align: right">
+                        <nobr>
+                            {{ ((value / websiteCount) * 100) | round(2) | number_format(2) }} %
+                        </nobr>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

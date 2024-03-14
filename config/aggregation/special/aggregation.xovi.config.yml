@@ -1,0 +1,19 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  class: Startwind\WebInsights\Aggregation\Exporter\HtmlExporter\HtmlExporter
+  options:
+    outputDirectory: /var/www/results.webinsights.info/customer/x/6a4c3ec4-1a4c-4e9e-a8db-c7009481dc67/
+    theme_options:
+      logo: https://results.webinsights.info/assets/brands/xovi-logo.png
+      title: "XOVI: Website Classification Report"
+
+retriever:
+  class: Startwind\WebInsights\Aggregation\Retriever\MongoDBRetriever
+  options:
+    block-size: 100
+    database: classifier
+    collection: raw_data
+    runId: xovi-customers-2024-02

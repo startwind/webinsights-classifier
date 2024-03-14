@@ -1,0 +1,32 @@
+<div class="infobox">
+    <h2>{{ aggregationResult.name }}</h2>
+    <div class="description">
+        {{ aggregationResult.description }}
+    </div>
+</div>
+<div class="results">
+    <div id="chart_div_{{ key }}" style="margin-left: 400px"></div>
+</div>
+
+<script>
+    function drawChart_{{ key }}() {
+        var data = google.visualization.arrayToDataTable([
+            ['Country', 'Popularity'],
+            ['Germany', 200],
+            ['United States', 300],
+            ['Brazil', 400],
+            ['Canada', 500],
+            ['France', 600],
+            ['RU', 700]
+        ]);
+
+        var options = {
+            'width': 400,
+            'height': 300
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('chart_div_{{ key }}'));
+
+        chart.draw(data, options);
+    }
+</script>

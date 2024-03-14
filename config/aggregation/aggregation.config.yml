@@ -1,0 +1,30 @@
+general:
+  log_level: info
+
+exporter:
+  class: Startwind\WebInsights\Aggregation\Exporter\HtmlExporter\HtmlExporter
+
+retriever:
+  class: Startwind\WebInsights\Aggregation\Retriever\DebugRetriever
+
+aggregators:
+  - Startwind\WebInsights\Aggregation\Aggregator\Content\LanguageAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\Content\MetaKeywordAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\Content\TypeAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\Domain\TopLevelDomainAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\General\GeneralOverviewAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\General\GeneralUpsellAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\Performance\WebsitePerformanceAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\Performance\WebsiteSizeAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\Persona\WebProsPersonaAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\CmsAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\CmsOverviewAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\WordPress\WordPressPluginAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\EcommerceAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Hosting\IspAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Plugin\PluginAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Service\EmailService\EmailServiceAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\CDN\CDNAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\ProgrammingLanguageAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\SSLCertificate\SSLCertificateIssuerAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\WebserverAggregator

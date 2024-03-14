@@ -1,0 +1,19 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  class: Startwind\WebInsights\Aggregation\Exporter\HtmlExporter\HtmlExporter
+  options:
+    outputDirectory: /var/www/results.webinsights.info/customer/nf/e33fade1-4f76-4705-8c01-b3913871ac7b/
+    theme_options:
+      logo: https://results.webinsights.info/assets/brands/webpros_logo.png
+      title: "WebPros: Website Classification Report"
+
+retriever:
+  class: Startwind\WebInsights\Aggregation\Retriever\MongoDBRetriever
+  options:
+    block-size: 100
+    database: classifier
+    collection: raw_data
+    runId: sqm-nf-2024-02

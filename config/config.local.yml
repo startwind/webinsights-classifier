@@ -1,0 +1,16 @@
+general:
+  inherit_default: true
+  log_level: info
+
+storage:
+  class: Startwind\WebInsights\Storage\FileStorage
+  options:
+    directory: _storage
+
+classifiers:
+  - Startwind\WebInsights\Classification\Classifier\Test\TestClassifier
+
+exporter:
+  - Startwind\WebInsights\Classification\Exporter\Analytics\CsvAnalyticsExporter: { filename: '_output/analytics-{runId}.csv' }
+  - Startwind\WebInsights\Classification\Exporter\Analytics\CliAnalyticsExporter: { barWidth: 60, sortByNumber: true, hideSingleFindings: false }
+

@@ -1,0 +1,12 @@
+general:
+  inherit_default: true
+  log_level: alert
+
+storage:
+  class: Startwind\WebInsights\Storage\MongoDbStorage
+  options:
+    database: classifier
+    collection: responses
+
+exporter:
+  - Startwind\WebInsights\Classification\Exporter\Result\MongoDBResultExporter: { database: 'classifier', collection: 'raw_data' }

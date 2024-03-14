@@ -1,0 +1,132 @@
+general:
+  log_level: info
+
+retriever:
+  class: Startwind\WebInsights\Response\Retriever\GuzzleRetriever
+  options:
+    parallelRequests: 10
+    clientOptions:
+      timeout: 10
+      verify: false
+
+storage:
+  class: Startwind\WebInsights\Storage\FileStorage
+  options:
+    directory: _storage
+
+exporter:
+  - Startwind\WebInsights\Classification\Exporter\Result\SimpleCliExporter
+  - Startwind\WebInsights\Classification\Exporter\Result\CsvResultExporter: { filename: '_output/result-{runId}.csv' }
+
+enricher:
+  - Startwind\WebInsights\Response\Enricher\IPEnricher
+  - Startwind\WebInsights\Response\Enricher\MXEnricher
+  - Startwind\WebInsights\Response\Enricher\GeoLocationEnricher
+
+classifiers:
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\PageClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\SSLCertificateClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\WhoisClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Url\TopLevelDomainClassifier
+  - Startwind\WebInsights\Classification\Classifier\Url\HostingCompanyUrl\HostingCompanyUrlClassifier
+  - Startwind\WebInsights\Classification\Classifier\Url\AgencyUrl\AgencyUrlClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Security\Hacked\HackedKeywordsClassifier
+  - Startwind\WebInsights\Classification\Classifier\Service\Email\EmailServiceClassifier
+
+  # CMS
+  - Startwind\WebInsights\Classification\Classifier\Cms\WordPress\WordPressClassifier: { detailed: false }
+  - Startwind\WebInsights\Classification\Classifier\Cms\WordPress\WordPressPluginClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\WordPress\WordPressThemeClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\SuluClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\ContaoClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\DrupalClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\JoomlaClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\WixClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\SquareSpaceClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\Typo3Classifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\NeosClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\SitejetClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\CPanelSitePublisherClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\GoDaddyWebsiteBuilderClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\HubSpotCMSHubClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\JimdoClassifier
+
+  # E-Commerce
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\ShopifyClassifier
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\ShopwareClassifier: { detailed: false }
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\MagentoClassifier
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\PrestaShopClassifier
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\WooCommerce\WooCommerceClassifier
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\WooCommerce\WooCommercePluginClassifier
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\BigCommerceClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\EcommerceClassifier
+
+  # Services
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Service\CloudimageClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Service\ImgIxClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Service\CalendlyClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Url\IPAddressClassifier
+  - Startwind\WebInsights\Classification\Classifier\Url\IPLocationClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Keyword\KeywordClassifier: { keywords: [ 'solus', 'Cloud', 'VPS Hosting', "SSL Certificate", "SSL Zertifikat", "Onlineshop", "Dedicated Hosting", "Domain", "Dedicated Server", 'WP Toolkit', 'shopware', 'woocommerce', 'magento', 'wordpress', 'joomla', 'typo3', 'agentur', 'internetagentur', 'webpros', 'hosting', 'plesk', 'cpanel', 'leankoala', '360 monitoring', 'koality', 'agency', 'xovi' ] }
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\PluginClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\SchemaOrgClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\GooglePluginClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Tracking\FacebookTrackingClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Tracking\TwitterTrackingClassifier
+
+  # Analytics
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Analytics\PlausibleAnalyticsClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Analytics\MatomoAnalyticsClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Analytics\HotjarAnalyticsClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Analytics\ChartbeatAnalyticsClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Analytics\InfonlineAnalyticsClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Analytics\HubSpotAnalyticsClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Language\LanguageClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Meta\KeywordClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Meta\RobotsClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\SocialMediaClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\SocialShareClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\NewsletterClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Browser\BrowserFeatureClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\NuxtClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\JQueryClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\BootstrapClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\SvelteClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\AngularClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\ReactClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\ContentEncodingClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\WebServerClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\ReverseProxyClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\OSClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\Cdn\CloudflareClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\Cdn\AkamaiClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\Cdn\ImpervaClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Framework\SymfonyClassifier
+  - Startwind\WebInsights\Classification\Classifier\Framework\NodeJsClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\ProgrammingLanguageClassifier
+
+  - Startwind\WebInsights\Classification\Classifier\ControlPanel\PleskClassifier
+
+
+  # Characteristics
+  - Startwind\WebInsights\Classification\Classifier\Characteristic\Html\SizeClassifier
+  - Startwind\WebInsights\Classification\Classifier\Characteristic\Html\JavaScriptCountClassifier
+  - Startwind\WebInsights\Classification\Classifier\Characteristic\Html\CssCountClassifier
+  - Startwind\WebInsights\Classification\Classifier\Characteristic\Http\TransferTimeClassifier

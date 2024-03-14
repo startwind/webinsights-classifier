@@ -1,0 +1,6 @@
+general:
+  inherit_default: true
+  log_level: info
+
+aggregators:
+  - Startwind\WebInsights\Aggregation\Aggregator\General\RawDataAggregator

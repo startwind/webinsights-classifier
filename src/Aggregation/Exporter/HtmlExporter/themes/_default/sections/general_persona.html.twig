@@ -1,0 +1,56 @@
+<div class="section headline">
+    When analyzing the users of the WebPros product, three groups emerged as particularly relevant when it comes to
+    upselling. These three are agencies, ecommerce operators and web professionals.
+</div>
+
+<div class="section box-small">
+    <h2>E-Commerce</h2>
+    <div class="persona_info">
+        Websites active in e-commerce and where there is a good chance the owner is dependent on this
+        business model.
+    </div>
+    <div class="upsell_number">
+        <div style="float: left; margin-right: 10px">{{ aggregationResult.results.ecommerce | number_format }}</div>
+        <div class="out_of">/ {{ ((aggregationResult.results.ecommerce / websiteCount) * 100) | round(0) }}%</div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="persona_link"><a href="{{ filenames.ecommerce }}.csv" target="_blank">download as csv →</a></div>
+</div>
+
+<div class="section box-small">
+    <h2>Agency</h2>
+    <div class="persona_info">
+        Agencies are particularly interesting for SQM, as they usually benefit greatly from the dashboard and the
+        overall overview.
+    </div>
+    <div class="upsell_number">
+        <div style="float: left; margin-right: 10px">{{ aggregationResult.results.agency | number_format }}</div>
+        <div class="out_of">/ {{ ((aggregationResult.results.agency / websiteCount) * 100) | round(0) }}%</div>
+    </div>
+    <div class="persona_link"><a href="{{ filenames.agency }}.csv" target="_blank">download as csv →</a></div>
+</div>
+
+<div class="section box-small">
+    <h2>Web Professionals</h2>
+    <div class="persona_info">
+        Web Professionals focuses on the quality of the website. They already invest effort and money in their website.
+    </div>
+    <div class="upsell_number">
+        <div style="float: left; margin-right: 10px">{{ aggregationResult.results.professionals | number_format }}</div>
+        <div class="out_of">/ {{ ((aggregationResult.results.professionals / websiteCount) * 100) | round(0) }}%</div>
+    </div>
+    <div class="persona_link"><a href="{{ filenames.professionals }}.csv" target="_blank">download as csv →</a></div>
+</div>
+
+<div style="clear: both"></div>
+
+<style>
+    .persona_link a {
+        color: #7f8c8d;
+        font-weight: 300;
+    }
+
+    .persona_info {
+        height: 80px;
+    }
+</style>

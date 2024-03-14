@@ -1,0 +1,69 @@
+<div class="section headline">
+    We analyzed <strong>{{ websiteCount | number_format }} websites</strong> for this report. Based on the
+    classification of these websites, we recommend the following services and extensions that you should offer your
+    customers.
+</div>
+
+<div class="section box-small">
+    <h2>E-Mail Service</h2>
+    A lot of you customers are not using an email service. We recommend to add this to your portfolio or market it more
+    direct to your audience.
+    <div class="upsell_number">
+        <div style="float: left; margin-right: 10px">{{ aggregationResult.results.email_none | number_format }}</div>
+        <div class="out_of">/ {{ ((aggregationResult.results.email_none / websiteCount) * 100) | round(0) }}%</div>
+    </div>
+</div>
+
+<div class="section box-small">
+    <h2>SEO Solution</h2>
+    Users that already use a SEO solution like yoast are likely to try out another one. This is the number of potential
+    <a href="https://xovinow.com" class="inline">XOVI SEO solution</a> users.
+    <div class="upsell_number">
+        <div style="float: left; margin-right: 10px">{{ aggregationResult.results.seo_solution | number_format }}</div>
+        <div class="out_of">/ {{ ((aggregationResult.results.seo_solution / websiteCount) * 100) | round(0) }}%</div>
+    </div>
+</div>
+
+<div class="section box-small">
+    <h2>Slow Websites</h2>
+    This list contains all websites where the server did not answer in an appropriate time. Larger servers or plans can
+    be offered to these customers.
+    <div class="upsell_number">
+        <div style="float: left; margin-right: 10px">{{ aggregationResult.results.websites_slow | number_format }}</div>
+        <div class="out_of">/ {{ ((aggregationResult.results.websites_slow / websiteCount) * 100) | round(0) }}%</div>
+    </div>
+</div>
+
+<div style="clear: both"></div>
+
+<style>
+    .section a.inline {
+        font-weight: 500;
+        text-decoration: none;
+        color: #34495e;
+    }
+
+    .section.headline {
+        line-height: 25px;
+        padding-right: 30px;
+        color: #34495e;
+        font-weight: 300;
+    }
+
+    .box-small {
+        width: 300px;
+        float: left;
+        line-height: 25px;
+        padding-right: 30px;
+        color: #34495e;
+        font-weight: 300;
+    }
+
+    .box-small .upsell_number {
+        line-height: initial;
+        font-size: 60px;
+        font-weight: 400;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
