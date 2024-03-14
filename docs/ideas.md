@@ -22,3 +22,13 @@
 - Backend Technology
 - WordPress Themes
 - WordPress section
+
+
+## General 
+- Create PHAR file for better shipping
+
+## Development ideas
+
+- ZIP the result
+- Set client via config file
+
