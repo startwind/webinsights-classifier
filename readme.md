@@ -3,7 +3,7 @@
 ## Install
 
 ```shell
-git clone git@github.com:leankoala-gmbh/classifier.git 
+git clone git@github.com:startwind/webinsights-classifier.git
 
 cd classifier
 composer install
