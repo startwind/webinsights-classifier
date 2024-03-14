@@ -1,8 +1,10 @@
+
+<img src="docs/logo-color.png" width="300" alt="WebInsights logo">
+
 # WebInsights Classifier
 
 The WebInsights classifier by [Startwind.io](https://startwind.io) is an open source toolkit that helps classifying websites and process the created data.
 
-![logo-color.png](docs%2Flogo-color.png)
 
 The classifier consists of four tools that can be used independently of each other but unfold their full potential used together.
 
