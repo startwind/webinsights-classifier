@@ -49,6 +49,12 @@ class MongoDbExporter extends FinishExporter
             }
         }
 
-        $this->collection->insertOne($document);
+        $found = $this->collection->findOne(['uuid' => $this->uuid]);
+
+        if ($found) {
+            $this->collection->updateOne(['uuid' => $this->uuid], ['$set' => $document]);
+        } else {
+            $this->collection->insertOne($document);
+        }
     }
 }
