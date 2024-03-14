@@ -1,11 +1,31 @@
-# Customer classifier
+# WebInsights Classifier
 
-## Install
+The WebInsights classifier by [Startwind.io](https://startwind.io) is an open source toolkit that helps classifying websites and process the created data.
+
+The classifier consists of four tools that can be used independently of each other but unfold their full potential used together.
+
+## WebInsights PRO
+
+All functionality that is needed to retrieve websites, aggregate data and create reports is included in this toolkit. We know that not all users like to manage those technical tools on their own. 
+
+This is why we created a hosted version that can be fully used inside a browser and created beautiful reports. The lite account is of course free so you can have a look without risks.
+
+- [Visit WebInsights PRO](https://pro.webinsights.info)
+
+## Contribution
+
+Like every open source tool we love our community. So if you think you can help with your ideas, your programming skills or just with the wish to make our documentation better, please [contact us](mailto:webinsights.startwind.io).
+
+- [Visit our issue tracker](https://github.com/startwind/webinsights-classifier/issues)
+
+## Installation
+
+The requirements for the classifier are pretty small. We only need a running current version of PHP (>8.2) and git.
 
 ```shell
 git clone git@github.com:startwind/webinsights-classifier.git
 
-cd classifier
+cd webinsights-classifier
 composer install
 ```
 
@@ -15,111 +35,3 @@ composer install
 php bin/classifier.php classify https://www.ionos.de
 ```
 
-## Classifier
-
-### E-commerce systems
-
-- **ecommerce:system:magento**
-- **ecommerce:system:woocommerce**
-- **ecommerce:system:shopware**
-- **ecommerce:system:bigcommerce**
-- **ecommerce:system:prestashop**
-- **ecommerce:system:shopify**
-
-### Content management systems (CMS)
-
-- **cms:system:wordpress**
-- **cms:system:drupal**
-- **cms:system:joomla**
-- **cms:system:wix**
-- **cms:system:squarespace**
-- **cms:system:contao**
-- **cms:system:sulu**
-
-### WordPress plugins
-
-- **wordpress:plugin**
-- **wordpress:theme**
-
-### Control panel
-
-- **control_panel:system:plesk**
-
-### Html frameworks
-
-- **html:framework:nuxt**
-- **html:framework:vue**
-- **html:framework:jquery**
-- **html:framework:boostrap**
-
-### HTML content
-
-- **html:content:language**
-
-### HTML plugins
-
-#### Monitoring plugins
-
-- **html:plugin:monitoring:sentry'**
-- **html:plugin:monitoring:new-relic'**
-- **html:plugin:monitoring:site24x7'**
-- **html:plugin:monitoring:appdynamics'**
-- **html:plugin:monitoring:datadog'**
-
-#### Google plugins
-
-- **html:plugin:google:analytics**
-- **html:plugin:google:tag-manager**
-- **html:plugin:google:fonts**
-- **html:plugin:google:maps**
-- **html:plugin:google:ads**
-- **html:plugin:google:firebase**
-- **html:plugin:google:firebase:messaging**
-
-#### Cookie consent plugins
-
-- **html:plugin:cookie:cookie-bot**
-- **html:plugin:cookie:cookiehub**
-
-#### Tracking plugins
-
-- **html:plugin:tracking:etracker**
-
-### Browser features
-
-- **browser:feature:service-worker**
-
-### Technology
-
-#### Programming language
-
-- **tech:language:php**
-
-#### Web server
-
-- **tech:webserver:apache**
-- **tech:webserver:nginx**
-- **tech:webserver:litespeed**
-- **tech:webserver:amazon-s3**
-
-#### Reverse proxy
-
-- **tech:reverse-proxy:varnish**
-
-#### CDN
-
-- **tech:cdn:cloudflare**
-- **tech:cdn:akamai**
-- **tech:cdn:imperva**
-
-## Classifier ideas
-
-- Find WordPress plugins automatically
-- Find WordPress themes automatically
-
-
-## Development ideas
-
-- ZIP the result
-- Set client via config file
-- Filter duplicate URLs
