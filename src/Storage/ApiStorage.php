@@ -4,6 +4,7 @@ namespace Startwind\WebInsights\Storage;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\UriInterface;
 use Startwind\WebInsights\Response\HttpResponse;
@@ -14,8 +15,8 @@ class ApiStorage implements Storage
     private int $responsesNotCached = 0;
 
     private array $defaultOptions = [
-        'setEndpoint' => 'https://api.webinsights.info/data/response',
-        'getEndpoint' => 'https://api.webinsights.info/data/response/?uri={uri}',
+        'setEndpoint' => 'https://storage.webinsights.info/set.php',
+        'getEndpoint' => 'https://storage.webinsights.info/get.php?uri={uri}',
         'updateEndpoint' => 'https://api.webinsights.info/collection/job/status/{runId}',
         'updateInterval' => 5
     ];
@@ -53,9 +54,13 @@ class ApiStorage implements Storage
             'response' => $response->jsonSerialize()
         ];
 
-        $this->client->post($this->setEndPoint, [
-            RequestOptions::JSON => $data
-        ]);
+        try {
+            $this->client->post($this->setEndPoint, [
+                RequestOptions::JSON => $data
+            ]);
+        } catch (ServerException $exception) {
+            var_dump((string)$exception->getResponse()->getBody());
+        }
     }
 
     private function update(): void
@@ -73,6 +78,8 @@ class ApiStorage implements Storage
 
     public function getHttpResponse(UriInterface $uri): HttpResponse|false
     {
+        return false;
+
         $url = str_replace('{uri}', urlencode((string)$uri), $this->getEndPoint);
 
         $this->count++;

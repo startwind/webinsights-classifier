@@ -45,7 +45,11 @@ class MXEnricher implements Enricher, ManyEnricher
             foreach ($mxEntries as $mxEntry) {
                 if ($mxEntry) {
                     $rawRecords = explode(" ", $mxEntry);
-                    $records[] = (rtrim(trim($rawRecords[1]), '.'));
+                    if (array_key_exists(1, $rawRecords)) {
+                        $records[] = (rtrim(trim($rawRecords[1]), '.'));
+                    } else {
+                        $records[] = (rtrim(trim($rawRecords[0]), '.'));
+                    }
                 }
             }
 
