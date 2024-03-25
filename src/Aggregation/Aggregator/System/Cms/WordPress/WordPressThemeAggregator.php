@@ -6,7 +6,7 @@ use Startwind\WebInsights\Aggregation\AggregationResult;
 use Startwind\WebInsights\Aggregation\Aggregator\TagCountingAggregator;
 use Startwind\WebInsights\Aggregation\Exporter\Visualization;
 use Startwind\WebInsights\Aggregation\Util\EnrichmentDictionary;
-use Startwind\WebInsights\Classification\Classifier\Cms\WordPress\WordPressPluginClassifier;
+use Startwind\WebInsights\Classification\Classifier\Cms\WordPress\WordPressThemeClassifier;
 
 class WordPressThemeAggregator extends TagCountingAggregator
 {
@@ -22,7 +22,7 @@ class WordPressThemeAggregator extends TagCountingAggregator
 
     protected string $description = "This list contains all WordPress plugins that leave their footprints in the frontend of a website. This means that this list is not complete, but already provides a good overview. If needed it is possible to do an analysis with defined backend plugins, but those have to be defined before the run.";
 
-    protected string $tag = WordPressPluginClassifier::TAG_PREFIX;
+    protected string $tag = WordPressThemeClassifier::TAG;
 
     private EnrichmentDictionary $dictionary;
 

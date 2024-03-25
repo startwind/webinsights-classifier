@@ -8,7 +8,7 @@ use Startwind\WebInsights\Response\Html\HtmlDocument;
 
 class WordPressThemeClassifier extends HtmlClassifier
 {
-    private const TAG = 'wordpress:theme:';
+    public const TAG = 'wordpress:theme:';
 
     protected function doHtmlClassification(HtmlDocument $htmlDocument): array
     {
