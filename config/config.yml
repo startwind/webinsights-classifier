@@ -53,6 +53,8 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Cms\GoDaddyWebsiteBuilderClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\HubSpotCMSHubClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\JimdoClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\WebflowClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\BitrixClassifier
 
   # E-Commerce
   - Startwind\WebInsights\Classification\Classifier\Ecommerce\ShopifyClassifier
@@ -62,6 +64,7 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Ecommerce\WooCommerce\WooCommerceClassifier
   - Startwind\WebInsights\Classification\Classifier\Ecommerce\WooCommerce\WooCommercePluginClassifier
   - Startwind\WebInsights\Classification\Classifier\Ecommerce\BigCommerceClassifier
+  - Startwind\WebInsights\Classification\Classifier\Ecommerce\SquarespaceCommerceClassifier
 
   - Startwind\WebInsights\Classification\Classifier\Ecommerce\EcommerceClassifier
 

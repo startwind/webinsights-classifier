@@ -3,20 +3,21 @@
 namespace Startwind\WebInsights\Classification\Classifier\Cms;
 
 use Startwind\WebInsights\Classification\Classifier\Http\Html\HtmlClassifier;
-use Startwind\WebInsights\Classification\Classifier\Http\Http\ProgrammingLanguageClassifier;
 use Startwind\WebInsights\Response\Html\HtmlDocument;
 
-class SquareSpaceClassifier extends HtmlClassifier
+class WebflowClassifier extends HtmlClassifier
 {
-    public const TAG = CmsClassifier::CLASSIFIER_PREFIX . 'squarespace';
+    private const TAG = CmsClassifier::CLASSIFIER_PREFIX . 'webflow';
 
     protected function doHtmlClassification(HtmlDocument $htmlDocument): array
     {
         if ($htmlDocument->containsAny([
-            'static1.squarespace.com',
-            'This is Squarespace'
+            'This site was created in Webflow',
+            'uploads-ssl.webflow.com'
         ])) {
-            return [self::TAG, ProgrammingLanguageClassifier::TAG_JAVA];
+            return [
+                self::TAG
+            ];
         } else {
             return [];
         }

@@ -16,3 +16,4 @@ retriever:
     block-size: 100
     database: classifier
     collection: raw_data
+

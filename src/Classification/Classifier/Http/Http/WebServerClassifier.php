@@ -31,6 +31,10 @@ class WebServerClassifier extends HttpClassifier
             return [self::TAG_PREFIX . 'amazon-s3'];
         }
 
+        if ($response->headerContains('server', 'iis')) {
+            return [self::TAG_PREFIX . 'microsoft-iis'];
+        }
+
         if ($response->headerContains('server', 'envoy')) {
             return [self::TAG_PREFIX . 'envoy'];
         }

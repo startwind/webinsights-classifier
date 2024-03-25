@@ -19,7 +19,10 @@ aggregators:
   - Startwind\WebInsights\Aggregation\Aggregator\Persona\WebProsPersonaAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\CmsAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\CmsOverviewAggregator
+
   - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\WordPress\WordPressPluginAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\WordPress\WordPressThemeAggregator
+
   - Startwind\WebInsights\Aggregation\Aggregator\System\EcommerceAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Hosting\IspAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Plugin\PluginAggregator
