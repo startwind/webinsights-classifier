@@ -1,5 +1,10 @@
 # Changelog
 
+- **2024-03-26**
+  - hosting:tools:whmcs - added via WordPress theme
+  - wordpress:plugin:avada - added via WordPress theme
+
+
 - **2024-03-24**
   - Aggregation: WordPress Themes
 
