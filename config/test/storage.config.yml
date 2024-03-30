@@ -1,11 +1,12 @@
-
 general:
   inherit_default: true
   log_level: alert
+
 storage:
   class: Startwind\WebInsights\Storage\ApiStorage
   options:
     runId: 68c0090999616929fa740cbd1de71915
+
 feeder:
   class: Startwind\WebInsights\Classification\Feeder\ListFeeder
   options:
