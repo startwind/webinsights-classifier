@@ -10,3 +10,5 @@ _tmp
 _results
 wp-plugins*.csv
 tmp
+
+.DS_Store
