@@ -45,7 +45,7 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Cms\DrupalClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\JoomlaClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\WixClassifier
-  - Startwind\WebInsights\Classification\Classifier\Cms\SquareSpaceClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\SquarespaceClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\Typo3Classifier
   - Startwind\WebInsights\Classification\Classifier\Cms\NeosClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\SitejetClassifier
