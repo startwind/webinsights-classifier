@@ -1,0 +1,20 @@
+
+general:
+  inherit_default: true
+  log_level: alert
+storage:
+  class: Startwind\WebInsights\Storage\ApiStorage
+  options:
+    runId: 71c00d84c9b2a8f8e743890ea27b6ea4
+exporter:
+  -
+    Startwind\WebInsights\Classification\Exporter\Result\ApiExporter:
+      options: { endpoint: 'https://api.webinsights.info/classifier/data', runId: 71c00d84c9b2a8f8e743890ea27b6ea4, last: false }
+feeder:
+  class: Startwind\WebInsights\Classification\Feeder\ListFeeder
+  options:
+    domains:
+      - domain: www.koality.io
+        tags:
+          - "private:96d01a4b-f585-4465-9459-ce626e4fc5cf:company_123"
+      - www.leankoala.com

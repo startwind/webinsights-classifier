@@ -2,20 +2,24 @@
 
 namespace Startwind\WebInsights\Classification\Feeder;
 
+use Startwind\WebInsights\Classification\Domain\Domain;
+use Startwind\WebInsights\Classification\Domain\DomainContainer;
+
 class DomainListFeeder implements Feeder
 {
-    private array $domains = [];
+    private DomainContainer $domainContainer;
 
-    /**
-     * @param array $domains
-     */
     public function __construct(array $domains)
     {
-        $this->domains = $domains;
+        $this->domainContainer = new DomainContainer();
+
+        foreach ($domains as $domain) {
+            $this->domainContainer->addDomain(new Domain($domain));
+        }
     }
 
-    public function getDomains(): array
+    public function getDomainContainer(): DomainContainer
     {
-        return $this->domains;
+        return $this->domainContainer;
     }
 }

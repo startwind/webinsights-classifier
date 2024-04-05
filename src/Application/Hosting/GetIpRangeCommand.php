@@ -42,6 +42,9 @@ class GetIpRangeCommand extends ClassificationCommand
 
         $domain = $input->getArgument(self::ARGUMENT_DOMAIN);
 
+        $domain = str_replace('https:://', '', $domain);
+        $domain = str_replace('http:://', '', $domain);
+
         $as = $asExtractor->getAs($domain);
 
         $output->writeln('Autonomous System for ' . $domain . ' is AS' . $as);

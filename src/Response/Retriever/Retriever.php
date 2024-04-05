@@ -2,6 +2,7 @@
 
 namespace Startwind\WebInsights\Response\Retriever;
 
+use Psr\Http\Message\UriInterface;
 use Startwind\WebInsights\Configuration\Initializable;
 use Startwind\WebInsights\Response\HttpResponse;
 
@@ -17,6 +18,8 @@ interface Retriever extends Initializable
 
     /**
      * Set the uris that have to be visited.
+     *
+     * @var UriInterface[] $uris
      */
     public function setUris(array $uris): void;
 

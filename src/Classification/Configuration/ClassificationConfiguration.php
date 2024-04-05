@@ -3,6 +3,7 @@
 namespace Startwind\WebInsights\Classification\Configuration;
 
 use GuzzleHttp\ClientInterface;
+use Psr\Log\LoggerAwareInterface;
 use Startwind\WebInsights\Classification\Classifier\LoggerAwareClassifier;
 use Startwind\WebInsights\Classification\Exception\CriticalException;
 use Startwind\WebInsights\Classification\Feeder\Feeder;
@@ -128,6 +129,11 @@ class ClassificationConfiguration extends Configuration
         if ($this->hasSection(self::SECTION_FEEDER)) {
             /** @var Feeder $feeder */
             $feeder = $this->initObject($this->getSection(self::SECTION_FEEDER), Feeder::class);
+
+            if ($feeder instanceof LoggerAwareInterface) {
+                $feeder->setLogger($this->logger);
+            }
+
             $this->feeder = $feeder;
         }
     }

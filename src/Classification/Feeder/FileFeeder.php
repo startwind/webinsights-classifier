@@ -2,15 +2,23 @@
 
 namespace Startwind\WebInsights\Classification\Feeder;
 
+use Psr\Log\LoggerAwareTrait;
+use Startwind\WebInsights\Classification\Domain\Domain;
+use Startwind\WebInsights\Classification\Domain\DomainContainer;
 use Startwind\WebInsights\Configuration\Exception\ConfigurationException;
+use Startwind\WebInsights\Response\Retriever\LoggerAwareRetriever;
 
-class FileFeeder implements Feeder
+class FileFeeder implements Feeder, LoggerAwareRetriever
 {
-    private array $domains = [];
+    use LoggerAwareTrait;
+
+    private DomainContainer $domainContainer;
     private string $filename;
 
     public function __construct(string $filename)
     {
+        $this->domainContainer = new DomainContainer();
+
         if (!file_exists($filename)) {
             throw new ConfigurationException('The given file (' . $filename . ') does not exist.');
         }
@@ -19,7 +27,20 @@ class FileFeeder implements Feeder
 
         $classificationStrings = file($filename);
 
-        $this->domains = array_unique($classificationStrings);
+        foreach (array_unique($classificationStrings) as $domain) {
+            if (\str_starts_with($domain, '#')) continue;
+
+            try {
+                $domainObject = new Domain($domain);
+            } catch (\Exception $e) {
+                // $this->logger->warning($e->getMessage());
+                continue;
+            }
+
+            if ($domainObject->getDomain() === 'https://') continue;
+
+            $this->domainContainer->addDomain($domainObject);
+        }
     }
 
     public function getFilename(): string
@@ -27,8 +48,8 @@ class FileFeeder implements Feeder
         return $this->filename;
     }
 
-    public function getDomains(): array
+    public function getDomainContainer(): DomainContainer
     {
-        return $this->domains;
+        return $this->domainContainer;
     }
 }

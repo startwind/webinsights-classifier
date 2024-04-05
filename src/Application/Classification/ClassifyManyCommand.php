@@ -2,7 +2,6 @@
 
 namespace Startwind\WebInsights\Application\Classification;
 
-use GuzzleHttp\Psr7\Uri;
 use Startwind\WebInsights\Classification\Feeder\FileFeeder;
 use Startwind\WebInsights\Configuration\Resume;
 use Startwind\WebInsights\Util\Timer;
@@ -80,7 +79,7 @@ class ClassifyManyCommand extends ClassificationCommand
         }
 
         try {
-            $classificationStrings = $feeder->getDomains();
+            $domainContainer = $feeder->getDomainContainer();
         } catch (\Exception $exception) {
             $output->writeln(['', '<error> ' . $exception->getMessage() . ' </error>', '']);
             return Command::FAILURE;
@@ -88,7 +87,7 @@ class ClassifyManyCommand extends ClassificationCommand
 
         $retriever = $this->getRetriever();
 
-        $retriever->setUris($this->arrayToUris($classificationStrings));
+        $retriever->setUris($domainContainer->toUriList());
 
         while ($httpResponse = $retriever->next()) {
             $memoryUsed = (int)(memory_get_usage() / 1000 / 1000);
@@ -97,8 +96,16 @@ class ClassifyManyCommand extends ClassificationCommand
             } else {
                 $this->getLogger()->debug('Processing next response. Memory usage: ' . $memoryUsed . ' MB.');
             }
-            $classificationResult = $this->classify($httpResponse);
-            $this->getExporter()->export($classificationResult);
+
+            $tags = $this->classify($httpResponse);
+
+            $predefinedTags = $domainContainer->getDomain((string)$httpResponse->getRequestUri())->getTags();
+
+            foreach ($predefinedTags as $predefinedTag) {
+                $tags->addTag($predefinedTag);
+            }
+
+            $this->getExporter()->export($tags);
         }
 
         $exporter = $this->getExporter();
@@ -110,19 +117,5 @@ class ClassifyManyCommand extends ClassificationCommand
         $this->getLogger()->alert('Classification took ' . $timer->getTimePassed(Timer::UNIT_SECONDS) . ' seconds.');
 
         return Command::SUCCESS;
-    }
-
-    private function arrayToUris(array $urlStrings): array
-    {
-        $uris = [];
-        foreach ($urlStrings as $urlString) {
-            if (\str_starts_with($urlString, '#')) continue;
-
-            $urlString = $this->repairString($urlString);
-            if ($urlString === 'https://') continue;
-
-            $uris[] = new Uri($urlString);
-        }
-        return $uris;
     }
 }
