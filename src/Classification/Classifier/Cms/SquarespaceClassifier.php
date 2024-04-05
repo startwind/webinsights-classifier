@@ -6,7 +6,7 @@ use Startwind\WebInsights\Classification\Classifier\Http\Html\HtmlClassifier;
 use Startwind\WebInsights\Classification\Classifier\Http\Http\ProgrammingLanguageClassifier;
 use Startwind\WebInsights\Response\Html\HtmlDocument;
 
-class SquareSpaceClassifier extends HtmlClassifier
+class SquarespaceClassifier extends HtmlClassifier
 {
     public const TAG = CmsClassifier::CLASSIFIER_PREFIX . 'squarespace';
 
