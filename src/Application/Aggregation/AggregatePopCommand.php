@@ -43,7 +43,7 @@ class AggregatePopCommand extends AggregationCommand
             $count = $this->doExecute();
         } catch (\Exception $exception) {
             $output->writeln('<error>' . $exception->getMessage() . '</error>');
-            $collection->updateOne(['_id' => $job['_id']], ['$set' => ['status' => self::QUEUE_STATUS_FAILED, 'error' => $exception->getMessage(), 'timing.finished' => date('Y-m-d H:i:s')]]);
+            $collection->updateOne(['_id' => $job['_id']], ['$set' => ['count' => 0, 'status' => self::QUEUE_STATUS_FAILED, 'error' => $exception->getMessage(), 'timing.finished' => date('Y-m-d H:i:s')]]);
             return Command::FAILURE;
         }
 
