@@ -23,6 +23,7 @@ class ClassificationResult
     public function addTags(array $tags): void
     {
         foreach ($tags as $tag) {
+            if (is_array($tag)) continue;
             $this->addTag($tag);
         }
     }
