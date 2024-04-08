@@ -11,7 +11,7 @@ class ApiExporter implements Exporter
 {
     private array $defaultOptions = [
         'endpoint' => 'https://api.webinsights.info/classifier/data',
-        'finishEndpoint' => 'https://api.webinsights.info/collection/job/finish/{runId}',
+        'finishEndpoint' => 'https://api.webinsights.info/collection/job/finish/{runId}?miss={miss}',
         'last' => false
     ];
 
@@ -23,6 +23,8 @@ class ApiExporter implements Exporter
 
     private bool $isLastRun;
     private string $finishEndpoint;
+
+    private int $processedWebsites = 0;
 
     public function __construct($notNeeded, $options = [])
     {
@@ -37,6 +39,8 @@ class ApiExporter implements Exporter
 
     public function export(ClassificationResult $classificationResult): void
     {
+        $this->processedWebsites++;
+
         $data = [
             'runId' => $this->runId,
             'tags' => $classificationResult->getTags(),
@@ -52,7 +56,9 @@ class ApiExporter implements Exporter
     public function finish(): string
     {
         if ($this->isLastRun) {
-            $this->client->get(str_replace('{runId}', $this->runId, $this->finishEndpoint));
+            $url = str_replace('{runId}', $this->runId, $this->finishEndpoint);
+            $url = str_replace('{miss}', $this->processedWebsites, $url);
+            $this->client->get($url);
         }
         return '';
     }

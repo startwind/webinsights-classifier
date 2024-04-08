@@ -1,0 +1,34 @@
+general:
+  inherit_default: true
+  log_level: info
+
+aggregators:
+  - Startwind\WebInsights\Aggregation\Aggregator\Persona\GeneralPersonaAggregator:
+      options:
+        personas:
+          - name: Ecommerce
+            rules:
+              - rule: hasTags
+                tag: "type:ecommerce"
+          - name: Agency
+            rules:
+              - rule: tagsStartingWithCountGreaterThan
+                tag: "html:meta:keyword:agency"
+                count: 0
+              - rule: tagsStartingWithCountGreaterThan
+                tag: "keyword:agency"
+                count: 0
+              - rule: tagsStartingWithCountGreaterThan
+                tag: "keyword:web_development"
+                count: 0
+              - rule: tagsStartingWithCountGreaterThan
+                tag: "keyword:web_design"
+                count: 0
+          - name: "Web Professionals"
+            rules:
+              - rule: tagsStartingWithCountGreaterThan
+                tag: "html:plugin:monitoring:"
+                count: 0
+              - rule: tagsStartingWithCountGreaterThan
+                tag: "html:content:language:"
+                count: 1

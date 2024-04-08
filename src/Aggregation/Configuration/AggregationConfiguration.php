@@ -66,7 +66,7 @@ class AggregationConfiguration extends Configuration implements InheritanceAware
         foreach ($classNames as $classifierElement) {
             if (is_array($classifierElement)) {
                 $className = array_key_first($classifierElement);
-                $parameters = $classifierElement[$className];
+                $parameters = $classifierElement[$className]['options'];
             } else {
                 $className = $classifierElement;
                 $parameters = [];
@@ -78,15 +78,7 @@ class AggregationConfiguration extends Configuration implements InheritanceAware
                 throw new CriticalException('No aggregator with class name "' . $className . '" found.');
             }
 
-            $aggregator = new $className();
-
-            if (count($parameters)) {
-                if (method_exists($aggregator, 'init')) {
-                    $aggregator->init($parameters);
-                } else {
-                    throw new \RuntimeException('For aggregator "' . $className . '" there a parameters defined in the config file, but no init method available for this class.');
-                }
-            }
+            $aggregator = new $className($parameters);
 
             if ($aggregator instanceof LoggerAwareInterface) {
                 $aggregator->setLogger($this->logger);
