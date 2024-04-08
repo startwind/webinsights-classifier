@@ -86,7 +86,6 @@ class AggregationConfiguration extends Configuration implements InheritanceAware
 
             $this->aggregators[] = $aggregator;
         }
-
     }
 
     /**
