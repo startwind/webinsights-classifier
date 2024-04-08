@@ -2,8 +2,10 @@
 
 namespace Startwind\WebInsights\Aggregation\Aggregator\Persona;
 
+use Startwind\WebInsights\Aggregation\AggregationResult;
 use Startwind\WebInsights\Aggregation\Aggregator\CountingAggregator;
 use Startwind\WebInsights\Aggregation\Aggregator\UrlAwareAggregationTrait;
+use Startwind\WebInsights\Aggregation\UrlAwareAggregationResult;
 use Startwind\WebInsights\Classification\ClassificationResult;
 
 class GeneralPersonaAggregator extends CountingAggregator
@@ -48,5 +50,10 @@ class GeneralPersonaAggregator extends CountingAggregator
                 $this->addUrl((string)$classificationResult->getUri(), $personaIdentifier);
             }
         }
+    }
+
+    public function finish(): AggregationResult
+    {
+        return UrlAwareAggregationResult::fromAggregationResult(parent::finish(), $this->getUrls());
     }
 }
