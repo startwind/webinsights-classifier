@@ -8,6 +8,7 @@ use Startwind\WebInsights\Response\Html\HtmlDocument;
 class SocialMediaClassifier extends HtmlClassifier
 {
     const TAG = 'html:content:link:social-media:';
+    const TWITTER_TAG = 'social-media:twitter:';
 
     protected function doHtmlClassification(HtmlDocument $htmlDocument): array
     {
@@ -17,11 +18,22 @@ class SocialMediaClassifier extends HtmlClassifier
             $tags[] = self::TAG . 'facebook';
         }
 
-        if ($htmlDocument->containsAny(['href="https://twitter.com/'])) {
+        if ($htmlDocument->containsAny(['href="https://twitter.com/', 'href="https://www.twitter.com/'])) {
             $tags[] = self::TAG . 'twitter';
+
+            $matches = $htmlDocument->match([
+                '^href="https://twitter.com/(.*?)"^',
+                '^href="https://www.twitter.com/(.*?)"^'
+            ]);
+
+            foreach ($matches as $match) {
+                if (strlen($match) < 20 && !str_contains($match, '/')) {
+                    $tags[] = self::TWITTER_TAG . $match;
+                }
+            }
         }
 
-        if ($htmlDocument->containsAny(['href="https://www.linkedin.com/'])) {
+        if ($htmlDocument->containsAny(['href="https://www.linkedin.com/', 'href="https://de.linkedin.com/'])) {
             $tags[] = self::TAG . 'linkedin';
         }
 

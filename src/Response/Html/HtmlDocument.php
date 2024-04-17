@@ -22,22 +22,30 @@ class HtmlDocument
 
         if ($this->plainContent) {
             @$dom->loadHTML($this->plainContent);
-        }else{
+        } else {
             $dom->loadHTML("<html></html>");
         }
 
         return $dom;
     }
 
-    public function match($pattern): array
+    public function match($patterns): array
     {
-        preg_match_all($pattern, $this->plainContent, $matches);
-
-        if (array_key_exists(1, $matches)) {
-            return $matches[1];
-        } else {
-            return [];
+        if (!is_array($patterns)) {
+            $patterns = [$patterns];
         }
+
+        $results = [];
+
+        foreach ($patterns as $pattern) {
+            preg_match_all($pattern, $this->plainContent, $matches);
+
+            if (array_key_exists(1, $matches)) {
+                $results = array_merge($matches[1]);
+            }
+        }
+
+        return $results;
     }
 
     public function contains(string $string, bool $caseSensitive = false): bool
