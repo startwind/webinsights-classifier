@@ -48,6 +48,8 @@ class ApiStorage implements Storage
 
     public function setHttpResponse(UriInterface $uri, HttpResponse $response): void
     {
+        return;
+        
         $data = [
             'runId' => $this->runId,
             'uri' => (string)$uri,
