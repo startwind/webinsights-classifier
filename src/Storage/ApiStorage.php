@@ -59,7 +59,7 @@ class ApiStorage implements Storage
                 RequestOptions::JSON => $data
             ]);
         } catch (ServerException $exception) {
-            var_dump('"Exception: ' . $exception->getResponse()->getBody());
+            var_dump('Exception: ' . $exception->getResponse()->getBody());
         }
     }
 
