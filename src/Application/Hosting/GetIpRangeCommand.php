@@ -2,10 +2,13 @@
 
 namespace Startwind\WebInsights\Application\Hosting;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Psr\Log\LogLevel;
 use Startwind\WebInsights\Application\Classification\ClassificationCommand;
 use Startwind\WebInsights\Hosting\AS\CompositeAsExtractor;
 use Startwind\WebInsights\Hosting\AS\CymruAsExtractor;
+use Startwind\WebInsights\Hosting\Export\ApiExporter;
 use Startwind\WebInsights\Hosting\IpRange\CompositeIpRangeExtractor;
 use Startwind\WebInsights\Hosting\IpRange\HackerTargetIpRangeExtractor;
 use Startwind\WebInsights\Hosting\IpRange\RadbWhoisIpRangeExtractor;
@@ -27,7 +30,7 @@ class GetIpRangeCommand extends ClassificationCommand
 
     protected function configure(): void
     {
-        $this->addArgument(self::ARGUMENT_DOMAIN, InputArgument::OPTIONAL, 'The domain that should be used to return the IP range of the ISP/AS.', 'www.koality.io');
+        $this->addArgument(self::ARGUMENT_DOMAIN, InputArgument::OPTIONAL, 'The domain that should be used to return the IP range of the ISP/AS.', false);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -35,17 +38,40 @@ class GetIpRangeCommand extends ClassificationCommand
         $logger = new OutputLogger(LogLevel::WARNING);
         $logger->setOutput($output);
 
-        $asExtractor = new CompositeAsExtractor();
-        $asExtractor->setLogger($logger);
-
-        $asExtractor->addExtractor(new CymruAsExtractor());
-
         $domain = $input->getArgument(self::ARGUMENT_DOMAIN);
 
-        $domain = str_replace('https:://', '', $domain);
-        $domain = str_replace('http:://', '', $domain);
+        if (!$domain) {
+            $client = new Client();
 
-        $as = $asExtractor->getAs($domain);
+            try {
+                $response = $client->get('https://api.webinsights.info/as/job/pop/');
+            } catch (ClientException $exception) {
+                $output->writeln('<error>' . $exception->getMessage() . '</error>');
+                return Command::FAILURE;
+            }
+
+            $result = json_decode($response->getBody(), true);
+
+            $job = $result['data']['job'];
+
+            $domain = $job['as'];
+        }
+
+        $exporter = new ApiExporter();
+
+        if (!is_numeric($domain)) {
+            $asExtractor = new CompositeAsExtractor();
+            $asExtractor->setLogger($logger);
+
+            $asExtractor->addExtractor(new CymruAsExtractor());
+
+            $domain = str_replace('https://', '', $domain);
+            $domain = str_replace('http://', '', $domain);
+
+            $as = $asExtractor->getAs($domain);
+        } else {
+            $as = $domain;
+        }
 
         $output->writeln('Autonomous System for ' . $domain . ' is AS' . $as);
 
@@ -60,22 +86,14 @@ class GetIpRangeCommand extends ClassificationCommand
         $ipCount = 0;
 
         foreach ($ipRanges as $ipRange) {
-            $range = '';
-
             if (str_contains($ipRange, '.')) {
                 $subnetParts = explode('/', $ipRange);
                 $size = pow(2, 32 - $subnetParts[1]);
-
                 $ipCount += $size;
-
-                $ipStart = $subnetParts[0];
-                $ipEnd = long2ip(ip2long($subnetParts[0]) + $size - 1);
-
-                // $range = ' (' . ip2long($ipStart) . ' - ' . ip2long($ipEnd) . ')';
             }
-
-            $output->writeln(' - ' . $ipRange . $range);
         }
+
+        $exporter->export($as, $ipRanges);
 
         $output->writeln('');
         $output->writeln('');
