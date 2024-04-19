@@ -9,7 +9,7 @@ class ApiExporter implements Exporter
 {
     const API = 'https://api.webinsights.info/as/';
 
-    public function export(string $as, array $ipRanges): void
+    public function export(string $as, array $ipRanges, string $domain = ''): void
     {
         $ranges = [];
 
@@ -33,6 +33,6 @@ class ApiExporter implements Exporter
 
         $client = new Client();
 
-        $client->post(self::API . $as, [RequestOptions::JSON => ['ipRanges' => $ranges]]);
+        $client->post(self::API . $as, [RequestOptions::JSON => ['ipRanges' => $ranges, 'domain' => $domain]]);
     }
 }

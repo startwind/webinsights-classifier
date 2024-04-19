@@ -54,7 +54,11 @@ class GetIpRangeCommand extends ClassificationCommand
 
             $job = $result['data']['job'];
 
-            $domain = $job['as'];
+            if (array_key_exists('as', $job)) {
+                $domain = $job['as'];
+            } else {
+                $domain = $job['domain'];
+            }
         }
 
         $exporter = new ApiExporter();
@@ -93,7 +97,7 @@ class GetIpRangeCommand extends ClassificationCommand
             }
         }
 
-        $exporter->export($as, $ipRanges);
+        $exporter->export($as, $ipRanges, $domain);
 
         $output->writeln('');
         $output->writeln('');

@@ -13,7 +13,7 @@ class OutputExporter implements Exporter
         $this->output = $output;
     }
 
-    public function export(string $as, array $ipRanges): void
+    public function export(string $as, array $ipRanges, string $domain = ''): void
     {
         foreach ($ipRanges as $ipRange) {
             $range = '';
