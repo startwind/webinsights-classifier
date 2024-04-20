@@ -12,6 +12,7 @@ class ApiExporter implements Exporter
     private array $defaultOptions = [
         'endpoint' => 'https://api.webinsights.info/classifier/data',
         'finishEndpoint' => 'https://api.webinsights.info/collection/job/finish/{runId}?miss={miss}',
+        'updateEndpoint' => 'https://api.webinsights.info/collection/job/status/{runId}',
         'last' => false
     ];
 
@@ -22,6 +23,8 @@ class ApiExporter implements Exporter
     private string $runId;
 
     private bool $isLastRun;
+
+    private string $updateEndpoint;
     private string $finishEndpoint;
 
     private int $processedWebsites = 0;
@@ -34,6 +37,8 @@ class ApiExporter implements Exporter
         $this->runId = $options['runId'];
         $this->exportEndpoint = $options['endpoint'];
         $this->finishEndpoint = $options['finishEndpoint'];
+        $this->updateEndpoint = $options['updateEndpoint'];
+
         $this->isLastRun = $options['last'];
     }
 
@@ -60,6 +65,19 @@ class ApiExporter implements Exporter
             $url = str_replace('{miss}', $this->processedWebsites, $url);
             $this->client->get($url);
         }
+
+        $this->update();
+
         return '';
+    }
+
+    private function update(): void
+    {
+        $data = [
+            'hit' => 0,
+            'miss' => $this->processedWebsites,
+        ];
+
+        $this->client->post(str_replace('{runId}', $this->runId, $this->updateEndpoint), [RequestOptions::JSON => $data]);
     }
 }
