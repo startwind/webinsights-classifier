@@ -35,6 +35,7 @@ class ApiExporter implements Exporter
         $this->client = new Client();
 
         $this->runId = $options['runId'];
+
         $this->exportEndpoint = $options['endpoint'];
         $this->finishEndpoint = $options['finishEndpoint'];
         $this->updateEndpoint = $options['updateEndpoint'];

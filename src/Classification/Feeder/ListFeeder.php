@@ -14,10 +14,14 @@ class ListFeeder implements Feeder
         $this->domainContainer = new DomainContainer();
 
         foreach ($option['domains'] as $domain) {
-            if (is_array($domain)) {
-                $this->domainContainer->addDomain(new Domain($domain['domain'], $domain['tags']));
-            } else {
-                $this->domainContainer->addDomain(new Domain($domain));
+            try {
+                if (is_array($domain)) {
+                    $this->domainContainer->addDomain(new Domain($domain['domain'], $domain['tags']));
+                } else {
+                    $this->domainContainer->addDomain(new Domain($domain));
+                }
+            } catch (\Exception $e) {
+                var_dump($e->getMessage());
             }
         }
     }
