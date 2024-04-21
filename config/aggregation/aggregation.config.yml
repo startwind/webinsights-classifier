@@ -31,3 +31,5 @@ aggregators:
   - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\ProgrammingLanguageAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\SSLCertificate\SSLCertificateIssuerAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\WebserverAggregator
+
+  - Startwind\WebInsights\Aggregation\Aggregator\Ranking\MajesticRankAggregator
