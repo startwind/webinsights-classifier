@@ -24,7 +24,7 @@ class MultiIPDomainsAggregator implements Aggregator
 
         if (count($ipTags) > 0) {
             $this->count++;
-            $ip = ip2long(str_replace('_','.', $ipTags[0]));
+            $ip = ip2long(str_replace('_', '.', $ipTags[0]));
 
             if (array_key_exists($ip, $this->ips)) {
                 $this->ips[$ip]++;
@@ -44,12 +44,17 @@ class MultiIPDomainsAggregator implements Aggregator
 
         arsort($this->ips);
 
-        $results = [
-            'average' => (int)$sum / $this->count,
-            'ips_max' => array_slice($this->ips, 0, 10, true)
-        ];
+        $maxLongs = array_slice($this->ips, 0, 10, true);
+        $maxIps = [];
 
-        var_dump($results);
+        foreach ($maxLongs as $long => $value) {
+            $maxIps[long2ip($long)] = $value;
+        }
+
+        $results = [
+            'average' => round($sum / ($this->count - 1), 2),
+            'ips_max' => $maxIps
+        ];
 
         return new AggregationResult($results, 'Get information about ips addresses.', 'IPInformation', self::class);
     }
