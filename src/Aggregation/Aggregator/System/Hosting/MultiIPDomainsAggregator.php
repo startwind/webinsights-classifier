@@ -42,11 +42,11 @@ class MultiIPDomainsAggregator implements Aggregator
             $sum += $count;
         }
 
-        asort($this->ips);
+        arsort($this->ips);
 
         $results = [
             'average' => (int)$sum / $this->count,
-            'ips_max' => array_slice(array_keys($this->ips), count($this->ips) - 10, 10)
+            'ips_max' => array_slice($this->ips, 0, 10, true)
         ];
 
         var_dump($results);
