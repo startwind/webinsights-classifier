@@ -33,3 +33,4 @@ aggregators:
   - Startwind\WebInsights\Aggregation\Aggregator\System\Technology\WebserverAggregator
 
   - Startwind\WebInsights\Aggregation\Aggregator\Ranking\MajesticRankAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\System\Hosting\MultiIPDomainsAggregator

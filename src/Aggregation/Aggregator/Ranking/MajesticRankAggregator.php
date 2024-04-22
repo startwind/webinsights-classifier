@@ -28,7 +28,7 @@ class MajesticRankAggregator extends CountingAggregator
                 if (count($this->top20) > 19) {
                     array_pop($this->top20);
                 }
-                
+
                 $this->top20[$rank] = (string)$classificationResult->getUri();
                 ksort($this->top20);
 

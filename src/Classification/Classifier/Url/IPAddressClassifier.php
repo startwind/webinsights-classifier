@@ -8,13 +8,13 @@ use Startwind\WebInsights\Response\HttpResponse;
 
 class IPAddressClassifier implements Classifier
 {
-    private const CLASSIFIER_PREFIX = 'ip';
+    public const CLASSIFIER_PREFIX = 'ip:';
 
     public function classify(HttpResponse $httpResponse, array $existingTags): array
     {
         if ($httpResponse->hasEnrichment(IPEnricher::getIdentifier())) {
             $data = $httpResponse->getEnrichment(IPEnricher::getIdentifier());
-            return [self::CLASSIFIER_PREFIX . Classifier::TAG_SEPARATOR . $data[IPEnricher::FIELD_IP]];
+            return [self::CLASSIFIER_PREFIX . $data[IPEnricher::FIELD_IP]];
         } else {
             return [];
         }
