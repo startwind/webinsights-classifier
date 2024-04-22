@@ -20,11 +20,10 @@ class MultiIPDomainsAggregator implements Aggregator
         // This is mandatory because otherwise we could run out of memory.
         if (self::COUNT_MAXIMUM < $this->count) return;
 
-        $this->count++;
-
         $ipTags = $classificationResult->getTagsStartingWithString(IPAddressClassifier::CLASSIFIER_PREFIX);
 
         if (count($ipTags) > 0) {
+            $this->count++;
             $ip = ip2long($ipTags[0]);
             if (array_key_exists($ip, $this->ips)) {
                 $this->ips[$ip]++;
@@ -46,7 +45,7 @@ class MultiIPDomainsAggregator implements Aggregator
 
         $results = [
             'average' => (int)$sum / $this->count,
-            'ips_max' => array_slice($this->ips, 0, 10)
+            'ips_max' => array_slice(array_keys($this->ips), 0, 10)
         ];
 
         return new AggregationResult($results, 'Get information about ips addresses.', 'IPInformation', self::class);
