@@ -53,6 +53,8 @@ class MultiIPDomainsAggregator implements Aggregator
 
         $results = [
             'average' => round($sum / ($this->count - 1), 2),
+            'sum' => $sum,
+            'count' => $this->count,
             'ips_max' => $maxIps
         ];
 
