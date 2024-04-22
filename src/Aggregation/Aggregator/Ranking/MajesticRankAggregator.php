@@ -24,8 +24,11 @@ class MajesticRankAggregator extends CountingAggregator
         if (count($tags) > 0) {
             $rank = (int)str_replace(self::TAG_PREFIX, '', $tags[0]);
 
-            if ($rank < $this->minRank) {
-                array_pop($this->top20);
+            if ($rank < $this->minRank || count($this->top20) < 21) {
+                if (count($this->top20) > 19) {
+                    array_pop($this->top20);
+                }
+                
                 $this->top20[$rank] = (string)$classificationResult->getUri();
                 ksort($this->top20);
 
