@@ -25,10 +25,11 @@ class MajesticRankAggregator extends CountingAggregator
             $rank = (int)str_replace(self::TAG_PREFIX, '', $tags[0]);
 
             if ($rank < $this->minRank) {
-                $this->minRank = $rank;
                 array_pop($this->top20);
                 $this->top20[] = (string)$classificationResult->getUri();
                 sort($this->top20);
+
+                $this->minRank = $this->top20[count($this->top20) - 1];
             }
         }
     }
