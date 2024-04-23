@@ -55,6 +55,8 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Cms\JimdoClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\WebflowClassifier
   - Startwind\WebInsights\Classification\Classifier\Cms\BitrixClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\MoodleClassifier
+  - Startwind\WebInsights\Classification\Classifier\Cms\WeeblyClassifier
 
   # E-Commerce
   - Startwind\WebInsights\Classification\Classifier\Ecommerce\ShopifyClassifier

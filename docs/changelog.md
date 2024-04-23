@@ -1,5 +1,9 @@
 # Changelog
 
+- **2024-04-23** 
+  - cms:system:moodle - added
+  - cms:system:weebly - added
+
 - **2024-04-17** 
   - html:content:link:social-media:twitter - acknowledge www links
   - html:content:link:social-media:linkedin - acknowledge de links

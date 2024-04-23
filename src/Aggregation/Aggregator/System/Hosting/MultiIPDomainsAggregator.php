@@ -13,7 +13,7 @@ class MultiIPDomainsAggregator implements Aggregator
 
     private array $ips = [];
 
-    private $count = 0;
+    private int $count = 0;
 
     public function aggregate(ClassificationResult $classificationResult): void
     {
