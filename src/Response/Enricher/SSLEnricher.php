@@ -12,6 +12,13 @@ class SSLEnricher implements Enricher
     public function enrich(HttpResponse $response): array|false
     {
         $domain = UrlHelper::getDomain($response->getRequestUri());
+
+        // Normally the GUZZLE request already enriches the data with the SSL information. This enricher
+        // is just a fallback.
+        if ($response->hasSSLCertificateInfo()) {
+            return $response->getSSLCertificateInfo();
+        }
+
         return $this->getInformation($domain);
     }
 

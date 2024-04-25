@@ -127,14 +127,43 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
         $requests = [];
         $responseStats = [];
 
-        $options['on_stats'] = function (TransferStats $stats) use (&$responseStats) {
+        $options = $this->clientOptions;
+
+        $options['curl'] = [CURLOPT_CERTINFO => true];
+
+        $certInfos = [];
+
+        $options['on_stats'] = function (TransferStats $stats) use (&$responseStats, &$certInfos) {
+
+            $handlerStats = $stats->getHandlerStats();
+
+            $host = $stats->getRequest()->getUri()->getHost();
+
+            if (!array_key_exists($host, $certInfos)) {
+                if (count($handlerStats['certinfo']) > 0) {
+                    $parts = explode(', ', $handlerStats['certinfo'][0]['Issuer']);
+
+                    foreach ($parts as $part) {
+                        $elements = explode(' = ', $part);
+                        $certInfos[$host][$elements[0]] = $elements[1];
+                    }
+                }
+            }
+
             $responseStats[(string)($stats->getRequest()->getUri())]['transferTime'] = $stats->getTransferTime() * 1000;
             $responseStats[(string)($stats->getRequest()->getUri())]['ip'] = $stats->getHandlerStats()['primary_ip'];
+
+            if (array_key_exists($host, $certInfos)) {
+                $responseStats[(string)($stats->getRequest()->getUri())]['cert']['issuer'] = $certInfos[$host];
+            } else {
+                $responseStats[(string)($stats->getRequest()->getUri())]['cert'] = [];
+            }
         };
 
-        $options = array_merge($options, $this->clientOptions);
+        // $this->parallelRequests = 60;
 
         for ($i = 0; $i < $this->parallelRequests; $i++) {
+
             $position = $this->position + $i - 1;
 
             if ($position > $this->limit + 1) continue;
@@ -161,6 +190,8 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
 
         $this->logger->info('Running ' . count($requests) . ' async Guzzle request(s).');
 
+        $time = new Timer();
+
         $responses = Utils::settle($requests)->wait();
 
         $rawResponses = [];
@@ -175,6 +206,7 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
                 $requestUri,
                 (int)$responseStats[(string)$requestUri]['transferTime'],
                 (string)$responseStats[(string)$requestUri]['ip'],
+                $responseStats[(string)$requestUri]['cert'],
             );
 
             $rawResponses[$uriString] = $httpResponse;
@@ -230,7 +262,12 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             } else {
                 foreach ($enrichedResponses as $enrichedResponse) {
                     try {
+                        $timer->start();
                         $this->enrichSingle($enricher, $enrichedResponse);
+                        $time = $timer->getTimePassed();
+                        if ($time > 1000) {
+                            $this->logger->alert('Single enrichment took too long for ' . get_class($enricher) . ' (' . $time . ').');
+                        }
                     } catch (\Exception $exception) {
                         $this->logger->alert('Enrichment failed for ' . get_class($enricher) . '. ' . $exception->getMessage());
                     }
@@ -291,7 +328,7 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
         return $response;
     }
 
-    private function createHttpResponse(Response $response, UriInterface $requestUri, int $transferTime, string $ip): HttpResponse
+    private function createHttpResponse(Response $response, UriInterface $requestUri, int $transferTime, string $ip, array $certificateInfo = []): HttpResponse
     {
         // This little workaround is needed as Guzzle cannot handle streams that
         // do not end.
@@ -315,7 +352,8 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             $response->getStatusCode(),
             $requestUri,
             $transferTime,
-            $ip
+            $ip,
+            $certificateInfo
         );
     }
 

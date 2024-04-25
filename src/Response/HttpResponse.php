@@ -21,8 +21,9 @@ class HttpResponse implements \JsonSerializable
 
     private int $transferTimeInMs;
     private string $serverIP;
+    private array $certInfo;
 
-    public function __construct(string $body, array $headers, int $statusCode, UriInterface $requestUri, int $transferTimeInMs, string $serverIp)
+    public function __construct(string $body, array $headers, int $statusCode, UriInterface $requestUri, int $transferTimeInMs, string $serverIp, array $certInfo = [])
     {
         $this->body = $body;
         $this->statusCode = $statusCode;
@@ -34,6 +35,8 @@ class HttpResponse implements \JsonSerializable
         $this->serverIP = $serverIp;
 
         $this->transferTimeInMs = $transferTimeInMs;
+
+        $this->certInfo = $certInfo;
 
         foreach ($this->headers as $key => $value) {
             $this->lowerCaseHeaders[strtolower($key)] = $value;
@@ -149,6 +152,16 @@ class HttpResponse implements \JsonSerializable
             'enrichmentData' => $this->enrichmentData,
             'serverIP' => $this->serverIP
         ];
+    }
+
+    public function getSSLCertificateInfo(): array
+    {
+        return $this->certInfo;
+    }
+
+    public function hasSSLCertificateInfo(): bool
+    {
+        return count($this->certInfo) > 0;
     }
 
     public static function fromArray(array $array): self

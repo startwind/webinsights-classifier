@@ -3,7 +3,6 @@
 namespace Startwind\WebInsights\Response\Enricher;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\RequestOptions;
 use Startwind\WebInsights\Response\HttpResponse;
 
@@ -12,6 +11,7 @@ class GeoLocationEnricher implements Enricher, ManyEnricher
     const VERSION = "1";
 
     const SERVICE_URL = 'http://ip-api.com/json/';
+    const SERVICE_URL_BATCH = 'http://ip-api.com/batch/';
 
     private Client $client;
 
@@ -35,27 +35,41 @@ class GeoLocationEnricher implements Enricher, ManyEnricher
      */
     public function enrichMany(array $responses): void
     {
-        $promises = [];
-
+        $ips = [];
+        $ip2key = [];
 
         foreach ($responses as $key => $response) {
             if ($response->getServerIP()) {
                 $ip = $response->getServerIP();
             } else {
-                $ip = gethostbyname($response->getRequestUri()->getHost());
+                $ip = $response->getRequestUri()->getHost();
             }
-            $promises[$key] = $this->client->getAsync(self::SERVICE_URL . $ip, [
-                RequestOptions::TIMEOUT => 1,
-                RequestOptions::ALLOW_REDIRECTS => false
-            ]);
+            $ip2key[$key] = $ip;
+            $ips[] = $ip;
         }
 
-        $ipResponses = Utils::settle($promises)->wait();
+        $ips = array_values(array_unique($ips));
 
-        foreach ($ipResponses as $key => $ipResponse) {
-            if ($ipResponse['state'] === 'fulfilled') {
-                $body = (string)$ipResponse['value']->getBody();
-                $responses[$key]->enrich(self::getIdentifier(), json_decode($body, true));
+        $response = $this->client->post(self::SERVICE_URL_BATCH, [
+            RequestOptions::TIMEOUT => 10,
+            RequestOptions::ALLOW_REDIRECTS => false,
+            RequestOptions::JSON => $ips
+        ]);
+
+        $results = json_decode((string)$response->getBody(), true);
+
+        $data = [];
+
+        foreach ($results as $result) {
+            $data[$result['query']] = $result;
+        }
+
+        foreach ($responses as $key => $response) {
+            if (array_key_exists($key, $ip2key)) {
+                $ip = $ip2key[$key];
+                if (array_key_exists($ip, $data)) {
+                    $response->enrich(self::getIdentifier(), $data[$ip]);
+                }
             }
         }
     }
