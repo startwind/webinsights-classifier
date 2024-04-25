@@ -4,10 +4,11 @@ general:
 retriever:
   class: Startwind\WebInsights\Response\Retriever\GuzzleRetriever
   options:
-    parallelRequests: 10
+    parallelRequests: 60
     clientOptions:
-      timeout: 10
-      verify: false
+      timeout: 5
+      connect_timeout: 5
+      read_timeout: 5
 
 storage:
   class: Startwind\WebInsights\Storage\FileStorage
