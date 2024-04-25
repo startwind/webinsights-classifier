@@ -194,8 +194,6 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
 
         $responses = Utils::settle($requests)->wait();
 
-        var_dump('Guzzle: ', $time->getTimePassed());
-
         $rawResponses = [];
 
         foreach ($responses as $uriString => $promiseResponse) {
