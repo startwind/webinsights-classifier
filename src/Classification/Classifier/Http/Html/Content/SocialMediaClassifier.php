@@ -57,6 +57,10 @@ class SocialMediaClassifier extends HtmlClassifier
             $tags[] = self::TAG . 'tiktok';
         }
 
+        if ($htmlDocument->containsAny(['https://mastodon.social/'])) {
+            $tags[] = self::TAG . 'mastodon';
+        }
+
         return $tags;
     }
 }

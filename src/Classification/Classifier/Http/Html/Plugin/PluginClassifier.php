@@ -41,7 +41,9 @@ class PluginClassifier extends HtmlClassifier
         'chat:tawk.to' => 'Tawk_API',
         'chat:livechat' => 'cdn.livechatinc.com',
         'chat:zendesk' => 'https://static.zdassets.com/ekr/snippet.js',
-        'chat:comm100' => 'javascript:comm100_livechat'
+        'chat:comm100' => 'javascript:comm100_livechat',
+
+        'captcha:hcaptcha' => "href='//hcaptcha.com'",
     ];
 
     protected function doHtmlClassification(HtmlDocument $htmlDocument): array
