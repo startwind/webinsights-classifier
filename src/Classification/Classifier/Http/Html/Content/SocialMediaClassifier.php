@@ -14,11 +14,14 @@ class SocialMediaClassifier extends HtmlClassifier
     {
         $tags = [];
 
-        if ($htmlDocument->containsAny(['href="https://www.facebook.com/'])) {
+        if ($htmlDocument->containsAny([
+            'href="https://www.facebook.com/',
+            'href="//facebook.com/'
+        ])) {
             $tags[] = self::TAG . 'facebook';
         }
 
-        if ($htmlDocument->containsAny(['href="https://twitter.com/', 'href="https://www.twitter.com/'])) {
+        if ($htmlDocument->containsAny(['href="https://twitter.com/', 'href="https://www.twitter.com/', 'href="//twitter.com/'])) {
             $tags[] = self::TAG . 'twitter';
 
             $matches = $htmlDocument->match([

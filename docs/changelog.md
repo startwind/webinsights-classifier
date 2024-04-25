@@ -5,6 +5,9 @@
     - html:plugin:captcha:hcaptcha - added
     - wordpress:plugin:rankmath - added
     - html:content:pages:login - added
+    - html:content:link:social-media:twitter - acknowledge // links
+    - html:content:link:social-media:facebook - acknowledge // links
+
 
 - **2024-04-23**
     - cms:system:moodle - added
