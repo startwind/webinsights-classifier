@@ -29,6 +29,8 @@ class ApiExporter implements Exporter
 
     private int $processedWebsites = 0;
 
+    private array $data = [];
+
     public function __construct($notNeeded, $options = [])
     {
         $options = array_merge($this->defaultOptions, $options['options']);
@@ -47,20 +49,20 @@ class ApiExporter implements Exporter
     {
         $this->processedWebsites++;
 
-        $data = [
+        $this->data[] = [
             'runId' => $this->runId,
             'tags' => $classificationResult->getTags(),
             'uri' => (string)$classificationResult->getUri()
         ];
-
-        $this->client->post($this->exportEndpoint, [
-                RequestOptions::JSON => $data
-            ]
-        );
     }
 
     public function finish(): string
     {
+        $this->client->post('https://api.webinsights.info/classifier/datas', [
+                RequestOptions::JSON => ['data' => $this->data]
+            ]
+        );
+
         if ($this->isLastRun) {
             $url = str_replace('{runId}', $this->runId, $this->finishEndpoint);
             $url = str_replace('{miss}', $this->processedWebsites, $url);
