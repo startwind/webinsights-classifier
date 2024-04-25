@@ -19,6 +19,7 @@ class PageClassifier implements Classifier
         'contact' => ["//a[contains(@href, '/contact')]", "//a[contains(@href, '/kontakt')]"],
         'price' => ["//a[contains(@href, '/price')]", "//a[contains(@href, '/pricing')]"],
         'about' => ["//a[contains(@href, '/about')]"],
+        'login' => ["//a[contains(@href, '/login')]", "//a[contains(@href, 'login.')]"],
     ];
 
     public function classify(HttpResponse $httpResponse, array $existingTags): array

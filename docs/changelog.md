@@ -3,6 +3,8 @@
 - **2024-04-25**
     - html:content:link:social-media:mastodon - added
     - html:plugin:captcha:hcaptcha - added
+    - wordpress:plugin:rankmath - added
+    - html:content:pages:login - added
 
 - **2024-04-23**
     - cms:system:moodle - added

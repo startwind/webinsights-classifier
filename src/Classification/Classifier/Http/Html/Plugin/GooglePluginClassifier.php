@@ -12,7 +12,7 @@ class GooglePluginClassifier extends HtmlClassifier
     private array $plugins = [
         'analytics' => 'google-analytics',
         'tag-manager' => 'googletagmanager.com/gtm.js',
-        'fonts' => 'fonts.googleapis.com',
+        'fonts' => ['fonts.googleapis.com', 'https://fonts.gstatic.com'],
         'maps' => 'https://maps.googleapis.com',
         'ads' => 'adsbygoogle.js',
         'firebase' => 'firebase-app.js',
@@ -26,9 +26,14 @@ class GooglePluginClassifier extends HtmlClassifier
     {
         $tags = [];
 
-        foreach ($this->plugins as $key => $plugin) {
-            if ($htmlDocument->contains($plugin)) {
-                $tags[] = self::PREFIX . Classifier::TAG_SEPARATOR . $key;
+        foreach ($this->plugins as $key => $plugins) {
+            if (!is_array($plugins)) {
+                $plugins = [$plugins];
+            }
+            foreach($plugins as $plugin) {
+                if ($htmlDocument->contains($plugin)) {
+                    $tags[] = self::PREFIX . Classifier::TAG_SEPARATOR . $key;
+                }
             }
         }
 
