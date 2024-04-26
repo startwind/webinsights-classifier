@@ -4,8 +4,9 @@ namespace Startwind\WebInsights\Response\Enricher;
 
 use Startwind\WebInsights\Response\HttpResponse;
 use Startwind\WebInsights\Util\UrlHelper;
+use Symfony\Component\Process\Process;
 
-class IPEnricher implements Enricher
+class IPEnricher implements Enricher, ManyEnricher
 {
     const VERSION = "2";
 
@@ -13,16 +14,33 @@ class IPEnricher implements Enricher
 
     public function enrich(HttpResponse $response): array|false
     {
-        if (!$response->getServerIP()) {
-            putenv('RES_OPTIONS=retrans:1 retry:1 timeout:1 attempts:1');
-            $domain = UrlHelper::getDomain($response->getRequestUri());
-            return [
-                self::FIELD_IP => gethostbyname($domain . '.')
-            ];
+        $this->enrichMany([$response]);
+        if ($response->hasEnrichment(self::getIdentifier())) {
+            return $response->getEnrichment(self::getIdentifier());
         } else {
-            return [
-                self::FIELD_IP => $response->getServerIP()
-            ];
+            return false;
+        }
+    }
+
+    public function enrichMany(array $responses): void
+    {
+        /** @var Process[] $processes */
+        $processes = [];
+
+        foreach ($responses as $key => $response) {
+            $domain = UrlHelper::getDomain($response->getRequestUri());
+            $process = Process::fromShellCommandline('dig +short ' . $domain);
+            $process->start();
+            $processes[$key] = $process;
+        }
+
+        foreach ($processes as $key => $process) {
+            $process->wait();
+            $output = $process->getOutput();
+
+            $ip = trim($output);
+
+            $responses[$key]->enrich(self::getIdentifier(), [self::FIELD_IP => $ip]);
         }
     }
 
