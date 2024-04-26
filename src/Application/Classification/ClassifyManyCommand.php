@@ -2,6 +2,7 @@
 
 namespace Startwind\WebInsights\Application\Classification;
 
+use Startwind\WebInsights\Classification\Exception\EmptyQueueException;
 use Startwind\WebInsights\Classification\Feeder\FileFeeder;
 use Startwind\WebInsights\Configuration\Resume;
 use Startwind\WebInsights\Util\Timer;
@@ -62,7 +63,13 @@ class ClassifyManyCommand extends ClassificationCommand
             if ($input->getOption(self::OPTION_RUN_NAME)) {
                 $this->setRunId($input->getOption(self::OPTION_RUN_NAME));
             }
-            $this->init($input, $output);
+            try {
+                $this->init($input, $output);
+            } catch (EmptyQueueException) {
+                $output->writeln('<error>Queue is empty. Sleeping for 1 second.');
+                sleep(1);
+                return Command::FAILURE;
+            }
             $startWith = 0;
         }
 

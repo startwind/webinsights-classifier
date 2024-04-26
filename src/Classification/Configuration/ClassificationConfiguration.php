@@ -6,6 +6,7 @@ use GuzzleHttp\ClientInterface;
 use Psr\Log\LoggerAwareInterface;
 use Startwind\WebInsights\Classification\Classifier\LoggerAwareClassifier;
 use Startwind\WebInsights\Classification\Exception\CriticalException;
+use Startwind\WebInsights\Classification\Exception\EmptyQueueException;
 use Startwind\WebInsights\Classification\Feeder\Feeder;
 use Startwind\WebInsights\Configuration\Configuration;
 use Startwind\WebInsights\Configuration\Exception\ConfigurationException;
@@ -201,6 +202,10 @@ class ClassificationConfiguration extends Configuration
         }
 
         $asArray = Yaml::parse(file_get_contents($filename));
+
+        if (array_key_exists('status', $asArray) && ($asArray['status'] === 'failures' || $asArray['status'] === 'failure')) {
+            throw new EmptyQueueException('Queue is empty.');   
+        }
 
         if (array_key_exists(self::SECTION_GENERAL, $asArray)
             && array_key_exists('inherit_default', $asArray[self::SECTION_GENERAL])
