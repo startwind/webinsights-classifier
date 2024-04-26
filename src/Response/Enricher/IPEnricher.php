@@ -14,9 +14,10 @@ class IPEnricher implements Enricher
     public function enrich(HttpResponse $response): array|false
     {
         if (!$response->getServerIP()) {
+            putenv('RES_OPTIONS=retrans:1 retry:1 timeout:1 attempts:1');
             $domain = UrlHelper::getDomain($response->getRequestUri());
             return [
-                self::FIELD_IP => gethostbyname($domain)
+                self::FIELD_IP => gethostbyname($domain . '.')
             ];
         } else {
             return [
