@@ -9,6 +9,8 @@ retriever:
       timeout: 5
       connect_timeout: 5
       read_timeout: 5
+      default:
+        verify: false
 
 storage:
   class: Startwind\WebInsights\Storage\FileStorage

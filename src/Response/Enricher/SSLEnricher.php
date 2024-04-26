@@ -17,9 +17,9 @@ class SSLEnricher implements Enricher
         // is just a fallback.
         if ($response->hasSSLCertificateInfo()) {
             return $response->getSSLCertificateInfo();
+        } else {
+            return false;
         }
-
-        return $this->getInformation($domain);
     }
 
     private function getInformation(string $domain): array

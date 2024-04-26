@@ -145,7 +145,9 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
 
                     foreach ($parts as $part) {
                         $elements = explode(' = ', $part);
-                        $certInfos[$host][$elements[0]] = $elements[1];
+                        if (array_key_exists(1, $elements)) {
+                            $certInfos[$host][$elements[0]] = $elements[1];
+                        }
                     }
                 }
             }
