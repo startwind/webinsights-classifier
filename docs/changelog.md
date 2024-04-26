@@ -1,15 +1,12 @@
 # Changelog
 
-- **2024-04-25**
+- **2024-04-22**
     - html:content:link:social-media:mastodon - added
     - html:plugin:captcha:hcaptcha - added
     - wordpress:plugin:rankmath - added
     - html:content:pages:login - added
     - html:content:link:social-media:twitter - acknowledge // links
     - html:content:link:social-media:facebook - acknowledge // links
-
-
-- **2024-04-23**
     - cms:system:moodle - added
     - cms:system:weebly - added
 
