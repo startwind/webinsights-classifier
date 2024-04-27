@@ -15,7 +15,9 @@ class BrowserFeatureClassifier extends HtmlClassifier
         'apple-touch-icon' => 'apple-touch-icon',
         'web-app' => 'link rel="manifest"',
         'responsive-images' => 'data-srcset',
-        'iframe' => '<iframe'
+        'iframe' => '<iframe',
+        'geo-information' => 'name="geo.position"',
+        'telephone-link' => 'href="tel:',
     ];
 
     protected function doHtmlClassification(HtmlDocument $htmlDocument): array

@@ -10,7 +10,7 @@ class GooglePluginClassifier extends HtmlClassifier
 {
     private const PREFIX = 'html:plugin:google';
     private array $plugins = [
-        'analytics' => 'google-analytics',
+        'analytics' => ['google-analytics', 'var gaProperty'],
         'tag-manager' => 'googletagmanager.com/gtm.js',
         'fonts' => ['fonts.googleapis.com', 'https://fonts.gstatic.com'],
         'maps' => 'https://maps.googleapis.com',

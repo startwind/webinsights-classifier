@@ -24,6 +24,7 @@ class PluginClassifier extends HtmlClassifier
         'cookie:cookiehub' => 'cookiehub.eu',
         'cookie:cookiefirst' => '<https://consent.cookiefirst.com/banner.js',
         'cookie:cookielaw' => 'cdn.cookielaw.org',
+        'cookie:ccm19' => 'CCM19',
 
         'mobile-app:apple' => 'apple-itunes-app',
 
@@ -44,6 +45,8 @@ class PluginClassifier extends HtmlClassifier
         'chat:comm100' => 'javascript:comm100_livechat',
 
         'captcha:hcaptcha' => "href='//hcaptcha.com'",
+        'fontello' => 'fontello.min.css',
+        'affiliate:awin' => 'https://www.dwin1.com',
     ];
 
     protected function doHtmlClassification(HtmlDocument $htmlDocument): array

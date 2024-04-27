@@ -1,5 +1,16 @@
 # Changelog
 
+- **2024-04-27**
+    - html:plugin:fontello - added
+    - browser:feature:geo-information - added
+    - browser:feature:telephone-link - added
+    - html:plugin:cookie:ccm19 - added
+    - html:plugin:google:analytics - improved
+    - html:plugin:affiliate:awin - added
+    - html:plugin:tracking:adcell - added
+    - html:content:pages:about - improved
+
+
 - **2024-04-25**
     - html:content:link:social-media:mastodon - added
     - html:plugin:captcha:hcaptcha - added

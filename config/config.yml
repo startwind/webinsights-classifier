@@ -85,8 +85,10 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\SchemaOrgClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\GooglePluginClassifier
 
+  # Tracking
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Tracking\FacebookTrackingClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Tracking\TwitterTrackingClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Tracking\AdCellTrackingClassifier
 
   # Analytics
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\Analytics\PlausibleAnalyticsClassifier

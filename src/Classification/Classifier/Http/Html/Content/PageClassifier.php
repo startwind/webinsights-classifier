@@ -18,7 +18,7 @@ class PageClassifier implements Classifier
         'imprint' => ["//a[contains(@href, '/impressum')]", "//a[contains(@href, '/imprint')]"],
         'contact' => ["//a[contains(@href, '/contact')]", "//a[contains(@href, '/kontakt')]"],
         'price' => ["//a[contains(@href, '/price')]", "//a[contains(@href, '/pricing')]"],
-        'about' => ["//a[contains(@href, '/about')]"],
+        'about' => ["//a[contains(@href, '/ueber-uns')]"],
         'login' => ["//a[contains(@href, '/login')]", "//a[contains(@href, 'login.')]"],
     ];
 
