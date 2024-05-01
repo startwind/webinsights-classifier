@@ -14,6 +14,7 @@ class IPAddressClassifier implements Classifier
     {
         if ($httpResponse->hasEnrichment(IPEnricher::getIdentifier())) {
             $data = $httpResponse->getEnrichment(IPEnricher::getIdentifier());
+
             return [self::CLASSIFIER_PREFIX . $data[IPEnricher::FIELD_IP]];
         } else {
             return [];

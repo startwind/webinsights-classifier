@@ -40,6 +40,11 @@ class IPEnricher implements Enricher, ManyEnricher
 
             $ip = trim($output);
 
+            if(str_contains( $ip, "\n",)) {
+                $ips = explode("\n", $ip);
+                $ip = $ips[0];
+            }
+
             $responses[$key]->enrich(self::getIdentifier(), [self::FIELD_IP => $ip]);
         }
     }
