@@ -13,13 +13,10 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'vps' => ['vps', 'vServer'],
             'webhosting' => 'webhosting',
             'managed-server' => 'managed server',
-            'rankingcoach' => 'rankingCoach',
             'cdn' => 'cdn',
             'website-builder' => ['website builder', 'homepage baukasten', 'homepage-baukasten'],
             'ssd' => 'ssd',
             'backup' => ['backup', 'acronis', 'jetbackup'],
-            'acronis' => ['acronis'],
-            'imunify360' => ['imunify360'],
             'security' => ['imunify360'],
             'server-root' => 'root server',
             'server-dedicated' => 'dedicated server',
@@ -28,7 +25,6 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'ssl' => ['ssl', "let's encrypt"],
             'wordpress' => 'wordpress',
             'cloud' => ' cloud computing',
-            'nextcloud' => 'nextcloud',
             'domain-name-generator' => 'domain name generator',
             'sql' => 'SQL Hosting',
             'storage' => ['storage server', 'cloud-speicher'],
@@ -36,7 +32,16 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'seo' => ['seo tools'],
             'email' => ['cloud email'],
             'reseller' => 'reseller hosting',
+            'control-panel' => ['cpanel', 'plesk', 'directadmin'],
+
+
+            # Tools
             'direct-admin' => ['directAdmin', 'Direct Admin'],
+            'imunify360' => ['imunify360'],
+            'acronis' => ['acronis'],
+            'rankingcoach' => 'rankingCoach',
+            'marketgoo' => 'marketgoo',
+            'nextcloud' => 'nextcloud',
 
             # WebPros
             'webpros' => 'WebPros',
