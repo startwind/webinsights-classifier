@@ -25,5 +25,4 @@ class HostingCompanyClassifier implements Classifier
             return [];
         }
     }
-
 }
