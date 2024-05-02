@@ -16,15 +16,15 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'cdn' => 'cdn',
             'website-builder' => ['website builder', 'homepage baukasten', 'homepage-baukasten'],
             'ssd' => 'ssd',
-            'backup' => ['backup', 'acronis', 'jetbackup'],
+            'backup' => ['backup', 'acronis', 'jetbackup', 'codeguard'],
             'security' => ['imunify360'],
             'server-root' => 'root server',
             'server-dedicated' => 'dedicated server',
             'money-back' => ['money back', 'geld-zurück', 'geld zurück'],
-            'eco-friendly' => 'ökostrom',
+            'eco-friendly' => ['ökostrom', 'oekostrom'],
             'ssl' => ['ssl', "let's encrypt"],
             'wordpress' => 'wordpress',
-            'cloud' => ' cloud computing',
+            'cloud' => ['cloud computing', 'aws', 'azure'],
             'domain-name-generator' => 'domain name generator',
             'sql' => 'SQL Hosting',
             'storage' => ['storage server', 'cloud-speicher'],
@@ -33,7 +33,9 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'email' => ['cloud email'],
             'reseller' => 'reseller hosting',
             'control-panel' => ['cpanel', 'plesk', 'directadmin'],
-
+            'aws' => ['aws', 'ec2'],
+            'ripe' => 'ripe-ncc',
+            'denic' => 'denic',
 
             # Tools
             'direct-admin' => ['directAdmin', 'Direct Admin'],
@@ -42,6 +44,9 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'rankingcoach' => 'rankingCoach',
             'marketgoo' => 'marketgoo',
             'nextcloud' => 'nextcloud',
+            'sitelock' => 'sitelock',
+            'codeguard' => 'codeguard',
+
 
             # WebPros
             'webpros' => 'WebPros',

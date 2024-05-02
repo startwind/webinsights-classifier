@@ -132,6 +132,8 @@ classifiers:
 
   - Startwind\WebInsights\Classification\Classifier\ControlPanel\PleskClassifier
 
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Theme\ThemeClassifier
+
 
   # Characteristics
   - Startwind\WebInsights\Classification\Classifier\Characteristic\Html\SizeClassifier
