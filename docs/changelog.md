@@ -1,5 +1,9 @@
 # Changelog
 
+- **2024-05-03**
+  - http:status-code:* - added
+
+
 - **2024-04-27**
     - html:plugin:fontello - added
     - browser:feature:geo-information - added
