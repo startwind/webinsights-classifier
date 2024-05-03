@@ -17,6 +17,8 @@ class HostingCompanyClassifier implements Classifier
 
         $count = 0;
 
+        if (array_key_exists('http:status-code:403', $existingTags)) return [];
+
         foreach ($existingTags as $existingTag) {
             if (str_starts_with($existingTag, HostingProductsClassifier::TAG_PREFIX,)) {
                 $count++;
