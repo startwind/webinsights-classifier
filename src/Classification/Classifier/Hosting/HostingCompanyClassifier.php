@@ -11,10 +11,10 @@ class HostingCompanyClassifier implements Classifier
 
     public function classify(HttpResponse $httpResponse, array $existingTags): array
     {
-        if ($httpResponse->getHtmlDocument()->containsAny(['Wix.com Website Builder'])) {
+        if ($httpResponse->getHtmlDocument()->containsAny(['Wix.com Website Builder', 'dan.com'])) {
             return [];
         }
-        
+
         $count = 0;
 
         foreach ($existingTags as $existingTag) {
@@ -22,7 +22,6 @@ class HostingCompanyClassifier implements Classifier
                 $count++;
             }
         }
-
 
         if ($count > 4) {
             return [self::CLASSIFIER_PREFIX];
