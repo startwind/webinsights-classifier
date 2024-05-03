@@ -32,8 +32,6 @@ abstract class PatternAwareClassifier
                     }
                 }
 
-                var_dump($keyword);
-
                 foreach ($keyword as $singleKeyword) {
                     if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) {
                         $tags[] = static::TAG_PREFIX . $key;

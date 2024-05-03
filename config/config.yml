@@ -133,6 +133,7 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\ControlPanel\PleskClassifier
 
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Theme\ThemeClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Http\StatusCodeClassifier
 
 
   # Characteristics
