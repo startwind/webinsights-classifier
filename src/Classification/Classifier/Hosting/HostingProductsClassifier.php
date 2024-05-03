@@ -13,7 +13,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'vps' => ['vps', 'vServer'],
             'webhosting' => 'webhosting',
             'managed-server' => 'managed server',
-            'cdn' => 'cdn',
+            'cdn' => ['cdn'],
             'website-builder' => ['website builder', 'homepage baukasten', 'homepage-baukasten'],
             'ssd' => 'ssd',
             'backup' => ['backup', 'acronis', 'jetbackup', 'codeguard'],

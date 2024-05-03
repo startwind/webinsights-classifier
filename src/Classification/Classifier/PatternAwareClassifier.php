@@ -23,6 +23,17 @@ abstract class PatternAwareClassifier
                     $keyword = [$keyword];
                 }
 
+                foreach ($keyword as $index => $singleKeyword) {
+                    if (strlen($singleKeyword) < 4) {
+                        $keyword[] = ' ' . $singleKeyword;
+                        $keyword[] = $singleKeyword . ' ';
+                        $keyword[] = $singleKeyword . '. ';
+                        unset($keyword[$index]);
+                    }
+                }
+
+                var_dump($keyword);
+
                 foreach ($keyword as $singleKeyword) {
                     if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) {
                         $tags[] = static::TAG_PREFIX . $key;
