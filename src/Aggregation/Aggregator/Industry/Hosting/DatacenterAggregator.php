@@ -8,7 +8,7 @@ use Startwind\WebInsights\Classification\Classifier\Url\IPLocationClassifier;
 
 class DatacenterAggregator extends CountingAggregator
 {
-    protected int $limit = 100;
+    protected int $limit = 30;
 
     public function aggregate(ClassificationResult $classificationResult): void
     {
