@@ -36,3 +36,4 @@ aggregators:
 
   - Startwind\WebInsights\Aggregation\Aggregator\System\Hosting\MultiIPDomainsAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\Industry\Hosting\HostingProductsAggregator
+  - Startwind\WebInsights\Aggregation\Aggregator\Industry\Hosting\DatacenterAggregator
