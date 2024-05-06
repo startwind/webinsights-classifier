@@ -14,7 +14,8 @@ class HostingCompanyClassifier implements Classifier
         if ($httpResponse->getHtmlDocument()->containsAny([
             'Wix.com Website Builder',
             'dan.com',
-            'Log in to Plesk to create websites and set up hosting'
+            'Log in to Plesk to create websites and set up hosting',
+            'It is specially designed to help web professionals manage web'
         ])) {
             return [];
         }
