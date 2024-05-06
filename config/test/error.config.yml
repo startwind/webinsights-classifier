@@ -1,0 +1,76 @@
+
+general:
+  inherit_default: true
+  log_level: alert
+storage:
+  class: Startwind\WebInsights\Storage\ApiStorage
+  options:
+    runId: d58a5f47d0ca885099e120c64835bd6f
+exporter:
+  -
+    Startwind\WebInsights\Classification\Exporter\Result\ApiExporter:
+      options: { endpoint: 'https://api.webinsights.info/classifier/data', runId: d58a5f47d0ca885099e120c64835bd6f, last: false }
+feeder:
+  class: Startwind\WebInsights\Classification\Feeder\ListFeeder
+  options:
+    domains:
+      'https://ucartz.com': { domain: 'https://ucartz.com', tags: {  } }
+      'https://ucloud.cn': { domain: 'https://ucloud.cn', tags: {  } }
+      'https://ucoz.com': { domain: 'https://ucoz.com', tags: {  } }
+      'https://udomain.hk': { domain: 'https://udomain.hk', tags: {  } }
+      'https://ugb.ee': { domain: 'https://ugb.ee', tags: {  } }
+      'https://ughost.net': { domain: 'https://ughost.net', tags: {  } }
+      'https://uh.ua': { domain: 'https://uh.ua', tags: {  } }
+      'https://uhost.africa': { domain: 'https://uhost.africa', tags: {  } }
+      'https://uk2.net': { domain: 'https://uk2.net', tags: {  } }
+      'https://ukhost4u.com': { domain: 'https://ukhost4u.com', tags: {  } }
+      'https://ukit.com': { domain: 'https://ukit.com', tags: {  } }
+      'https://ukraine.com.ua': { domain: 'https://ukraine.com.ua', tags: {  } }
+      'https://ultahost.com': { domain: 'https://ultahost.com', tags: {  } }
+      'https://ultrasitios.com': { domain: 'https://ultrasitios.com', tags: {  } }
+      'https://umbrahosting.com': { domain: 'https://umbrahosting.com', tags: {  } }
+      'https://umbrellar.com': { domain: 'https://umbrellar.com', tags: {  } }
+      'https://under.com.br': { domain: 'https://under.com.br', tags: {  } }
+      'https://undergroundprivate.com': { domain: 'https://undergroundprivate.com', tags: {  } }
+      'https://unihost.com': { domain: 'https://unihost.com', tags: {  } }
+      'https://unisecure.com': { domain: 'https://unisecure.com', tags: {  } }
+      'https://unit-is.com': { domain: 'https://unit-is.com', tags: {  } }
+      'https://united.net.ua': { domain: 'https://united.net.ua', tags: {  } }
+      'https://unitedhost.eu': { domain: 'https://unitedhost.eu', tags: {  } }
+      'https://unitedhosting.co.uk': { domain: 'https://unitedhosting.co.uk', tags: {  } }
+      'https://unity.com': { domain: 'https://unity.com', tags: {  } }
+      'https://uniweb.no': { domain: 'https://uniweb.no', tags: {  } }
+      'https://unixhost.pro': { domain: 'https://unixhost.pro', tags: {  } }
+      'https://unlimitedwebhosting.co.uk': { domain: 'https://unlimitedwebhosting.co.uk', tags: {  } }
+      'https://uolhost.uol.com.br': { domain: 'https://uolhost.uol.com.br', tags: {  } }
+      'https://upcloud.com': { domain: 'https://upcloud.com', tags: {  } }
+      'https://upperlink.ng': { domain: 'https://upperlink.ng', tags: {  } }
+      'https://upress.co.il': { domain: 'https://upress.co.il', tags: {  } }
+      'https://usonyx.net': { domain: 'https://usonyx.net', tags: {  } }
+      'https://utiware.net': { domain: 'https://utiware.net', tags: {  } }
+      'https://v-kg.ru': { domain: 'https://v-kg.ru', tags: {  } }
+      'https://v-sys.org': { domain: 'https://v-sys.org', tags: {  } }
+      'https://vadavo.com': { domain: 'https://vadavo.com', tags: {  } }
+      'https://value-domain.com': { domain: 'https://value-domain.com', tags: {  } }
+      'https://valuehost.ru': { domain: 'https://valuehost.ru', tags: {  } }
+      'https://vangus.co.il': { domain: 'https://vangus.co.il', tags: {  } }
+      'https://vargonen.com': { domain: 'https://vargonen.com', tags: {  } }
+      'https://vdata.vn': { domain: 'https://vdata.vn', tags: {  } }
+      'https://vdsina.ru': { domain: 'https://vdsina.ru', tags: {  } }
+      'https://vdsplanet.ru': { domain: 'https://vdsplanet.ru', tags: {  } }
+      'https://veeble.org': { domain: 'https://veeble.org', tags: {  } }
+      'https://veehosty.com': { domain: 'https://veehosty.com', tags: {  } }
+      'https://veesp.com': { domain: 'https://veesp.com', tags: {  } }
+      'https://velia.net': { domain: 'https://velia.net', tags: {  } }
+      'https://ventraip.com.au': { domain: 'https://ventraip.com.au', tags: {  } }
+      'https://verio.com': { domain: 'https://verio.com', tags: {  } }
+      'https://verisign.com': { domain: 'https://verisign.com', tags: {  } }
+      'https://verkkotunnukset.fi': { domain: 'https://verkkotunnukset.fi', tags: {  } }
+      'https://vernalweb.com': { domain: 'https://vernalweb.com', tags: {  } }
+      'https://verpex.com': { domain: 'https://verpex.com', tags: {  } }
+      'https://versio.nl': { domain: 'https://versio.nl', tags: {  } }
+      'https://vevida.com': { domain: 'https://vevida.com', tags: {  } }
+      'https://vexxhost.com': { domain: 'https://vexxhost.com', tags: {  } }
+      'https://vgthosting.com': { domain: 'https://vgthosting.com', tags: {  } }
+      'https://vhost.vn': { domain: 'https://vhost.vn', tags: {  } }
+      'https://vhosting-it.net': { domain: 'https://vhosting-it.net', tags: {  } }
