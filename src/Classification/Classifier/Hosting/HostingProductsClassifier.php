@@ -50,6 +50,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
 
             # WebPros
             'webpros' => 'WebPros',
+            'sitejet' => 'Sitejet',
             'whmcs' => 'whmcs',
             'plesk' => 'plesk',
             'cpanel' => 'cpanel',
