@@ -30,7 +30,7 @@ class HostingCompanyClassifier implements Classifier
             }
         }
 
-        if ($count > 4) {
+        if ($count > 3) {
             return [self::CLASSIFIER_PREFIX];
         } else {
             return [];
