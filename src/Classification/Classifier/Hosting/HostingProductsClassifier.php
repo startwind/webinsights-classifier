@@ -36,6 +36,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'aws' => ['aws', 'ec2'],
             'ripe' => 'ripe-ncc',
             'denic' => 'denic',
+            'datacenter' => ['datacenter', 'rechenzentrum'],
 
             # Tools
             'direct-admin' => ['directAdmin', 'Direct Admin'],
