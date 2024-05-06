@@ -8,6 +8,8 @@ use Startwind\WebInsights\Classification\Classifier\Hosting\HostingProductsClass
 
 class HostingProductsAggregator extends CountingAggregator
 {
+    protected int $limit = 100;
+
     public function aggregate(ClassificationResult $classificationResult): void
     {
         $products = $classificationResult->getTagsStartingWithString(HostingProductsClassifier::TAG_PREFIX, true, true);
