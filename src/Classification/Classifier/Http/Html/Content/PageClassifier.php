@@ -13,7 +13,7 @@ class PageClassifier implements Classifier
     protected string $tagPrefix = self::TAG_INTERNAL_LINK;
 
     protected array $xPaths = [
-        'blog' => ["//a[contains(@href, '/blog')]"],
+        'blog' => ["//a[contains(@href, '/blog')]", "//a[text()='blog']", "//a[contains(@href, '.blog')]"],
         'forum' => ["//a[contains(@href, '/forum')]"],
         'imprint' => ["//a[contains(@href, '/impressum')]", "//a[contains(@href, '/imprint')]"],
         'contact' => ["//a[contains(@href, '/contact')]", "//a[contains(@href, '/kontakt')]"],

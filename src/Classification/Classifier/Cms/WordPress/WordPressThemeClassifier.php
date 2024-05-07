@@ -19,7 +19,7 @@ class WordPressThemeClassifier extends HtmlClassifier
 
         foreach ($matches as $match) {
             if (strlen($match) < 50) {
-                $tags[] = self::TAG . strtolower($match);
+                $tags[] = self::TAG . str_replace(['"', ';', '<'], '', strtolower($match));
                 $tags[] = WordPressClassifier::TAG;
                 $tags[] = ProgrammingLanguageClassifier::TAG_PHP;
 
