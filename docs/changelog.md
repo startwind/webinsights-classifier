@@ -1,5 +1,13 @@
 # Changelog
 
+- **2024-05-07**
+  - html:content:pages:blog - optimized
+
+
+- **2024-05-05**
+  - company:hosting:products:* - added
+
+
 - **2024-05-03**
   - http:status-code:* - added
 

@@ -147,6 +147,5 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Service\Evaluation\TrustpilotClassifier
 
 
-
   # Post Classifiers
   - Startwind\WebInsights\Classification\Classifier\Hosting\HostingCompanyClassifier

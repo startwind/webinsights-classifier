@@ -13,7 +13,7 @@ class TrustpilotClassifier implements Classifier
     {
         if ($httpResponse->getHtmlDocument()->containsAny([
             'trustpilot.com',
-            '"type":"trustpilot"'
+            '"type":"trustpilot"',
         ])) {
             return [self::TAG];
         } else {
