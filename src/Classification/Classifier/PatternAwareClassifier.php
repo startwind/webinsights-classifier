@@ -6,6 +6,8 @@ use Startwind\WebInsights\Response\HttpResponse;
 
 abstract class PatternAwareClassifier
 {
+    protected bool $treeStructure = false;
+
     protected const TAG_PREFIX = '';
 
     protected const SOURCE_HTML = 'html';
@@ -36,6 +38,18 @@ abstract class PatternAwareClassifier
                     if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) {
                         $tags[] = static::TAG_PREFIX . $key;
                     }
+                }
+            }
+        }
+
+        if ($this->treeStructure) {
+            foreach ($tags as $tag) {
+                $suffix = str_replace(static::TAG_PREFIX, '', $tag);
+
+                $parts = explode(':', $suffix);
+
+                if (count($parts) === 2) {
+                    $tags[] = static::TAG_PREFIX . $parts[0];
                 }
             }
         }

@@ -12,7 +12,7 @@ class HostingProductsAggregator extends CountingAggregator
 
     public function aggregate(ClassificationResult $classificationResult): void
     {
-        $products = $classificationResult->getTagsStartingWithString(HostingProductsClassifier::TAG_PREFIX, true, true);
+        $products = $classificationResult->getTagsStartingWithString(HostingProductsClassifier::TAG_PREFIX . HostingProductsClassifier::TAG_PRODUCT, true, true);
 
         foreach ($products as $product) {
             $this->increaseCount($product);

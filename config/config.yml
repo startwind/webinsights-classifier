@@ -144,6 +144,7 @@ classifiers:
 
   # Hosting
   - Startwind\WebInsights\Classification\Classifier\Hosting\HostingProductsClassifier
+  - Startwind\WebInsights\Classification\Classifier\Hosting\HostingUspClassifier
   - Startwind\WebInsights\Classification\Classifier\Service\Evaluation\TrustpilotClassifier
 
 
