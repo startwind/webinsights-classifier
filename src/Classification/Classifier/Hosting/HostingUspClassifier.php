@@ -10,10 +10,13 @@ class HostingUspClassifier extends PatternAwareClassifier
 
     protected array $keywords = [
         self::SOURCE_HTML => [
-            self::TAG_PREFIX . 'ripe' => 'ripe-ncc',
-            self::TAG_PREFIX . 'denic' => 'denic',
-            self::TAG_PREFIX . 'money-back' => ['money back', 'geld-zurück', 'geld zurück'],
-            self::TAG_PREFIX . 'eco-friendly' => ['ökostrom', 'oekostrom'],
+            'ripe' => 'ripe-ncc',
+            'denic' => 'denic',
+            'money-back' => ['money back', 'geld-zurück', 'geld zurück'],
+            'eco-friendly' => ['ökostrom', 'oekostrom'],
+            'webpros' => 'WebPros',
+            'whmcs' => 'whmcs',
+            'solus' => 'solus',
         ]
     ];
 }
