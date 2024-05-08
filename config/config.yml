@@ -31,6 +31,7 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Http\Http\WhoisClassifier
 
   - Startwind\WebInsights\Classification\Classifier\Url\TopLevelDomainClassifier
+  - Startwind\WebInsights\Classification\Classifier\Url\SubDomainClassifier
   # - Startwind\WebInsights\Classification\Classifier\Url\HostingCompanyUrl\HostingCompanyUrlClassifier
   - Startwind\WebInsights\Classification\Classifier\Url\AgencyUrl\AgencyUrlClassifier
 
