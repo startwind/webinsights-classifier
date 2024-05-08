@@ -17,6 +17,7 @@ class HostingUspClassifier extends PatternAwareClassifier
             'webpros' => 'WebPros',
             'whmcs' => 'whmcs',
             'solus' => 'solus',
+            'datacenter' => ['datacenter', 'rechenzentrum'],
         ]
     ];
 }

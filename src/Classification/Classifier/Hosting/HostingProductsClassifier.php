@@ -83,29 +83,23 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'wordpress:wp-guardian' => ['WP Guardian', 'WPGuardian'],
             'wordpress:wp-toolkit' => ['WP toolkit', 'WordPress Toolkit', 'WPToolkit'],
 
+            # Storage
+            'storage' => ['storage server', 'cloud-speicher'],
+            'storage:nextcloud' => 'nextcloud',
+
+
             'server-root' => 'root server',
             'server-dedicated' => 'dedicated server',
 
             'domain-name-generator' => 'domain name generator',
             'sql' => 'SQL Hosting',
-            'storage' => ['storage server', 'cloud-speicher'],
             'email' => ['cloud email'],
             'reseller' => 'reseller hosting',
-
-            'datacenter' => ['datacenter', 'rechenzentrum'],
-
-            'nextcloud' => 'nextcloud',
-
             'vps' => ['vps', 'vServer'],
             'webhosting' => 'webhosting',
             'managed-server' => 'managed server',
             'cdn' => ['cdn'],
             'ssd' => 'ssd',
-
-            # WebPros
-            'webpros' => 'WebPros',
-            'whmcs' => 'whmcs',
-            'solus' => 'solus',
         ]
     ];
 }
