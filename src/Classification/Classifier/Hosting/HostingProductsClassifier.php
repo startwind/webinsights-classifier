@@ -16,6 +16,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'website-builder' => ['website builder', 'homepage baukasten', 'homepage-baukasten'],
             'website-builder:sitejet' => 'Sitejet',
             'website-builder:elementor' => 'Elementor',
+            'website-builder:duda' => 'duda',
 
             # Backup
             'backup' => ['backup'],
@@ -37,11 +38,20 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'control-panel:cpanel' => ['cpanel'],
             'control-panel:plesk' => ['plesk'],
             'control-panel:directadmin' => ['directadmin', 'Direct Admin'],
-            'control-panel:Webmin' => ['Webmin'],
+            'control-panel:webmin' => ['Webmin'],
             'control-panel:ispconfig' => ['ISPConfig'],
             'control-panel:froxlor' => ['Froxlor'],
             'control-panel:liveconfig' => ['LiveConfig'],
             'control-panel:cloudpanel' => ['CloudPanel', 'cloud panel'],
+            'control-panel:aapanel' => ['aapanel'],
+            'control-panel:control-web-panel' => ['Control Web Panel'],
+            'control-panel:ajenti' => ['Ajenti'],
+            'control-panel:virtualmin' => ['Virtualmin'],
+            'control-panel:interworx' => ['InterWorx'],
+            'control-panel:vestacp' => ['VestaCP'],
+            'control-panel:spanel' => ['spanel'],
+            'control-panel:spinupwp' => ['SpinupWP'],
+            'control-panel:cyberpanel' => ['Cyberpanel'],
 
             # SSL
             'ssl' => ['ssl'],
@@ -50,9 +60,10 @@ class HostingProductsClassifier extends PatternAwareClassifier
             # SEO
             'seo' => ['seo tools'],
             'seo:marketgoo' => ['marketgoo'],
-            'seo:rankingcoach' => ['rankingCoach'],
+            'seo:rankingcoach' => ['rankingCoach', 'ranking coach'],
 
             # Monitoring
+            'monitoring' => 'Uptime Monitoring',
             'monitoring:360-monitoring' => '360 Monitoring',
             'monitoring:koality' => ['koality', 'Site Quality Monitoring'],
 
@@ -61,10 +72,20 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'cloud:aws' => ['aws', 'ec2'],
             'cloud:azure' => ['azure'],
 
+            # Content Management Systems
+            'cms' => ['content management system', 'cms'],
+            'cms:wordpress' => ['wordpress'],
+            'cms:joomla' => ['joomla'],
+            'cms:drupal' => ['drupal'],
+
+            # WordPress Tools
+            'wordpress:wp-squared' => ['WP Squared', 'WPSquared'],
+            'wordpress:wp-guardian' => ['WP Guardian', 'WPGuardian'],
+            'wordpress:wp-toolkit' => ['WP toolkit', 'WordPress Toolkit', 'WPToolkit'],
+
             'server-root' => 'root server',
             'server-dedicated' => 'dedicated server',
 
-            'wordpress' => 'wordpress',
             'domain-name-generator' => 'domain name generator',
             'sql' => 'SQL Hosting',
             'storage' => ['storage server', 'cloud-speicher'],
@@ -72,7 +93,6 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'reseller' => 'reseller hosting',
 
             'datacenter' => ['datacenter', 'rechenzentrum'],
-
 
             'nextcloud' => 'nextcloud',
 
@@ -82,15 +102,10 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'cdn' => ['cdn'],
             'ssd' => 'ssd',
 
-
             # WebPros
             'webpros' => 'WebPros',
             'whmcs' => 'whmcs',
             'solus' => 'solus',
-            'wp-toolkit' => ['WP toolkit', 'WordPress Toolkit'],
-
-            'wp-guardian' => 'WP Guardian',
-            'wp-squared' => 'WP Squared', 'WPSquared',
         ]
     ];
 }
