@@ -29,6 +29,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'ecommerce:woocommerce' => ['woocommerce'],
             'ecommerce:shopware' => ['shopware'],
             'ecommerce:magento' => ['magento'],
+            'ecommerce:ecwid' => ['ecwid'],
 
             # Security
             'security:imunify360' => ['imunify360'],
@@ -52,15 +53,24 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'control-panel:spanel' => ['spanel'],
             'control-panel:spinupwp' => ['SpinupWP'],
             'control-panel:cyberpanel' => ['Cyberpanel'],
+            'control-panel:webuzo' => ['webuzo'],
+            'control-panel:keyhelp' => ['KeyHelp'],
+            'control-panel:enhance' => ['Enhance Panel'],
 
             # SSL
             'ssl' => ['ssl'],
             'ssl:lets-encrypt' => ["let's encrypt"],
+            'ssl:comodo' => ["Comodo SSL"],
+            'ssl:digicert' => ["DigiCert"],
+            'ssl:sectigo' => ["Sectigo"],
+            'ssl:globalsign' => ["GlobalSign"],
+            'ssl:alphassl' => ["AlphaSSL"],
 
             # SEO
             'seo' => ['seo tools'],
             'seo:marketgoo' => ['marketgoo'],
             'seo:rankingcoach' => ['rankingCoach', 'ranking coach'],
+            'seo:semrush' => ['semrush'],
 
             # Monitoring
             'monitoring' => 'Uptime Monitoring',
