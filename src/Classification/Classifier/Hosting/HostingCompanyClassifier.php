@@ -15,7 +15,8 @@ class HostingCompanyClassifier implements Classifier
             'Wix.com Website Builder',
             'dan.com',
             'Log in to Plesk to create websites and set up hosting',
-            'It is specially designed to help web professionals manage web'
+            'It is specially designed to help web professionals manage web',
+            'Website coming soon! Stay tuned.'
         ])) {
             return [];
         }

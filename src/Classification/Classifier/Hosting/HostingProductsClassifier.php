@@ -34,6 +34,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             # Security
             'security:imunify360' => ['imunify360'],
             'security:sitelock' => 'sitelock',
+            'security:ddos-mitigation' => 'ddos mitigation',
 
             # Control Panel
             'control-panel:cpanel' => ['cpanel'],
@@ -94,9 +95,18 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'wordpress:wp-toolkit' => ['WP toolkit', 'WordPress Toolkit', 'WPToolkit'],
 
             # Storage
-            'storage' => ['storage server', 'cloud-speicher'],
+            'storage' => ['storage server', 'cloud-speicher', 'cloud storage'],
             'storage:nextcloud' => 'nextcloud',
 
+            # OS
+            'os:cloudlinux' => ['cloudlinux', 'cloud linux'],
+
+            # CPU
+            'cpu:intel' => ['intel'],
+            'cpu:amd' => ['amd'],
+
+            # Hosting
+            'hosting:colocation' => ['colocation', 'co-location'],
 
             'server-root' => 'root server',
             'server-dedicated' => 'dedicated server',
