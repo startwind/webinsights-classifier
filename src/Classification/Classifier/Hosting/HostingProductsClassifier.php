@@ -108,17 +108,32 @@ class HostingProductsClassifier extends PatternAwareClassifier
             # Hosting
             'hosting:colocation' => ['colocation', 'co-location'],
 
+            # Automation
+            'automation:ansible' => ['ansible'],
+            'automation:terraform' => ['terraform'],
+            'automation:kubernetes' => ['kubernetes'],
+
+            # CDN
+            'cdn' => ['cdn'],
+            'cdn:cloudflare' => ['cloudflare'],
+            'cdn:akamai' => ['akamai'],
+            'cdn:akamai' => ['akamaism'],
+
+            #Databases
+            'database:mysql' => 'mysql',
+            'database:mssl' => ['mssql', 'Microsoft SQL'],
+            'database:postgres' => 'postgres',
+            'database:sql' => 'SQL Hosting',
+
             'server-root' => 'root server',
             'server-dedicated' => 'dedicated server',
 
             'domain-name-generator' => 'domain name generator',
-            'sql' => 'SQL Hosting',
             'email' => ['cloud email'],
             'reseller' => 'reseller hosting',
             'vps' => ['vps', 'vServer'],
             'webhosting' => 'webhosting',
             'managed-server' => 'managed server',
-            'cdn' => ['cdn'],
             'ssd' => 'ssd',
         ]
     ];
