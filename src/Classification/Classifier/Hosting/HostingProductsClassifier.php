@@ -117,7 +117,6 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'cdn' => ['cdn'],
             'cdn:cloudflare' => ['cloudflare'],
             'cdn:akamai' => ['akamai'],
-            'cdn:akamai' => ['akamaism'],
 
             #Databases
             'database:mysql' => 'mysql',
