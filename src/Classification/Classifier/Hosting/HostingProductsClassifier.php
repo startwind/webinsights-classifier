@@ -76,6 +76,8 @@ class HostingProductsClassifier extends PatternAwareClassifier
             # Monitoring
             'monitoring' => 'Uptime Monitoring',
             'monitoring:360-monitoring' => '360 Monitoring',
+            'monitoring:nagios' => 'nagios',
+            'monitoring:zabbix' => 'zabbix',
             'monitoring:koality' => ['koality', 'Site Quality Monitoring'],
 
             # Cloud
