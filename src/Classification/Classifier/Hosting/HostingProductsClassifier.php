@@ -120,8 +120,9 @@ class HostingProductsClassifier extends PatternAwareClassifier
 
             #Databases
             'database:mysql' => 'mysql',
-            'database:mssl' => ['mssql', 'Microsoft SQL'],
+            'database:mssql' => ['mssql', 'Microsoft SQL'],
             'database:postgres' => 'postgres',
+            'database:mongodb' => 'mongodb',
             'database:sql' => 'SQL Hosting',
 
             'server-root' => 'root server',
