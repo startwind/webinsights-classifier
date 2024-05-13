@@ -16,6 +16,7 @@ use Startwind\WebInsights\Response\Enricher\Enricher;
 use Startwind\WebInsights\Response\Enricher\Exception\EnrichmentFailedException;
 use Startwind\WebInsights\Response\Enricher\ManyEnricher;
 use Startwind\WebInsights\Response\HttpResponse;
+use Startwind\WebInsights\Response\Retriever\Exception\CloudflareBlockedException;
 use Startwind\WebInsights\Storage\NullStorage;
 use Startwind\WebInsights\Storage\Storage;
 use Startwind\WebInsights\Util\Timer;
@@ -131,7 +132,7 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
 
         $options['curl'] = [CURLOPT_CERTINFO => true];
 
-        $options['headers']['User-Agent'] = 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+        // $options['headers']['User-Agent'] = 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
         $certInfos = [];
 
@@ -201,7 +202,12 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
         $rawResponses = [];
 
         foreach ($responses as $uriString => $promiseResponse) {
-            $response = $this->convertToResponse($promiseResponse);
+            try {
+                $response = $this->convertToResponse($promiseResponse);
+            } catch (\RuntimeException $exception) {
+                $this->logger->alert('Unable to retrieve response for ' . $uriString . '. ' . $exception->getMessage());
+                continue;
+            }
 
             $requestUri = new Uri($uriString);
 
@@ -314,6 +320,9 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             $reason = $promiseResponse['reason'];
             if ($reason instanceof ClientException) {
                 $response = $reason->getResponse();
+                if ($response->getStatusCode() === 403 && $response->hasHeader('Server') && $response->getHeader('Server')[0] === 'cloudflare') {
+                    throw new CloudflareBlockedException();
+                }
             } elseif ($reason instanceof ConnectException) {
                 $response = new Response(599, [], '<html></html>');
             } else {
