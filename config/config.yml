@@ -80,7 +80,7 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Url\IPAddressClassifier
   - Startwind\WebInsights\Classification\Classifier\Url\IPLocationClassifier
 
-  - Startwind\WebInsights\Classification\Classifier\Http\Html\Keyword\KeywordClassifier: { keywords: ['shopware', 'woocommerce', 'magento', 'wordpress', 'joomla', 'typo3', 'agentur', 'internetagentur', 'leankoala', 'agency', 'xovi' ] }
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Keyword\KeywordClassifier: { keywords: [ 'shopware', 'woocommerce', 'magento', 'wordpress', 'joomla', 'typo3', 'agentur', 'internetagentur', 'leankoala', 'agency', 'xovi' ] }
 
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\PluginClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Plugin\SchemaOrgClassifier
@@ -151,3 +151,4 @@ classifiers:
 
   # Post Classifiers
   - Startwind\WebInsights\Classification\Classifier\Hosting\HostingCompanyClassifier
+  - Startwind\WebInsights\Classification\Classifier\Rss\RssFeedClassifier

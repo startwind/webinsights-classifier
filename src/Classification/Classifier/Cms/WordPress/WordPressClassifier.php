@@ -11,7 +11,7 @@ use Startwind\WebInsights\Response\HttpResponse;
 
 class WordPressClassifier implements Classifier
 {
-    public const TAG = CmsClassifier::CLASSIFIER_PREFIX . 'wordpress';
+    public const  TAG = CmsClassifier::CLASSIFIER_PREFIX . 'wordpress';
     private const TAG_WP_ADMIN = 'cms:system:wordpress:admin';
 
     private bool $isDetailedClassification = false;

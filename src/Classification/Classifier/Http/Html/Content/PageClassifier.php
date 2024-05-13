@@ -9,6 +9,7 @@ use Startwind\WebInsights\Response\HttpResponse;
 class PageClassifier implements Classifier
 {
     public const TAG_INTERNAL_LINK = 'html:content:pages:';
+    public const TAG_BLOG = self::TAG_INTERNAL_LINK . 'blog';
 
     protected string $tagPrefix = self::TAG_INTERNAL_LINK;
 

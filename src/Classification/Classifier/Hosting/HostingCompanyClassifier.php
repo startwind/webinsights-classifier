@@ -7,7 +7,7 @@ use Startwind\WebInsights\Response\HttpResponse;
 
 class HostingCompanyClassifier implements Classifier
 {
-    private const CLASSIFIER_PREFIX = 'industry:hosting';
+    public const CLASSIFIER_PREFIX = 'industry:hosting';
 
     public function classify(HttpResponse $httpResponse, array $existingTags): array
     {
