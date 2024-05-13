@@ -82,6 +82,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'cloud' => ['cloud computing'],
             'cloud:aws' => ['aws', 'ec2'],
             'cloud:azure' => ['azure'],
+            'cloud:google' => ['google cloud'],
 
             # Content Management Systems
             'cms' => ['content management system', 'cms'],
