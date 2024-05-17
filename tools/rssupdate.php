@@ -2,7 +2,7 @@
 
 use GuzzleHttp\RequestOptions;
 
-include_once __DIR__ . '/../../vendor/autoload.php';
+include_once __DIR__ . '/../vendor/autoload.php';
 
 $client = new \GuzzleHttp\Client();
 
