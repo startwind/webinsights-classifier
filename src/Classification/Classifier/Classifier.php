@@ -8,6 +8,8 @@ interface Classifier
 {
     public const TAG_SEPARATOR = ':';
 
+    public const TAG_PREFIX_EXTRA = 'extra_';
+
     /**
      * @throws \Startwind\WebInsights\Classification\Exception\Exception
      */

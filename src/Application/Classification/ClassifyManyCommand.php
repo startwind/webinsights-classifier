@@ -92,6 +92,8 @@ class ClassifyManyCommand extends ClassificationCommand
             return Command::FAILURE;
         }
 
+        $this->getLogger()->info('Start classifying ' . $domainContainer->getCount() . ' URLS.');
+
         $retriever = $this->getRetriever();
 
         $retriever->setUris($domainContainer->toUriList());

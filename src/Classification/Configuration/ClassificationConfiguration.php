@@ -10,10 +10,6 @@ use Startwind\WebInsights\Classification\Exception\EmptyQueueException;
 use Startwind\WebInsights\Classification\Feeder\Feeder;
 use Startwind\WebInsights\Configuration\Configuration;
 use Startwind\WebInsights\Configuration\Exception\ConfigurationException;
-use Startwind\WebInsights\Response\Enricher\GeoLocationEnricher;
-use Startwind\WebInsights\Response\Enricher\IPEnricher;
-use Startwind\WebInsights\Response\Enricher\MXEnricher;
-use Startwind\WebInsights\Response\Enricher\SSLEnricher;
 use Startwind\WebInsights\Response\Retriever\EnrichmentAwareRetriever;
 use Startwind\WebInsights\Response\Retriever\HttpClientAwareRetriever;
 use Startwind\WebInsights\Response\Retriever\Retriever;
@@ -27,6 +23,7 @@ class ClassificationConfiguration extends Configuration
 {
     public const SECTION_EXPORTER = 'exporter';
     public const SECTION_CLASSIFIER = 'classifiers';
+    public const SECTION_ENRICHER = 'enricher';
     public const SECTION_RETRIEVER = 'retriever';
     public const SECTION_STORAGE = 'storage';
     public const SECTION_FEEDER = 'feeder';
@@ -42,7 +39,7 @@ class ClassificationConfiguration extends Configuration
     /**
      * @var \Startwind\WebInsights\Response\Enricher\Enricher[]
      */
-    private array $enrichers;
+    private array $enrichers = [];
 
     private Retriever $retriever;
 
@@ -167,11 +164,13 @@ class ClassificationConfiguration extends Configuration
 
     private function initEnricher(): void
     {
-        $this->enrichers[] = new IPEnricher();
-        $this->enrichers[] = new MXEnricher();
-        $this->enrichers[] = new GeoLocationEnricher();
-        $this->enrichers[] = new SSLEnricher();
-        // $this->enrichers[] = new WhoisEnricher();
+        if ($this->hasSection(ClassificationConfiguration::SECTION_ENRICHER)) {
+            $enrichers = $this->getSection(ClassificationConfiguration::SECTION_ENRICHER);
+
+            foreach ($enrichers as $enricher) {
+                $this->enrichers[] = new $enricher();
+            }
+        }
     }
 
     public function getStorage(): Storage
@@ -204,7 +203,7 @@ class ClassificationConfiguration extends Configuration
         $asArray = Yaml::parse(file_get_contents($filename));
 
         if (array_key_exists('status', $asArray) && ($asArray['status'] === 'failures' || $asArray['status'] === 'failure')) {
-            throw new EmptyQueueException('Queue is empty.');   
+            throw new EmptyQueueException('Queue is empty.');
         }
 
         if (array_key_exists(self::SECTION_GENERAL, $asArray)

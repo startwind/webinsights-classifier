@@ -15,16 +15,20 @@ class ClassificationResult
         $this->uri = $uri;
     }
 
-    public function addTag(string $tag): void
+    public function addTag(string $tag, bool $normalize = true): void
     {
-        $this->tags[] = TagHelper::normalize($tag);
+        if ($normalize) {
+            $this->tags[] = TagHelper::normalize($tag);
+        } else {
+            $this->tags[] = $tag;
+        }
     }
 
-    public function addTags(array $tags): void
+    public function addTags(array $tags, bool $normalize = true): void
     {
         foreach ($tags as $tag) {
             if (is_array($tag)) continue;
-            $this->addTag($tag);
+            $this->addTag($tag, $normalize);
         }
     }
 

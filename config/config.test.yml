@@ -14,5 +14,3 @@ classifiers:
 exporter:
   - Startwind\WebInsights\Classification\Exporter\Analytics\CsvAnalyticsExporter: { filename: '_output/analytics-{runId}.csv' }
   - Startwind\WebInsights\Classification\Exporter\Analytics\CliAnalyticsExporter: { barWidth: 60, sortByNumber: false, hideSingleFindings: false }
-
-

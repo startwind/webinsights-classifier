@@ -27,6 +27,11 @@ class DomainContainer
         return $this->domains;
     }
 
+    public function getCount(): int
+    {
+        return count($this->domains);
+    }
+
     /**
      * @return Uri[]
      */

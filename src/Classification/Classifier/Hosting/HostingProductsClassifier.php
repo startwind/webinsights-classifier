@@ -128,6 +128,10 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'database:mongodb' => 'mongodb',
             'database:sql' => 'SQL Hosting',
 
+            # Installer
+            'installer:softaculous' => ['Softaculous'],
+            'installer:installatron' => ['installatron'],
+
             'server-root' => 'root server',
             'server-dedicated' => 'dedicated server',
 

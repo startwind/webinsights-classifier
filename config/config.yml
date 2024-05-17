@@ -23,6 +23,7 @@ enricher:
   - Startwind\WebInsights\Response\Enricher\IPEnricher
   - Startwind\WebInsights\Response\Enricher\MXEnricher
   - Startwind\WebInsights\Response\Enricher\GeoLocationEnricher
+  - Startwind\WebInsights\Response\Enricher\SSLEnricher
 
 classifiers:
 
@@ -151,4 +152,3 @@ classifiers:
 
   # Post Classifiers
   - Startwind\WebInsights\Classification\Classifier\Hosting\HostingCompanyClassifier
-  - Startwind\WebInsights\Classification\Classifier\Rss\RssFeedClassifier

@@ -1,6 +1,27 @@
 general:
-  inherit_default: true
-  log_level: alert
+  log_level: info
+
+retriever:
+  class: Startwind\WebInsights\Response\Retriever\FakeRetriever
+
+storage:
+  class: Startwind\WebInsights\Storage\FileStorage
+  options:
+    directory: _storage
+
+feeder:
+  class: Startwind\WebInsights\Classification\Feeder\ApiFeeder
+  options:
+    apiEndpoint: https://api.webinsights.info/tags/uris
+    tags:
+      - 'industry:hosting'
+      - 'html:content:pages:blog'
+      #- 'html:meta:keyword:stoakcage_en_ligne'
+      #- 'ip:78_138_58_31'
+
+exporter:
+  - Startwind\WebInsights\Classification\Exporter\Result\ApiExtraExporter
 
 classifiers:
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\PageClassifier
   - Startwind\WebInsights\Classification\Classifier\Rss\RssFeedClassifier

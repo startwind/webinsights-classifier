@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
 use Startwind\WebInsights\Classification\ClassificationResult;
 use Startwind\WebInsights\Classification\Classifier\Classifier;
+use Startwind\WebInsights\Classification\Classifier\ExtrasClassifier;
 use Startwind\WebInsights\Classification\Configuration\ClassificationConfiguration;
 use Startwind\WebInsights\Classification\Exception\CriticalException;
 use Startwind\WebInsights\Classification\Exporter\CompositionExporter;
@@ -86,7 +87,11 @@ abstract class ClassificationCommand extends Command
             try {
                 $timer->start();
                 $tags = $classifier->classify($response, $classificationResult->getTags());
-                $classificationResult->addTags($tags);
+                if ($classifier instanceof ExtrasClassifier) {
+                    $classificationResult->addTags($tags, false);
+                } else {
+                    $classificationResult->addTags($tags, true);
+                }
                 $time = $timer->getTimePassed();
                 $this->logger->debug('Classification completed in ' . $time . ' ms. Classifier: ' . get_class($classifier) . '.');
                 if ($time > 100) {
