@@ -6,19 +6,29 @@ include_once __DIR__ . '/../vendor/autoload.php';
 
 $client = new \GuzzleHttp\Client();
 
-$url = 'https://api.webinsights.info/extras/uris';
+if (count($argv) === 3) {
+    $domains = [
+        [
+            'uri' => $argv[1],
+            'extras' => ['blog:feed' => $argv[2]],
+        ]
+    ];
+} else {
 
-$payload = [
-    'extras' => [
-        "blog:feed"
-    ]
-];
+    $url = 'https://api.webinsights.info/extras/uris';
 
-$response = $client->post($url, [RequestOptions::JSON => $payload]);
+    $payload = [
+        'extras' => [
+            "blog:feed"
+        ]
+    ];
 
-$result = json_decode((string)$response->getBody(), true);
+    $response = $client->post($url, [RequestOptions::JSON => $payload]);
 
-$domains = $result['data']['domains'];
+    $result = json_decode((string)$response->getBody(), true);
+
+    $domains = $result['data']['domains'];
+}
 
 $count = 0;
 
