@@ -81,6 +81,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'security:Sophos' => 'Sophos',
             'security:trend-micro' => 'Trend Micro',
             'security:bitdefender' => 'Bitdefender',
+            'security:botguard' => 'botguard',
 
             # Control Panel
             'control-panel:cpanel' => ['cpanel'],
