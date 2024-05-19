@@ -81,7 +81,11 @@ abstract class ClassificationCommand extends Command
     {
         $timer = new Timer();
 
-        $classificationResult = new ClassificationResult($response->getRequestUri());
+        if ($response->hasEffectiveUri()) {
+            $classificationResult = new ClassificationResult($response->getEffectiveUri());
+        } else {
+            $classificationResult = new ClassificationResult($response->getRequestUri());
+        }
 
         foreach ($this->classifiers as $classifier) {
             try {

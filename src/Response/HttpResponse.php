@@ -22,6 +22,7 @@ class HttpResponse implements \JsonSerializable
     private int $transferTimeInMs;
     private string $serverIP;
     private array $certInfo;
+    private ?UriInterface $effectiveUri = null;
 
     public function __construct(string $body, array $headers, int $statusCode, UriInterface $requestUri, int $transferTimeInMs, string $serverIp, array $certInfo = [])
     {
@@ -41,6 +42,21 @@ class HttpResponse implements \JsonSerializable
         foreach ($this->headers as $key => $value) {
             $this->lowerCaseHeaders[strtolower($key)] = $value;
         }
+    }
+
+    public function getEffectiveUri(): UriInterface
+    {
+        return $this->effectiveUri;
+    }
+
+    public function hasEffectiveUri(): bool
+    {
+        return !is_null($this->effectiveUri);
+    }
+
+    public function setEffectiveUri(UriInterface $uri): void
+    {
+        $this->effectiveUri = $uri;
     }
 
     public function getTransferTimeInMs(): int

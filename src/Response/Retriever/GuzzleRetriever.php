@@ -214,10 +214,6 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
 
             $requestUri = new Uri($uriString);
 
-            if ($response->hasHeader('X-Guzzle-Redirect-History')) {
-                $requestUri = new Uri($response->getHeader('X-Guzzle-Redirect-History')[0]);
-            }
-
             $httpResponse = $this->createHttpResponse(
                 $response,
                 $requestUri,
@@ -225,6 +221,10 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
                 (string)$responseStats[(string)$requestUri]['ip'],
                 $responseStats[(string)$requestUri]['cert'],
             );
+
+            if ($response->hasHeader('X-Guzzle-Redirect-History')) {
+                $httpResponse->setEffectiveUri(new Uri($response->getHeader('X-Guzzle-Redirect-History')[0]));
+            }
 
             $rawResponses[$uriString] = $httpResponse;
 
