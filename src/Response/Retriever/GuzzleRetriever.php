@@ -132,6 +132,10 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
 
         $options['curl'] = [CURLOPT_CERTINFO => true];
 
+        $options['allow_redirects'] = [
+            'track_redirects' => true
+        ];
+
         // $options['headers']['User-Agent'] = 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
         $certInfos = [];
@@ -156,6 +160,7 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             }
 
             $responseStats[(string)($stats->getRequest()->getUri())]['transferTime'] = $stats->getTransferTime() * 1000;
+            $responseStats[(string)($stats->getRequest()->getUri())]['effectiveUrl'] = $stats->getEffectiveUri();
             $responseStats[(string)($stats->getRequest()->getUri())]['ip'] = $stats->getHandlerStats()['primary_ip'];
 
             if (array_key_exists($host, $certInfos)) {
@@ -195,8 +200,6 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
 
         $this->logger->info('Running ' . count($requests) . ' async Guzzle request(s).');
 
-        $time = new Timer();
-
         $responses = Utils::settle($requests)->wait();
 
         $rawResponses = [];
@@ -210,6 +213,10 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             }
 
             $requestUri = new Uri($uriString);
+
+            if ($response->hasHeader('X-Guzzle-Redirect-History')) {
+                $requestUri = new Uri($response->getHeader('X-Guzzle-Redirect-History')[0]);
+            }
 
             $httpResponse = $this->createHttpResponse(
                 $response,
