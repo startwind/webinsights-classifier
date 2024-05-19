@@ -301,16 +301,18 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'social-media:zoho-social' => ['Zoho Social'],
             'social-media:social-pilot' => ['Social Pilot'],
 
-            'server-root' => 'root server',
-            'server-dedicated' => 'dedicated server',
+            # Server
+            'server:root' => 'root server',
+            'server:dedicated' => 'dedicated server',
+            'server:vps' => ['vps', 'vServer'],
+            'server:managed-server' => 'managed server',
 
-            'domain-name-generator' => 'domain name generator',
+            # Features
+            'features:domain-name-generator' => 'domain name generator',
+            'features:reseller' => 'reseller hosting',
+            'features:ssd' => 'ssd',
+            
             'email' => ['cloud email'],
-            'reseller' => 'reseller hosting',
-            'vps' => ['vps', 'vServer'],
-            'webhosting' => 'webhosting',
-            'managed-server' => 'managed server',
-            'ssd' => 'ssd',
         ]
     ];
 }
