@@ -311,7 +311,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'features:domain-name-generator' => 'domain name generator',
             'features:reseller' => 'reseller hosting',
             'features:ssd' => 'ssd',
-            
+
             'email' => ['cloud email'],
         ]
     ];
