@@ -1,31 +1,34 @@
 <?php
 
 use GuzzleHttp\RequestOptions;
+use Startwind\WebInsights\Classification\Classifier\Hosting\HostingProductsClassifier;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-$tagList = [
-    'wordpress' => ['wordpress', 'wp', 'woocommerce'],
-    'woocommerce' => ['woocommerce', 'ecommerce'],
-    'vpn' => ['vpn'],
-    'vps' => ['vps'],
-];
+$productClassifier = new HostingProductsClassifier();
 
-function getTags(string $string)
+function getTags(string $title, string $description)
 {
-    global $tagList;
+    global $productClassifier;
 
-    $tags = [];
+    $httpResponse = new \Startwind\WebInsights\Response\HttpResponse(
+        $title . ' ' . $description,
+        [],
+        200,
+        new \GuzzleHttp\Psr7\Uri('https://example.com'),
+        100,
+        '0.0.0.0'
+    );
 
-    foreach ($tagList as $tag => $values) {
-        foreach ($values as $value) {
-            if (str_contains($string, $value)) {
-                $tags[] = $tag;
-            }
-        }
+    $tags = $productClassifier->classify($httpResponse, []);
+
+    $shortTags = [];
+
+    foreach ($tags as $tag) {
+        $shortTags[] = str_replace(HostingProductsClassifier::TAG_PREFIX, '', $tag);
     }
 
-    return array_unique($tags);
+    return array_unique($shortTags);
 }
 
 $client = new \GuzzleHttp\Client();
@@ -91,20 +94,31 @@ foreach ($domains as $domain) {
 
                 echo "\n Suggested interval: " . $interval . "\n\n";
             }
+
             $first = false;
+
+            $tags = getTags((string)$item->title, (string)$item->description);
+
             echo " - " . $item->title . " (date: " . date('Y-m-d H:i:s', $pubDate) . ")\n";
-            echo "   " . $item->link . "\n\n";
+            echo "   " . $item->link . "\n";
+            if (count($tags) > 0) {
+                echo "   tags: " . implode(', ', $tags) . "\n\n";
+            }
 
             $title = strtolower((string)$item->title);
 
-            $tags = getTags(strtolower((string)$item->title));
-
-            $rssItems[] = [
+            $rssItem = [
                 'title' => (string)$item->title,
                 'pubDate' => $pubDate,
                 'link' => (string)$item->link,
-                'tags' => $tags
+
             ];
+
+            if (count($tags) > 0) {
+                $rssItem['tags'] = $tags;
+            }
+
+            $rssItems[] = $rssItem;
         }
 
         $response = $client->post('https://api.webinsights.info/rss/add', [
