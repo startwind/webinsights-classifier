@@ -4,6 +4,30 @@ use GuzzleHttp\RequestOptions;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
+$tagList = [
+    'wordpress' => ['wordpress', 'wp', 'woocommerce'],
+    'woocommerce' => ['woocommerce', 'ecommerce'],
+    'vpn' => ['vpn'],
+    'vps' => ['vps'],
+];
+
+function getTags(string $string)
+{
+    global $tagList;
+
+    $tags = [];
+
+    foreach ($tagList as $tag => $values) {
+        foreach ($values as $value) {
+            if (str_contains($string, $value)) {
+                $tags[] = $tag;
+            }
+        }
+    }
+
+    return array_unique($tags);
+}
+
 $client = new \GuzzleHttp\Client();
 
 if (count($argv) === 3) {
@@ -71,10 +95,15 @@ foreach ($domains as $domain) {
             echo " - " . $item->title . " (date: " . date('Y-m-d H:i:s', $pubDate) . ")\n";
             echo "   " . $item->link . "\n\n";
 
+            $title = strtolower((string)$item->title);
+
+            $tags = getTags(strtolower((string)$item->title));
+
             $rssItems[] = [
                 'title' => (string)$item->title,
                 'pubDate' => $pubDate,
-                'link' => (string)$item->link
+                'link' => (string)$item->link,
+                'tags' => $tags
             ];
         }
 
