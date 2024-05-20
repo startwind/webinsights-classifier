@@ -77,7 +77,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'security:bitninja' => 'BitNinja',
             'security:modsecurity' => 'ModSecurity',
             'security:monarx' => 'Monarx',
-            'security:eset' => 'ESET',
+            'security:eset' => ' ESET',
             'security:Sophos' => 'Sophos',
             'security:trend-micro' => 'Trend Micro',
             'security:bitdefender' => 'Bitdefender',

@@ -8,7 +8,7 @@ use Startwind\WebInsights\Classification\Classifier\Hosting\HostingProductsClass
 
 class HostingProductsAggregator extends CountingAggregator
 {
-    protected int $limit = 100;
+    protected int $limit = 300;
 
     public function aggregate(ClassificationResult $classificationResult): void
     {
