@@ -17,7 +17,7 @@ class Timer
 
     public function start(): void
     {
-        $this->startTime = floor(microtime(true) * 1000);
+        $this->startTime = floor(microtime(true) * 1000 * 1000);
     }
 
     public function getTimePassed(string $unit = self::UNIT_MILLISECONDS): int
