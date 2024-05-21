@@ -32,14 +32,10 @@ abstract class AggregationCommand extends Command
             foreach ($aggregators as $aggregator) {
                 $aggregationTimer->start();
                 $aggregator->aggregate($classificationResult);
-                $time = $aggregationTimer->getTimePassed(Timer::UNIT_MICROSECONDS);
-                if ($time > 100) {
+                $time = $aggregationTimer->getTimePassed(Timer::UNIT_MILLISECONDS);
+                if ($time > 10) {
                     $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . ' micro seconds.');
                 }
-            }
-            if ($count % 1000 === 0) {
-                $this->configuration->getLogger()->warning('Count: ' . $count);
-                $this->configuration->getLogger()->info('Memory usage: ' . (int)(memory_get_peak_usage() / 1024 / 1024) . ' MB.');
             }
             $nextTimer->start();
         }
