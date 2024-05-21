@@ -21,9 +21,13 @@ abstract class AggregationCommand extends Command
         $count = 0;
 
         $aggregationTimer = new Timer();
-        $resultTimer = new Timer();
+        $nextTimer = new Timer();
 
         while ($classificationResult = $retriever->next()) {
+            $nextTime = $nextTimer->getTimePassed();
+            if ($nextTime > 100) {
+                $this->configuration->getLogger()->warning('Next was slow. Time: ' . $nextTime . ' ms.');
+            }
             $count++;
             foreach ($aggregators as $aggregator) {
                 $aggregationTimer->start();
@@ -37,6 +41,7 @@ abstract class AggregationCommand extends Command
                 $this->configuration->getLogger()->warning('Count: ' . $count);
                 $this->configuration->getLogger()->info('Memory usage: ' . (int)(memory_get_peak_usage() / 1024 / 1024) . ' MB.');
             }
+            $nextTimer->start();
         }
 
         if ($count === 0) {
