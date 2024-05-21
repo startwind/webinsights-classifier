@@ -28,7 +28,7 @@ abstract class AggregationCommand extends Command
                 $timer->start();
                 $aggregator->aggregate($classificationResult);
                 $time = $timer->getTimePassed();
-                if ($time > 0) {
+                if ($time > 1) {
                     $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . 'ms.');
                 }
             }
