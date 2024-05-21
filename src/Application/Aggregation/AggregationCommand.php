@@ -28,12 +28,13 @@ abstract class AggregationCommand extends Command
                 $timer->start();
                 $aggregator->aggregate($classificationResult);
                 $time = $timer->getTimePassed();
-                if ($time > 1) {
+                if ($time > 0) {
                     $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . 'ms.');
                 }
             }
             if ($count % 1000 === 0) {
                 $this->configuration->getLogger()->warning('Count: ' . $count);
+                $this->configuration->getLogger()->info('Memory usage: ' . (int)(memory_get_peak_usage() / 1024 / 1024) . ' MB.');
             }
         }
 
