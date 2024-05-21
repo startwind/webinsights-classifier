@@ -37,6 +37,11 @@ abstract class AggregationCommand extends Command
                     $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . ' micro seconds.');
                 }
             }
+
+            if ($count % 5000 == 0) {
+                $this->configuration->getLogger()->warning('Count: ' . $count);
+            }
+
             $nextTimer->start();
         }
 
