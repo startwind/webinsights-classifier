@@ -3,6 +3,7 @@
 namespace Startwind\WebInsights\Application\Aggregation;
 
 use Startwind\WebInsights\Aggregation\Configuration\AggregationConfiguration;
+use Startwind\WebInsights\Util\Timer;
 use Symfony\Component\Console\Command\Command;
 
 abstract class AggregationCommand extends Command
@@ -19,10 +20,17 @@ abstract class AggregationCommand extends Command
 
         $count = 0;
 
+        $timer = new Timer();
+
         while ($classificationResult = $retriever->next()) {
             $count++;
             foreach ($aggregators as $aggregator) {
+                $timer->start();
                 $aggregator->aggregate($classificationResult);
+                $time = $timer->getTimePassed();
+                if ($time > 50) {
+                    $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . 'ms.');
+                }
             }
         }
 

@@ -21,7 +21,7 @@ class MongoDBRetriever implements Retriever, LoggerAwareInterface
     const RUN_ID_ALL = '__all';
 
     private array $defaultOptions = [
-        'block_size' => 100,
+        'block_size' => 1000,
         'limit' => 100000,
         'tags' => [],
         'runId' => self::RUN_ID_ALL
