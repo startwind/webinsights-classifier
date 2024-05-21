@@ -82,7 +82,10 @@ class MongoDBRetriever implements Retriever, LoggerAwareInterface
             $findQuery['tags'] = ['$all' => $this->tags];
         }
 
-        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize, 'skip' => $this->position,  'sort' => ['_id' => 1]]);
+        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize, 'skip' => $this->position, 'sort' => ['_id' => 1]]);
+
+        var_dump($findQuery);
+        var_dump(['limit' => $this->blockSize, 'skip' => $this->position, 'sort' => ['_id' => 1]]);
 
         $count = 0;
 
