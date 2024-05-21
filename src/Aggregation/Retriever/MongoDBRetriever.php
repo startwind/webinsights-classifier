@@ -13,7 +13,6 @@ use Startwind\WebInsights\Classification\ClassificationResult;
 use Startwind\WebInsights\Configuration\Exception\ConfigurationException;
 use Startwind\WebInsights\Util\MongoDBHelper;
 
-/** @todo should be LoggerAware */
 class MongoDBRetriever implements Retriever, LoggerAwareInterface
 {
     use LoggerAwareTrait;
@@ -21,7 +20,7 @@ class MongoDBRetriever implements Retriever, LoggerAwareInterface
     const RUN_ID_ALL = '__all';
 
     private array $defaultOptions = [
-        'block_size' => 1000,
+        'block_size' => 2000,
         'limit' => 100000,
         'tags' => [],
         'runId' => self::RUN_ID_ALL
@@ -79,13 +78,18 @@ class MongoDBRetriever implements Retriever, LoggerAwareInterface
         }
 
         if (count($this->tags) > 0) {
-            $findQuery['tags'] = ['$all' => $this->tags];
+            if (count($this->tags) === 1) {
+                $findQuery['tags'] = $this->tags[0];
+            } else {
+                $findQuery['tags'] = ['$all' => $this->tags];
+            }
         }
 
-        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize, 'skip' => $this->position, 'sort' => ['_id' => 1]]);
+        if (!is_null($this->newestObjectId)) {
+            $findQuery['_id'] = ['$gt' => $this->newestObjectId];
+        }
 
-        var_dump($findQuery);
-        var_dump(['limit' => $this->blockSize, 'skip' => $this->position, 'sort' => ['_id' => 1]]);
+        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize]);
 
         $count = 0;
 
