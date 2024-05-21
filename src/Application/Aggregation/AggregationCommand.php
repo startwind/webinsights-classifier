@@ -25,7 +25,7 @@ abstract class AggregationCommand extends Command
 
         while ($classificationResult = $retriever->next()) {
             $nextTime = $nextTimer->getTimePassed();
-            if ($nextTime > 100) {
+            if ($nextTime > 1000) {
                 $this->configuration->getLogger()->warning('Next was slow. Time: ' . $nextTime . ' ms.');
             }
             $count++;

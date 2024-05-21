@@ -86,7 +86,7 @@ class MongoDBRetriever implements Retriever, LoggerAwareInterface
             $findQuery['_id'] = ['$gt' => $this->newestObjectId];
         }
 
-        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize]);
+        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize, 'sort' => ['_id' => 1]]);
 
         $count = 0;
 
