@@ -28,8 +28,8 @@ abstract class AggregationCommand extends Command
             foreach ($aggregators as $aggregator) {
                 $aggregationTimer->start();
                 $aggregator->aggregate($classificationResult);
-                $time = $aggregationTimer->getTimePassed();
-                if ($time > 1) {
+                $time = $aggregationTimer->getTimePassed(Timer::UNIT_MICROSECONDS);
+                if ($time > 500) {
                     $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . 'ms.');
                 }
             }
