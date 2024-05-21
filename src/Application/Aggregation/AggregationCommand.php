@@ -29,8 +29,8 @@ abstract class AggregationCommand extends Command
                 $aggregationTimer->start();
                 $aggregator->aggregate($classificationResult);
                 $time = $aggregationTimer->getTimePassed(Timer::UNIT_MICROSECONDS);
-                if ($time > 500) {
-                    $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . 'ms.');
+                if ($time > 100) {
+                    $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . ' micro seconds.');
                 }
             }
             if ($count % 1000 === 0) {

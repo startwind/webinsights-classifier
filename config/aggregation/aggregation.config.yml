@@ -16,7 +16,7 @@ aggregators:
   - Startwind\WebInsights\Aggregation\Aggregator\General\GeneralUpsellAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\Performance\WebsitePerformanceAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\Performance\WebsiteSizeAggregator
-  - Startwind\WebInsights\Aggregation\Aggregator\Persona\WebProsPersonaAggregator
+  # - Startwind\WebInsights\Aggregation\Aggregator\Persona\WebProsPersonaAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\CmsAggregator
   - Startwind\WebInsights\Aggregation\Aggregator\System\Cms\CmsOverviewAggregator
 
