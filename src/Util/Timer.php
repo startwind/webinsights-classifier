@@ -22,7 +22,7 @@ class Timer
 
     public function getTimePassed(string $unit = self::UNIT_MILLISECONDS): int
     {
-        $now = floor(microtime(true));
+        $now = floor(microtime(true) * 1000 * 1000);
         $time = $now - $this->startTime;
 
         return match ($unit) {
