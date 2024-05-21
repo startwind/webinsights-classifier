@@ -20,7 +20,7 @@ class MongoDBRetriever implements Retriever, LoggerAwareInterface
     const RUN_ID_ALL = '__all';
 
     private array $defaultOptions = [
-        'block_size' => 2000,
+        'block_size' => 5000,
         'limit' => 100000,
         'tags' => [],
         'runId' => self::RUN_ID_ALL
@@ -89,7 +89,7 @@ class MongoDBRetriever implements Retriever, LoggerAwareInterface
             $findQuery['_id'] = ['$gt' => $this->newestObjectId];
         }
 
-        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize]);
+        $rawClassificationResults = $this->collection->find($findQuery, ['limit' => $this->blockSize, 'projection' => ['runs' => false, 'created' => false, 'domain' => false]]);
 
         $count = 0;
 
