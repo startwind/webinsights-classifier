@@ -20,14 +20,15 @@ abstract class AggregationCommand extends Command
 
         $count = 0;
 
-        $timer = new Timer();
+        $aggregationTimer = new Timer();
+        $resultTimer = new Timer();
 
         while ($classificationResult = $retriever->next()) {
             $count++;
             foreach ($aggregators as $aggregator) {
-                $timer->start();
+                $aggregationTimer->start();
                 $aggregator->aggregate($classificationResult);
-                $time = $timer->getTimePassed();
+                $time = $aggregationTimer->getTimePassed();
                 if ($time > 1) {
                     $this->configuration->getLogger()->warning('Aggregation was slow. Aggregator: ' . get_class($aggregator) . ', time: ' . $time . 'ms.');
                 }
