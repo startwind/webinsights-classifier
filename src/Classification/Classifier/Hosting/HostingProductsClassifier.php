@@ -244,7 +244,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'cpu:nvidia' => ['NVIDIA'],
 
             # Hosting
-            'hosting:colocation' => ['colocation', 'co-location'],
+            'hosting:colocation' => ['colocation', 'co-location', 'Colocatie'],
 
             # Automation
             'automation:ansible' => ['ansible'],
@@ -304,8 +304,9 @@ class HostingProductsClassifier extends PatternAwareClassifier
             # Server
             'server:root' => 'root server',
             'server:dedicated' => 'dedicated server',
+            'server:shared' => ['shared hosting'],
             'server:vps' => ['vps', 'vServer'],
-            'server:managed-server' => 'managed server',
+            'server:managed-server' => ['managed server', 'managed hosting'],
 
             # Features
             'features:domain-name-generator' => 'domain name generator',
