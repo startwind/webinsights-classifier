@@ -11,7 +11,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
     public const TAG_PREFIX = 'company:hosting:products:';
 
     protected array $keywords = [
-        self::SOURCE_HTML => [
+        self::SOURCE_BODY => [
             # Website Builder
             'website-builder' => ['website builder', 'homepage baukasten', 'homepage-baukasten'],
             'website-builder:sitejet' => 'Sitejet',
@@ -77,7 +77,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'security:bitninja' => 'BitNinja',
             'security:modsecurity' => 'ModSecurity',
             'security:monarx' => 'Monarx',
-            'security:eset' => ' ESET',
+            'security:eset' => [' ESET'],
             'security:Sophos' => 'Sophos',
             'security:trend-micro' => 'Trend Micro',
             'security:bitdefender' => 'Bitdefender',
@@ -166,7 +166,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'monitoring:checkmk' => 'Checkmk',
 
             # Cloud
-            'cloud' => ['cloud computing'],
+            'cloud' => ['cloud computing', 'managed cloud', 'cloud services'],
             'cloud:aws' => ['aws', 'ec2'],
             'cloud:azure' => ['azure'],
             'cloud:google' => ['google cloud'],

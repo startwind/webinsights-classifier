@@ -13,4 +13,28 @@ abstract class UrlHelper
 
         return (array_key_exists(count($array) - 2, $array) ? $array[count($array) - 2] : "") . "." . $array[count($array) - 1];
     }
+
+    static public function normalizeUrl(string $string): string
+    {
+        $url = self::removeGetParameters($string);
+
+        if (substr_count($url, '/') === 3) {
+            $url = rtrim($url, '/');
+        }
+
+        return $url;
+    }
+
+    static public function removeGetParameters(string $string): string
+    {
+        $parsedUrl = parse_url($string);
+
+        $urlWithoutQuery = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
+
+        if (isset($parsedUrl['path'])) {
+            $urlWithoutQuery .= $parsedUrl['path'];
+        }
+
+        return $urlWithoutQuery;
+    }
 }

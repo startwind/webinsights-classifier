@@ -6,14 +6,41 @@ class HtmlDocument
 {
     private string $plainContent;
 
+    private string $body;
+    private string $bodyWithoutTags;
+
     public function __construct(string $plainContent)
     {
         $this->plainContent = $plainContent;
+
+        if (preg_match('~<body(.*)</body>~s', $this->plainContent, $matches)) {
+            $body = $matches[1];
+            $this->body = $body;
+
+            $bodyWithoutTags = strip_tags($body, '<a><script><style>');
+
+            $bodyWithoutTags = preg_replace('#<script(.*?)</script>#s', '', $bodyWithoutTags);
+            $bodyWithoutTags = preg_replace('#<style(.*?)</style>#s', '', $bodyWithoutTags);
+
+            $this->bodyWithoutTags = $bodyWithoutTags;
+        } else {
+            $this->body = $plainContent;
+            $this->bodyWithoutTags = $plainContent;
+        }
     }
 
     public function getPlainContent(): string
     {
         return $this->plainContent;
+    }
+
+    public function getBody($stripTags = false)
+    {
+        if ($stripTags) {
+            return $this->bodyWithoutTags;
+        } else {
+            return $this->body;
+        }
     }
 
     public function asDomDocument(): \DOMDocument

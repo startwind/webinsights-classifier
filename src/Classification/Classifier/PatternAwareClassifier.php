@@ -11,6 +11,7 @@ abstract class PatternAwareClassifier
     protected const TAG_PREFIX = '';
 
     protected const SOURCE_HTML = 'html';
+    protected const SOURCE_BODY = 'body';
 
     protected array $keywords = [];
 
@@ -18,8 +19,7 @@ abstract class PatternAwareClassifier
     {
         $tags = [];
 
-        if (array_key_exists(self::SOURCE_HTML, $this->keywords)) {
-            $keywords = $this->keywords[self::SOURCE_HTML];
+        foreach ($this->keywords as $type => $keywords) {
             foreach ($keywords as $key => $keyword) {
                 if (!is_array($keyword)) {
                     $keyword = [$keyword];
@@ -35,7 +35,20 @@ abstract class PatternAwareClassifier
                 }
 
                 foreach ($keyword as $singleKeyword) {
-                    if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) {
+                    $found = false;
+
+                    switch ($type) {
+                        case self::SOURCE_HTML:
+                            if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) $found = true;
+                            break;
+                        case self::SOURCE_BODY:
+                            if (str_contains(strtolower($httpResponse->getHtmlDocument()->getBody(true)), $singleKeyword)) {
+                                $found = true;
+                            }
+                            break;
+                    }
+
+                    if ($found) {
                         $tags[] = static::TAG_PREFIX . $key;
                     }
                 }

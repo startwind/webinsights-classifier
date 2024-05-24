@@ -101,7 +101,11 @@ class HttpResponse implements \JsonSerializable
 
     public function getHtmlDocument(): HtmlDocument
     {
-        return new HtmlDocument($this->body);
+        static $htmlDocument;
+
+        if (!$htmlDocument) $htmlDocument = new HtmlDocument($this->body);
+
+        return $htmlDocument;
     }
 
     public function hasHeader(string $headerName, bool $caseSensitive = false): bool
@@ -166,7 +170,8 @@ class HttpResponse implements \JsonSerializable
             'statusCode' => $this->statusCode,
             'transferTimeInMs' => $this->transferTimeInMs,
             'enrichmentData' => $this->enrichmentData,
-            'serverIP' => $this->serverIP
+            'serverIP' => $this->serverIP,
+            'effectiveUri' => (string)$this->effectiveUri
         ];
     }
 
@@ -201,6 +206,10 @@ class HttpResponse implements \JsonSerializable
 
         if (array_key_exists('enrichmentData', $array)) {
             $response->setEnrichmentData($array['enrichmentData']);
+        }
+
+        if (array_key_exists('effectiveUri', $array)) {
+            $response->setEffectiveUri(new Uri($array['effectiveUri']));
         }
 
         return $response;

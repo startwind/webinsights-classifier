@@ -3,6 +3,7 @@
 namespace Startwind\WebInsights\Classification\Exporter\Result;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
 use Startwind\WebInsights\Classification\ClassificationResult;
 use Startwind\WebInsights\Classification\Exporter\Exporter;
@@ -66,7 +67,11 @@ class ApiExporter implements Exporter
         if ($this->isLastRun) {
             $url = str_replace('{runId}', $this->runId, $this->finishEndpoint);
             $url = str_replace('{miss}', $this->processedWebsites, $url);
-            $this->client->get($url);
+            try {
+                $this->client->get($url);
+            } catch (ServerException $e) {
+                // var_dump((string)$e->getResponse()->getBody());
+            }
         }
 
         $this->update();

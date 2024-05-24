@@ -20,6 +20,7 @@ use Startwind\WebInsights\Response\Retriever\Exception\CloudflareBlockedExceptio
 use Startwind\WebInsights\Storage\NullStorage;
 use Startwind\WebInsights\Storage\Storage;
 use Startwind\WebInsights\Util\Timer;
+use Startwind\WebInsights\Util\UrlHelper;
 
 class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwareRetriever, StorageAwareRetriever, EnrichmentAwareRetriever
 {
@@ -223,7 +224,11 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             );
 
             if ($response->hasHeader('X-Guzzle-Redirect-History')) {
-                $httpResponse->setEffectiveUri(new Uri($response->getHeader('X-Guzzle-Redirect-History')[0]));
+                $effectiveUrl = UrlHelper::normalizeUrl($response->getHeader('X-Guzzle-Redirect-History')[0]);
+                $httpResponse->setEffectiveUri(new Uri($effectiveUrl));
+            } else {
+                $effectiveUrl = UrlHelper::normalizeUrl((string)$requestUri);
+                $httpResponse->setEffectiveUri(new Uri($effectiveUrl));
             }
 
             $rawResponses[$uriString] = $httpResponse;
