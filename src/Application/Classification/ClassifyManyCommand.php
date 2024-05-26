@@ -117,8 +117,6 @@ class ClassifyManyCommand extends ClassificationCommand
             $this->getExporter()->export($tags);
 
             file_put_contents('/var/log/webinsights/requests.log', date('Y-m-d H:i:s') . ' - ' . (string)$httpResponse->getRequestUri() . PHP_EOL, FILE_APPEND | LOCK_EX);
-
-            die;
         }
 
         $exporter = $this->getExporter();
