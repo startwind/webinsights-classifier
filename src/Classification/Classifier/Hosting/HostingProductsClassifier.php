@@ -166,7 +166,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'monitoring:checkmk' => 'Checkmk',
 
             # Cloud
-            'cloud' => ['cloud computing', 'managed cloud', 'cloud services'],
+            'cloud' => ['cloud computing', 'managed cloud', 'cloud services', 'cloud hosting'],
             'cloud:aws' => ['aws', 'ec2'],
             'cloud:azure' => ['azure'],
             'cloud:google' => ['google cloud'],

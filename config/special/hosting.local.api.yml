@@ -1,0 +1,18 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  - Startwind\WebInsights\Classification\Exporter\Result\ApiExporter
+
+feeder:
+  class: Startwind\WebInsights\Classification\Feeder\ApiFeeder
+  options:
+    apiEndpoint: https://api.webinsights.info/tags/uris
+    tags:
+      - 'industry:hosting'
+      - "hosting:location:as:as13335_cloudflare_inc"
+      - 'domain:main'
+      - 'wordpress:plugin:duracelltomi-google-tag-manager'
+      - "wordpress:theme:deliciousbrains"
+      - "html:meta:robots:max-image-preview:large"

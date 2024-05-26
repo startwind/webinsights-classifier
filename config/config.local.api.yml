@@ -1,0 +1,7 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  - Startwind\WebInsights\Classification\Exporter\Result\ApiExporter
+

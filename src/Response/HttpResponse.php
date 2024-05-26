@@ -24,6 +24,8 @@ class HttpResponse implements \JsonSerializable
     private array $certInfo;
     private ?UriInterface $effectiveUri = null;
 
+    private HtmlDocument $htmlDocument;
+
     public function __construct(string $body, array $headers, int $statusCode, UriInterface $requestUri, int $transferTimeInMs, string $serverIp, array $certInfo = [])
     {
         $this->body = $body;
@@ -38,6 +40,8 @@ class HttpResponse implements \JsonSerializable
         $this->transferTimeInMs = $transferTimeInMs;
 
         $this->certInfo = $certInfo;
+
+        $this->htmlDocument = new HtmlDocument($this->body);
 
         foreach ($this->headers as $key => $value) {
             $this->lowerCaseHeaders[strtolower($key)] = $value;
@@ -101,11 +105,7 @@ class HttpResponse implements \JsonSerializable
 
     public function getHtmlDocument(): HtmlDocument
     {
-        static $htmlDocument;
-
-        if (!$htmlDocument) $htmlDocument = new HtmlDocument($this->body);
-
-        return $htmlDocument;
+        return $this->htmlDocument;
     }
 
     public function hasHeader(string $headerName, bool $caseSensitive = false): bool

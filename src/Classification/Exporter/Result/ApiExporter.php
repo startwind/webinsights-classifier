@@ -34,10 +34,18 @@ class ApiExporter implements Exporter
 
     public function __construct($notNeeded, $options = [])
     {
-        $options = array_merge($this->defaultOptions, $options['options']);
+        if (array_key_exists('options', $options)) {
+            $options = array_merge($this->defaultOptions, $options['options']);
+        } else {
+            $options = $this->defaultOptions;
+        }
         $this->client = new Client();
 
-        $this->runId = $options['runId'];
+        if (array_key_exists('runId', $options)) {
+            $this->runId = $options['runId'];
+        } else {
+            $this->runId = 'manual_' . time();
+        }
 
         $this->exportEndpoint = $options['endpoint'];
         $this->finishEndpoint = $options['finishEndpoint'];

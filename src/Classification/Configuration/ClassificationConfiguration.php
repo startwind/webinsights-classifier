@@ -216,6 +216,10 @@ class ClassificationConfiguration extends Configuration
                 $asArray[self::SECTION_STORAGE] = $defaultConfig[self::SECTION_STORAGE];
             }
 
+            if (!array_key_exists(self::SECTION_ENRICHER, $asArray)) {
+                $asArray[self::SECTION_ENRICHER] = $defaultConfig[self::SECTION_ENRICHER];
+            }
+
             if (!array_key_exists(self::SECTION_RETRIEVER, $asArray)) {
                 $asArray[self::SECTION_RETRIEVER] = $defaultConfig[self::SECTION_RETRIEVER];
             }

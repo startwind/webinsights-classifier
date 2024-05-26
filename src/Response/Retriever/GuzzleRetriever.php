@@ -171,7 +171,7 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             }
         };
 
-        // $this->parallelRequests = 60;
+        $this->parallelRequests = 1;
 
         for ($i = 0; $i < $this->parallelRequests; $i++) {
 
