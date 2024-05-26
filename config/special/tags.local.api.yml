@@ -10,4 +10,4 @@ feeder:
   options:
     apiEndpoint: https://api.webinsights.info/tags/uris
     tags:
-      - "company:hosting:products:monitoring:360-monitoring"
+      - "company:hosting:products:monitoring:zabbix"

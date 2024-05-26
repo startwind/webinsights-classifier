@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\RequestOptions;
 use GuzzleHttp\TransferStats;
 use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
@@ -137,6 +138,8 @@ class GuzzleRetriever implements Retriever, LoggerAwareRetriever, HttpClientAwar
             'track_redirects' => true
         ];
 
+
+        $options[RequestOptions::HEADERS]['Accept-Language'] = "en";
         // $options['headers']['User-Agent'] = 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
         $certInfos = [];

@@ -3,6 +3,7 @@
 namespace Startwind\WebInsights\Classification\Domain;
 
 use GuzzleHttp\Psr7\Uri;
+use Startwind\WebInsights\Util\UrlHelper;
 
 class DomainContainer
 {

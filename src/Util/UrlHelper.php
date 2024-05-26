@@ -37,4 +37,9 @@ abstract class UrlHelper
 
         return $urlWithoutQuery;
     }
+
+    static public function rootUri(UriInterface $uri): UriInterface
+    {
+        return $uri->withPath('')->withQuery('');
+    }
 }

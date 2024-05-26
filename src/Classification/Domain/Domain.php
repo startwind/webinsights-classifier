@@ -4,6 +4,7 @@ namespace Startwind\WebInsights\Classification\Domain;
 
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
+use Startwind\WebInsights\Util\UrlHelper;
 
 class Domain
 {
@@ -51,7 +52,7 @@ class Domain
         if (!\str_starts_with($string, 'http')) {
             $string = 'https://' . $string;
         }
-#
-        return $string;
+
+        return (string)UrlHelper::rootUri(new Uri($string));
     }
 }

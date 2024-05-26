@@ -21,6 +21,7 @@ use Startwind\WebInsights\Response\HttpResponse;
 use Startwind\WebInsights\Response\Retriever\Retriever;
 use Startwind\WebInsights\Storage\RunIdAwareStorage;
 use Startwind\WebInsights\Util\Timer;
+use Startwind\WebInsights\Util\UrlHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -82,10 +83,12 @@ abstract class ClassificationCommand extends Command
         $timer = new Timer();
 
         if ($response->hasEffectiveUri()) {
-            $classificationResult = new ClassificationResult($response->getEffectiveUri());
+            $uri = $response->getEffectiveUri();
         } else {
-            $classificationResult = new ClassificationResult($response->getRequestUri());
+            $uri = $response->getRequestUri();
         }
+
+        $classificationResult = new ClassificationResult(UrlHelper::rootUri($uri));
 
         foreach ($this->classifiers as $classifier) {
             try {
