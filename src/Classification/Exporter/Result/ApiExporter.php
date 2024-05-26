@@ -19,6 +19,8 @@ class ApiExporter implements Exporter
 
     private string $exportEndpoint;
 
+    private int $bulkMaxSize = 100;
+
     private Client $client;
 
     private string $runId;
@@ -63,14 +65,25 @@ class ApiExporter implements Exporter
             'tags' => $classificationResult->getTags(),
             'uri' => (string)$classificationResult->getUri()
         ];
+
+        if (count($this->data) > $this->bulkMaxSize) {
+            $this->flushData();
+        }
     }
 
-    public function finish(): string
+    private function flushData(): void
     {
         $this->client->post('https://api.webinsights.info/classifier/datas', [
                 RequestOptions::JSON => ['data' => $this->data]
             ]
         );
+
+        $this->data = [];
+    }
+
+    public function finish(): string
+    {
+        $this->flushData();
 
         if ($this->isLastRun) {
             $url = str_replace('{runId}', $this->runId, $this->finishEndpoint);

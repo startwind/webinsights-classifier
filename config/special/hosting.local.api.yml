@@ -13,6 +13,4 @@ feeder:
       - 'industry:hosting'
       - "hosting:location:as:as13335_cloudflare_inc"
       - 'domain:main'
-      - 'wordpress:plugin:duracelltomi-google-tag-manager'
-      - "wordpress:theme:deliciousbrains"
-      - "html:meta:robots:max-image-preview:large"
+      - '_system:old'

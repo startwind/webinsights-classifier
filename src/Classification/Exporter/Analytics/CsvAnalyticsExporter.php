@@ -41,6 +41,8 @@ class CsvAnalyticsExporter extends AnalyticsExporter implements LoggerAwareExpor
                 }
                 $this->tags[$data[0]] = $data[1];
             }
+
+            fclose($fp);
         }
     }
 

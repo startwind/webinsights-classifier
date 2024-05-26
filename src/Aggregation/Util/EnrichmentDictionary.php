@@ -63,6 +63,8 @@ class EnrichmentDictionary
             $dictionary->add($data[0], $value);
         }
 
+        fclose($handle);
+
         return $dictionary;
     }
 }

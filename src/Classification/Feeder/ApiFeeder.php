@@ -16,11 +16,17 @@ class ApiFeeder implements Feeder, LoggerAwareRetriever
     private DomainContainer $domainContainer;
     private string $filename;
 
+    private int $startWith = 0;
+
     public function __construct(array $options)
     {
         $this->domainContainer = new DomainContainer();
 
         $apiEndpoint = $options['apiEndpoint'];
+
+        if (array_key_exists('startWith', $options)) {
+            $this->startWith = $options['startWith'];
+        }
 
         $client = new Client();
 
@@ -34,7 +40,15 @@ class ApiFeeder implements Feeder, LoggerAwareRetriever
 
         $domains = $result['data']['domains'];
 
+        $count = 0;
+
         foreach ($domains as $domain) {
+            $count++;
+
+            if ($count < $this->startWith) {
+                continue;
+            }
+
             if (\str_starts_with($domain, '#')) continue;
 
             try {
