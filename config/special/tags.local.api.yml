@@ -1,0 +1,13 @@
+general:
+  inherit_default: true
+  log_level: info
+
+exporter:
+  - Startwind\WebInsights\Classification\Exporter\Result\ApiExporter
+
+feeder:
+  class: Startwind\WebInsights\Classification\Feeder\ApiFeeder
+  options:
+    apiEndpoint: https://api.webinsights.info/tags/uris
+    tags:
+      - "company:hosting:products:monitoring:360-monitoring"

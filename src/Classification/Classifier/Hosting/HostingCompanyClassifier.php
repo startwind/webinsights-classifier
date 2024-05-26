@@ -25,7 +25,9 @@ class HostingCompanyClassifier implements Classifier
 
         if (in_array('http:status-code:403', $existingTags)) return [];
 
-        if (!$httpResponse->getHtmlDocument()->contains('hosting')) return [];
+        $minProducts = 4;
+
+        if ($httpResponse->getHtmlDocument()->contains('hosting')) $minProducts = 2;
 
         foreach ($existingTags as $existingTag) {
             if (str_starts_with($existingTag, HostingProductsClassifier::TAG_PREFIX)
@@ -34,7 +36,7 @@ class HostingCompanyClassifier implements Classifier
             }
         }
 
-        if ($count > 3) {
+        if ($count > $minProducts) {
             return [self::CLASSIFIER_PREFIX];
         } else {
             return [];
