@@ -28,7 +28,7 @@ class SubDomainClassifier extends UrlClassifier
             return [self::CLASSIFIER_PREFIX . 'main'];
         }
 
-        if ($parts[1] === 'com' || $parts[1] === 'co') {
+        if (in_array($parts[1], ['com', 'co', 'net', 'edu', 'gov', 'org'])) {
             return [self::CLASSIFIER_PREFIX . 'main'];
         }
 
