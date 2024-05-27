@@ -42,7 +42,7 @@ abstract class PatternAwareClassifier
                             if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) $found = true;
                             break;
                         case self::SOURCE_BODY:
-                            if (str_contains(strtolower($httpResponse->getHtmlDocument()->getBody(true)), $singleKeyword)) {
+                            if (str_contains(strtolower($httpResponse->getHtmlDocument()->getBody(true)), strtolower($singleKeyword))) {
                                 $found = true;
                             }
                             break;

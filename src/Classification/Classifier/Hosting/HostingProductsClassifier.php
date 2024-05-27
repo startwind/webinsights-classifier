@@ -275,7 +275,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'database:sql' => 'SQL Hosting',
 
             # Installer
-            'installer:softaculous' => ['Softaculous'],
+            'installer:softaculous' => ['softaculous'],
             'installer:installatron' => ['installatron'],
             'installer:bitnami' => ['Bitnami'],
             'installer:simplescripts' => ['SimpleScripts'],
