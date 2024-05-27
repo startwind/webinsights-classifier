@@ -82,6 +82,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'security:trend-micro' => 'Trend Micro',
             'security:bitdefender' => 'Bitdefender',
             'security:botguard' => 'botguard',
+            'security:ddos-protection' => 'ddos',
 
             # Control Panel
             'control-panel:cpanel' => ['cpanel'],
@@ -313,7 +314,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'features:reseller' => 'reseller hosting',
             'features:ssd' => 'ssd',
 
-            'email' => ['cloud email'],
+            'email' => ['cloud email', 'E-mail Services', 'Professional Email'],
         ]
     ];
 }
