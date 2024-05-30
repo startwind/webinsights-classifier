@@ -56,13 +56,14 @@ function getAsn($ip): int
     $as = $asCollection->findOne($query);
 
     if ($as) {
-        var_dump('FOUND');
         return $as['as'];
     } else {
-        var_dump('NOT FOUND');
+        var_dump('NOT FOUND ' . $ip);
     }
 
     $as = $asExtractor->getAs($ip);
+
+    var_dump($as);
 
     $ranges = $ipRangeExtractor->getIpRange($as);
 
