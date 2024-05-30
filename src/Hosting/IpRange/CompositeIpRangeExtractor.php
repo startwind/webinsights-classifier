@@ -22,8 +22,7 @@ class CompositeIpRangeExtractor implements IpRangeExtractor
     {
         foreach ($this->extractors as $ipRangeExtractor) {
             try {
-                $as = $ipRangeExtractor->getIpRange($as);
-                return $as;
+                return $ipRangeExtractor->getIpRange($as);
             } catch (\Exception $exception) {
                 $this->logger->warning('Unable to use ' . get_class($ipRangeExtractor) . ': ' . $exception->getMessage());
             }
