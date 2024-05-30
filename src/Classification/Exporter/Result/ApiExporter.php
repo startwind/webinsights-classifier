@@ -73,6 +73,8 @@ class ApiExporter implements Exporter
 
     private function flushData(): void
     {
+        var_dump(json_encode(['data' => $this->data]));
+
         $this->client->post('https://api.webinsights.info/classifier/datas', [
                 RequestOptions::JSON => ['data' => $this->data]
             ]

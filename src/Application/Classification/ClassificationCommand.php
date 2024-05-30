@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use Startwind\WebInsights\Classification\ClassificationResult;
 use Startwind\WebInsights\Classification\Classifier\Classifier;
 use Startwind\WebInsights\Classification\Classifier\ExtrasClassifier;
+use Startwind\WebInsights\Classification\Classifier\HistoryClassifier;
 use Startwind\WebInsights\Classification\Configuration\ClassificationConfiguration;
 use Startwind\WebInsights\Classification\Exception\CriticalException;
 use Startwind\WebInsights\Classification\Exporter\CompositionExporter;
@@ -94,7 +95,14 @@ abstract class ClassificationCommand extends Command
             try {
                 $timer->start();
                 $tags = $classifier->classify($response, $classificationResult->getTags());
-                if ($classifier instanceof ExtrasClassifier) {
+
+                if ($classifier instanceof HistoryClassifier) {
+                    foreach ($tags as $index => $tag) {
+                        $tags[$index] = HistoryClassifier::PREFIX . $tag;
+                    }
+                }
+
+                if ($classifier instanceof ExtrasClassifier || $classifier instanceof HistoryClassifier) {
                     $classificationResult->addTags($tags, false);
                 } else {
                     $classificationResult->addTags($tags, true);
