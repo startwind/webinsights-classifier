@@ -88,6 +88,53 @@ $asCollection = $database->selectCollection('as');
 $domains = [];
 $operations = [];
 
+function processData($domains, $documents)
+{
+    global $collection;
+
+    $knownDomains = $collection->find(['domain' => ['$in' => $domains]]);
+
+    foreach ($knownDomains as $knownDomain) {
+        if ($knownDomain['ip'] != $documents[$knownDomain['domain']['ip']]) {
+
+            $as = getAsn($documents[$knownDomain['domain']['ip']]);
+
+            $historyIp = [
+                'date' => new \MongoDB\BSON\UTCDateTime(),
+                'value' => $documents[$knownDomain['domain']['ip']]
+            ];
+
+            if ($as != $knownDomain['as']) {
+                $historyAs = [
+                    'date' => new \MongoDB\BSON\UTCDateTime(),
+                    'value' => $as
+                ];
+                $operations[] = ['updateOne' => ['_id' => $knownDomain['_id']], ['$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]];
+            } else {
+                $operations[] = ['updateOne' => ['_id' => $knownDomain['_id']], ['$push' => ['history.ip' => $historyIp]]];
+            }
+        }
+
+        unset($documents[$knownDomain['domain']]);
+    }
+
+    foreach ($documents as $document) {
+        $as = getAsn($document['ip']);
+
+        $document['as'] = $as;
+        $document['history']['as'][] = [
+            [
+                'date' => new \MongoDB\BSON\UTCDateTime(),
+                'value' => $as
+            ]
+        ];
+
+        $operations[] = ['insertOne' => $document];
+    }
+
+    $collection->bulkWrite($operations);
+}
+
 while ($data = fgetcsv($handle)) {
     $count++;
     if ($count >= $startWith) {
@@ -118,49 +165,8 @@ while ($data = fgetcsv($handle)) {
             ];
 
             if ($found % $blockSize == 0) {
-                $knownDomains = $collection->find(['domain' => ['$in' => $domains]]);
-
-                foreach ($knownDomains as $knownDomain) {
-                    if ($knownDomain['ip'] != $documents[$knownDomain['domain']['ip']]) {
-
-                        $as = getAsn($ip);
-
-                        $historyIp = [
-                            'date' => new \MongoDB\BSON\UTCDateTime(),
-                            'value' => $ip
-                        ];
-
-                        if ($as != $knownDomain['as']) {
-                            $historyAs = [
-                                'date' => new \MongoDB\BSON\UTCDateTime(),
-                                'value' => $as
-                            ];
-                            $operations[] = ['updateOne' => ['_id' => $knownDomain['_id']], ['$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]];
-                        } else {
-                            $operations[] = ['updateOne' => ['_id' => $knownDomain['_id']], ['$push' => ['history.ip' => $historyIp]]];
-                        }
-                    }
-
-                    unset($documents[$knownDomain['domain']]);
-                }
-
-                foreach ($documents as $document) {
-                    $as = getAsn($document['ip']);
-
-                    $document['as'] = $as;
-                    $document['history']['as'][] = [
-                        [
-                            'date' => new \MongoDB\BSON\UTCDateTime(),
-                            'value' => $as
-                        ]
-                    ];
-
-                    $operations[] = ['insertOne' => $document];
-                }
-
                 echo "\nPersisting dataset #" . $count;
-
-                $collection->bulkWrite($operations);
+                processData($domains, $documents);
 
                 $operations = [];
                 $documents = [];
@@ -169,3 +175,6 @@ while ($data = fgetcsv($handle)) {
         }
     }
 }
+
+echo "\nPersisting dataset #" . $count;
+processData($domains, $documents);
