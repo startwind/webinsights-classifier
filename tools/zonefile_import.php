@@ -55,7 +55,12 @@ function getAsn($ip): int
 
     $as = $asCollection->findOne($query);
 
-    if ($as) return $as['as'];
+    if ($as) {
+        var_dump('FOUND');
+        return $as['as'];
+    } else {
+        var_dump('NOT FOUND');
+    }
 
     $as = $asExtractor->getAs($ip);
 
