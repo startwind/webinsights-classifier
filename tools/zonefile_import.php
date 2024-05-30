@@ -142,7 +142,9 @@ function processData($domains, $documents): void
         $operations[] = ['insertOne' => [$document]];
     }
 
-    $collection->bulkWrite($operations);
+    if (count($operations) > 0) {
+        $collection->bulkWrite($operations);
+    }
 }
 
 while ($data = fgetcsv($handle)) {
