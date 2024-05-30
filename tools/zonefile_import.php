@@ -63,7 +63,7 @@ function getAsn($ip): int
 
     $asExporter->export($as, $ranges);
 
-    return $as;
+    return (int)$as;
 }
 
 $asn = [];
