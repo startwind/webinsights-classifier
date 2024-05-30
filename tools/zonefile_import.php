@@ -105,7 +105,7 @@ function processData($domains, $documents): void
     $knownDomains = $collection->find(['domain' => ['$in' => $domains]]);
 
     foreach ($knownDomains as $knownDomain) {
-        if ($knownDomain['ip'] != $documents[$knownDomain['domain']['ip']]) {
+        if ($knownDomain['ip'] != $documents[$knownDomain['domain']]['ip']) {
 
             $as = getAsn($documents[$knownDomain['domain']['ip']]);
 
