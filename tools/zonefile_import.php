@@ -61,7 +61,9 @@ function getAsn($ip): int
 
     $ranges = $ipRangeExtractor->getIpRange($as);
 
-    $asExporter->export($as, $ranges);
+    if ($as && $as != 'NA') {
+        $asExporter->export($as, $ranges);
+    }
 
     return (int)$as;
 }
@@ -88,9 +90,11 @@ $asCollection = $database->selectCollection('as');
 $domains = [];
 $operations = [];
 
-function processData($domains, $documents)
+function processData($domains, $documents): void
 {
     global $collection;
+
+    $operations = [];
 
     $knownDomains = $collection->find(['domain' => ['$in' => $domains]]);
 
@@ -141,7 +145,6 @@ while ($data = fgetcsv($handle)) {
         $ip = $data[2];
         $domain = $data[0];
 
-
         if ($ip) {
             $domains[] = $domain;
             $found++;
@@ -168,7 +171,6 @@ while ($data = fgetcsv($handle)) {
                 echo "\nPersisting dataset #" . $count;
                 processData($domains, $documents);
 
-                $operations = [];
                 $documents = [];
                 $domains = [];
             }
