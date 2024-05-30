@@ -67,11 +67,13 @@ function getAsn($ip): int
 
     $ranges = $ipRangeExtractor->getIpRange($as);
 
-    if ($as && $as != 'NA') {
+    if ($as && $as != 'NA' && count($ranges) > 0) {
         $asExporter->export($as, $ranges);
+        return (int)$as;
+    } else {
+        return false;
     }
 
-    return (int)$as;
 }
 
 $asn = [];
@@ -114,7 +116,7 @@ function processData($domains, $documents): void
                 'value' => $documents[$knownDomain['domain']['ip']]
             ];
 
-            if ($as != $knownDomain['as']) {
+            if ($as && $as != $knownDomain['as']) {
                 $historyAs = [
                     'date' => new \MongoDB\BSON\UTCDateTime(),
                     'value' => $as
@@ -131,7 +133,9 @@ function processData($domains, $documents): void
     foreach ($documents as $document) {
         $as = getAsn($document['ip']);
 
-        $document['as'] = $as;
+        if ($as) {
+            $document['as'] = $as;
+        }
         $document['history']['as'][] = [
             [
                 'date' => new \MongoDB\BSON\UTCDateTime(),
