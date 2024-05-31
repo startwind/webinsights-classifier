@@ -141,6 +141,7 @@ function processData($domains, $documents): void
         }
 
         if ($as === false) {
+            // @fixme this has to be a continue
             return;
         }
 
