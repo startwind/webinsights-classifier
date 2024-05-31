@@ -28,7 +28,7 @@ function getAsn($longIp): int
     $longIp = (int)$longIp;
 
     if ($longIp > $lastRange['from'] && $longIp < $lastRange['to']) {
-        echo "last_hit\n";
+        // echo "last_hit\n";
         return $lastAs;
     }
 
@@ -53,11 +53,11 @@ function getAsn($longIp): int
             }
         }
 
-        echo "db_hit\n";
+        // echo "db_hit\n";
 
         return $as['as'];
     } else {
-        echo "miss | $longIp \n";
+        // echo "miss | $longIp \n";
         // var_dump('NOT FOUND ' . $ip);
         return false;
     }
