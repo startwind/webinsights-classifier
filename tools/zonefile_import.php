@@ -30,6 +30,7 @@ function getAsn($longIp): int
     static $i = 0;
 
     if ($longIp > $lastRange['from'] && $longIp < $lastRange['to']) {
+        echo "hit\n";
         return $lastAs;
     }
 
@@ -43,8 +44,6 @@ function getAsn($longIp): int
     ];
 
     $as = $asCollection->findOne($query);
-
-    var_dump(++$i);
 
     if ($as) {
         $ipRanges = $as['ranges'];
