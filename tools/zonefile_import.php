@@ -14,12 +14,14 @@ if (array_key_exists(2, $argv)) {
     $startWith = 0;
 }
 
+$lastRange = [];
 
 $asExporter = new \Startwind\WebInsights\Hosting\Export\ApiExporter();
 
 function getAsn($ip): int
 {
     global $asCollection;
+    global $lastRange;
 
     $longIp = ip2long($ip);
 
@@ -34,16 +36,17 @@ function getAsn($ip): int
 
     $as = $asCollection->findOne($query);
 
-    $ipRanges = $as['ipRanges'];
-
-    foreach ($ipRanges as $ipRange) {
-        if($longIp < $ipRange['to'] && $longIp > $ipRange['from']) {
-            var_dump('Yeahhh');
-            var_dump($ipRange);
-        }
-    }
+    $ipRanges = $as['ranges'];
 
     if ($as) {
+        foreach ($ipRanges as $ipRange) {
+            if ($longIp < $ipRange['to'] && $longIp > $ipRange['from']) {
+                if ($ipRange['from'] == $lastRange['from']) echo "HIT";
+                $lastRange = $ipRange;
+                break;
+            }
+        }
+
         return $as['as'];
     } else {
         var_dump('NOT FOUND ' . $ip);
