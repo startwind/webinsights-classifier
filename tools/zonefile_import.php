@@ -141,7 +141,7 @@ function processData($domains, $documents): void
         }
 
         if ($as === false) {
-            continue;
+            return;
         }
 
         if ($as) {
