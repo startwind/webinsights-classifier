@@ -14,7 +14,7 @@ if (array_key_exists(2, $argv)) {
     $startWith = 0;
 }
 
-$ipStart = 58787086;
+$ipStart = 1000;
 
 $lastRange = ['from' => 0, 'to' => 0];
 $lastAs = 0;
@@ -41,12 +41,7 @@ function getAsn($longIp): int
         ]
     ];
 
-    var_dump($query);
-
     $as = $asCollection->findOne($query);
-
-    var_dump($as);
-    die;
 
     if ($as) {
         $ipRanges = $as['ranges'];
@@ -73,7 +68,7 @@ $asn = [];
 $handle = fopen($filename, 'r');
 
 $count = 0;
-$blockSize = 10000;
+$blockSize = 1000;
 $found = 0;
 
 $documents = [];
