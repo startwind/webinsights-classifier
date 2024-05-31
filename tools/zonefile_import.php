@@ -24,7 +24,7 @@ function getAsn($longIp): int
     global $lastAs;
 
     // $longIp = ip2long($ip);
-    if ($longIp < 50459111) {
+    if ($longIp <100965706) {
         return false;
     }
 
