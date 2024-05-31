@@ -14,7 +14,7 @@ if (array_key_exists(2, $argv)) {
     $startWith = 0;
 }
 
-$ipStart = 58296818;
+$ipStart = 58787086;
 
 $lastRange = ['from' => 0, 'to' => 0];
 $lastAs = 0;
@@ -24,11 +24,6 @@ function getAsn($longIp): int
     global $asCollection;
     global $lastRange;
     global $lastAs;
-
-    // $longIp = ip2long($ip);
-    if ($longIp < 58241551) {
-        return false;
-    }
 
     if ($longIp > $lastRange['from'] && $longIp < $lastRange['to']) {
         echo "last_hit\n";
@@ -43,6 +38,8 @@ function getAsn($longIp): int
             ]
         ]
     ];
+
+    var_dump($query);die;
 
     $as = $asCollection->findOne($query);
 
@@ -99,6 +96,8 @@ function processData($domains, $documents): void
     $lastIp = 0;
     $lastAs = "";
 
+    $fetchAsn = true;
+
     foreach ($knownDomains as $knownDomain) {
         if ($knownDomain['ip'] != $documents[$knownDomain['domain']]['ip']) {
 
@@ -137,14 +136,17 @@ function processData($domains, $documents): void
         if ($document['ip'] === $lastIp) {
             $as = $lastAs;
         } else {
-            $as = getAsn($document['ip']);
+            if ($fetchAsn) {
+                $as = getAsn($document['ip']);
+            } else {
+                $as = false;
+            }
             $lastIp = $document['ip'];
             $lastAs = $as;
         }
 
         if ($as === false) {
-            // @fixme this has to be a continue
-            return;
+            $fetchAsn = false;
         }
 
         if ($as) {
@@ -166,7 +168,7 @@ function processData($domains, $documents): void
 while ($data = fgetcsv($handle)) {
     $count++;
     if ($count >= $startWith) {
-        
+
         $ip = $data[0];
 
         if ($ip < $ipStart) continue;
