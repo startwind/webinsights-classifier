@@ -27,7 +27,7 @@ function getAsn($ip): int
 
     $longIp = ip2long($ip);
 
-    $i = 0;
+    static $i = 0;
 
     if ($longIp > $lastRange['from'] && $longIp < $lastRange['to']) {
         // return $lastAs;
@@ -50,7 +50,6 @@ function getAsn($ip): int
         $ipRanges = $as['ranges'];
         foreach ($ipRanges as $ipRange) {
             if ($longIp < $ipRange['to'] && $longIp > $ipRange['from']) {
-                if ($ipRange['from'] == $lastRange['from']) echo "HIT";
                 $lastRange = $ipRange;
                 $lastAs = $as['as'];
                 break;
