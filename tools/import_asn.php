@@ -35,7 +35,7 @@ foreach ($iterator as $fileInfo) {
 
         $export->export($as, $asInfo['subnets']['ipv4']);
 
-        echo "# $count | " . $asInfo . "\n";
+        echo "# $count | " . $as . "\n";
     }
 
 }
