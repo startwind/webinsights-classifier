@@ -34,8 +34,18 @@ foreach ($iterator as $fileInfo) {
     $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
 
     $ip4 = $asInfo['subnets']['ipv4'];
-    $handle = $asInfo['handle'];
-    $description = $asInfo['description'];
+
+    if (array_key_exists('handle', $asInfo)) {
+        $handle = $asInfo['handle'];
+    } else {
+        $handle = '';
+    }
+
+    if (array_key_exists('description', $asInfo)) {
+        $description = $asInfo['description'];
+    } else {
+        $description = '';
+    }
 
     if (count($ip4) > 0) {
         $asns[$as] = ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description];
