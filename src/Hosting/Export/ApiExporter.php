@@ -88,7 +88,7 @@ class ApiExporter implements Exporter
             $payload[$as] = ['ipRanges' => $ranges, 'domain' => $domain, 'handle' => $handle, 'description' => $description];
         }
 
-        $client->post(self::API . $as, [RequestOptions::JSON => ['asSet' => $payload]]);
+        $client->post(self::API_MANY . $as, [RequestOptions::JSON => ['asSet' => $payload]]);
     }
 }
 
