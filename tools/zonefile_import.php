@@ -17,8 +17,6 @@ if (array_key_exists(2, $argv)) {
 $lastRange = ['from' => 0, 'to' => 0];
 $lastAs = 0;
 
-$asExporter = new \Startwind\WebInsights\Hosting\Export\ApiExporter();
-
 function getAsn($longIp): int
 {
     global $asCollection;
@@ -96,10 +94,19 @@ function processData($domains, $documents): void
 
     $knownDomains = $collection->find(['domain' => ['$in' => $domains]]);
 
+    $lastIp = 0;
+    $lastAs = "";
+
     foreach ($knownDomains as $knownDomain) {
         if ($knownDomain['ip'] != $documents[$knownDomain['domain']]['ip']) {
 
-            $as = getAsn($documents[$knownDomain['domain']]['ip']);
+            if ($documents[$knownDomain['domain']]['ip'] === $lastIp) {
+                $as = $lastAs;
+            } else {
+                $as = getAsn($documents[$knownDomain['domain']]['ip']);
+                $lastIp = $documents[$knownDomain['domain']]['ip'];
+                $lastAs = $as;
+            }
 
             $historyIp = [
                 'date' => new \MongoDB\BSON\UTCDateTime(),
@@ -134,7 +141,7 @@ function processData($domains, $documents): void
         }
 
         if ($as === false) {
-            return;
+            continue;
         }
 
         if ($as) {
