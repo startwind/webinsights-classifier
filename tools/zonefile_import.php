@@ -30,7 +30,7 @@ function getAsn($ip): int
     static $i = 0;
 
     if ($longIp > $lastRange['from'] && $longIp < $lastRange['to']) {
-        // return $lastAs;
+        return $lastAs;
     }
 
     $query = [
