@@ -107,7 +107,7 @@ function processData($domains, $documents): void
     foreach ($knownDomains as $knownDomain) {
         if ($knownDomain['ip'] != $documents[$knownDomain['domain']]['ip']) {
 
-            $as = getAsn($documents[$knownDomain['domain']['ip']]);
+            $as = getAsn($documents[$knownDomain['domain']]['ip']);
 
             $historyIp = [
                 'date' => new \MongoDB\BSON\UTCDateTime(),
