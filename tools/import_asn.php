@@ -16,6 +16,8 @@ $blockSize = 500;
 
 $export = new \Startwind\WebInsights\Hosting\Export\ApiExporter();
 
+$count = 0;
+
 // Loop through the directory
 foreach ($iterator as $fileInfo) {
     // Skip . and ..
@@ -25,15 +27,15 @@ foreach ($iterator as $fileInfo) {
 
     // Print the current item's name
     if ($fileInfo->isDir()) {
+        $count++;
 
         $as = $fileInfo->getFilename();
 
         $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
 
         $export->export($as, $asInfo['subnets']['ipv4']);
-        var_dump($asInfo);
 
-        die;
+        echo "# $count | " . $asInfo . "\n";
     }
 
 }
