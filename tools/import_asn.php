@@ -30,7 +30,7 @@ foreach ($iterator as $fileInfo) {
     $as = $fileInfo->getFilename();
 
     $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
-    
+
     $count++;
     echo "# $count | " . "\n";
     continue;
