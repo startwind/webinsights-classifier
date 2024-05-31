@@ -63,8 +63,6 @@ function getAsn($ip): int
 
     $as = $asExtractor->getAs($ip);
 
-    var_dump($as);
-
     $ranges = $ipRangeExtractor->getIpRange($as);
 
     if ($as && $as != 'NA' && count($ranges) > 0) {
@@ -113,7 +111,7 @@ function processData($domains, $documents): void
 
             $historyIp = [
                 'date' => new \MongoDB\BSON\UTCDateTime(),
-                'value' => $documents[$knownDomain['domain']['ip']]
+                'value' => $documents[$knownDomain['domain']]['ip']
             ];
 
             if ($as && $as != $knownDomain['as']) {
