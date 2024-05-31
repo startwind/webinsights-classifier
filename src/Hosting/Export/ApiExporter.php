@@ -13,6 +13,8 @@ class ApiExporter implements Exporter
     {
         $ranges = [];
 
+        var_dump($ipRanges);
+
         foreach ($ipRanges as $ipRange) {
             if (str_contains($ipRange, '.')) {
                 $subnetParts = explode('/', $ipRange);
@@ -32,6 +34,8 @@ class ApiExporter implements Exporter
         }
 
         $client = new Client();
+
+        var_dump($ranges);
 
         $client->post(self::API . $as, [RequestOptions::JSON => ['ipRanges' => $ranges, 'domain' => $domain]]);
     }
