@@ -39,9 +39,12 @@ function getAsn($longIp): int
         ]
     ];
 
-    var_dump($query);die;
+    var_dump($query);
 
     $as = $asCollection->findOne($query);
+
+    var_dump($as);
+    die;
 
     if ($as) {
         $ipRanges = $as['ranges'];
