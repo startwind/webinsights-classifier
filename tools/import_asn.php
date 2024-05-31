@@ -22,12 +22,14 @@ $asns = [];
 
 // Loop through the directory
 foreach ($iterator as $fileInfo) {
+    $count++;
+    echo "# $count | " . "\n";
+    continue;
     // Skip . and ..
     if ($fileInfo->isDot()) {
         continue;
     }
 
-    $count++;
 
     $as = $fileInfo->getFilename();
 
