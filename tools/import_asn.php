@@ -27,13 +27,13 @@ foreach ($iterator as $fileInfo) {
         continue;
     }
 
-    $count++;
-    echo "# $count | " . "\n";
-    continue;
-    
     $as = $fileInfo->getFilename();
 
     $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
+    
+    $count++;
+    echo "# $count | " . "\n";
+    continue;
 
     $ip4 = $asInfo['subnets']['ipv4'];
     $handle = $asInfo['handle'];
