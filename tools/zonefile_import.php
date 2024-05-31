@@ -137,10 +137,8 @@ function processData($domains, $documents): void
             $document['as'] = $as;
         }
         $document['history']['as'][] = [
-            [
-                'date' => new \MongoDB\BSON\UTCDateTime(),
-                'value' => $as
-            ]
+            'date' => new \MongoDB\BSON\UTCDateTime(),
+            'value' => $as
         ];
 
         $operations[] = ['insertOne' => [$document]];
