@@ -43,8 +43,9 @@ foreach ($iterator as $fileInfo) {
             $asns[$as] = ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description];
         }
 
+        echo "# $count | " . $as . "\n";
+
         if ($count % $blockSize === 0) {
-            echo "# $count | " . $as . "\n";
             $export->exportMany($asns);
             $asns = [];
         }
