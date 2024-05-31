@@ -27,30 +27,25 @@ foreach ($iterator as $fileInfo) {
         continue;
     }
 
-    var_dump('a');
+    $count++;
 
-    // Print the current item's name
-    if ($fileInfo->isDir()) {
-        $count++;
+    $as = $fileInfo->getFilename();
 
-        $as = $fileInfo->getFilename();
+    $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
 
-        $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
+    $ip4 = $asInfo['subnets']['ipv4'];
+    $handle = $asInfo['handle'];
+    $description = $asInfo['description'];
 
-        $ip4 = $asInfo['subnets']['ipv4'];
-        $handle = $asInfo['handle'];
-        $description = $asInfo['description'];
+    if (count($ip4) > 0) {
+        $asns[$as] = ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description];
+    }
 
-        if (count($ip4) > 0) {
-            $asns[$as] = ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description];
-        }
+    echo "# $count | " . $as . "\n";
 
-        echo "# $count | " . $as . "\n";
-
-        if ($count % $blockSize === 0) {
-            $export->exportMany($asns);
-            $asns = [];
-        }
+    if ($count % $blockSize === 0) {
+        $export->exportMany($asns);
+        $asns = [];
     }
 
     $export->exportMany($asns);
