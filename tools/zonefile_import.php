@@ -60,7 +60,7 @@ function getAsn($longIp): int
 
         return $as['as'];
     } else {
-        echo "miss\n";
+        echo "miss | $longIp \n" ;
         // var_dump('NOT FOUND ' . $ip);
         return false;
     }
@@ -122,6 +122,10 @@ function processData($domains, $documents): void
 
     foreach ($documents as $document) {
         $as = getAsn($document['ip']);
+
+        if($as === false) {
+            return;
+        }
 
         if ($as) {
             $document['as'] = $as;
