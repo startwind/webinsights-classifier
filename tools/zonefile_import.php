@@ -1,11 +1,5 @@
 <?php
 
-use Startwind\WebInsights\Hosting\AS\CompositeAsExtractor;
-use Startwind\WebInsights\Hosting\AS\CymruAsExtractor;
-use Startwind\WebInsights\Hosting\IpRange\CompositeIpRangeExtractor;
-use Startwind\WebInsights\Hosting\IpRange\HackerTargetIpRangeExtractor;
-use Startwind\WebInsights\Hosting\IpRange\RadbWhoisIpRangeExtractor;
-
 include_once __DIR__ . '/../vendor/autoload.php';
 
 if (array_key_exists(1, $argv)) {
@@ -20,27 +14,12 @@ if (array_key_exists(2, $argv)) {
     $startWith = 0;
 }
 
-$logger = new \Startwind\WebInsights\Logger\FileLogger(\Psr\Log\LogLevel::INFO, '/tmp/as');
-
-$ipRangeExtractor = new CompositeIpRangeExtractor();
-$ipRangeExtractor->setLogger($logger);
-
-$ipRangeExtractor->addExtractor(new HackerTargetIpRangeExtractor());
-$ipRangeExtractor->addExtractor(new RadbWhoisIpRangeExtractor());
-
-$asExtractor = new CompositeAsExtractor();
-$asExtractor->setLogger($logger);
-
-$asExtractor->addExtractor(new CymruAsExtractor());
 
 $asExporter = new \Startwind\WebInsights\Hosting\Export\ApiExporter();
 
 function getAsn($ip): int
 {
     global $asCollection;
-    global $asExtractor;
-    global $ipRangeExtractor;
-    global $asExporter;
 
     $longIp = ip2long($ip);
 
@@ -61,18 +40,6 @@ function getAsn($ip): int
         var_dump('NOT FOUND ' . $ip);
         return false;
     }
-
-    $as = $asExtractor->getAs($ip);
-
-    $ranges = $ipRangeExtractor->getIpRange($as);
-
-    if ($as && $as != 'NA' && count($ranges) > 0) {
-        $asExporter->export($as, $ranges);
-        return (int)$as;
-    } else {
-        return false;
-    }
-
 }
 
 $asn = [];
