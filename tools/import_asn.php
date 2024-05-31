@@ -12,11 +12,13 @@ if (!is_dir($dir)) {
 // Create a DirectoryIterator object
 $iterator = new DirectoryIterator($dir);
 
-$blockSize = 500;
+$blockSize = 100;
 
 $export = new \Startwind\WebInsights\Hosting\Export\ApiExporter();
 
 $count = 0;
+
+$asns = [];
 
 // Loop through the directory
 foreach ($iterator as $fileInfo) {
@@ -38,11 +40,17 @@ foreach ($iterator as $fileInfo) {
         $description = $asInfo['description'];
 
         if (count($ip4) > 0) {
-            $export->exportMany([$as => ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description]]);
+            $asns[$as] = ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description];
         }
 
-        echo "# $count | " . $as . "\n";
+        if ($count % $blockSize === 0) {
+            $export->exportMany($asns);
+            $asns = [];
+            echo "# $count | " . $as . "\n";
+        }
+
     }
 
+    $export->exportMany($asns);
 }
 
