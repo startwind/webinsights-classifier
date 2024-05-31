@@ -27,6 +27,8 @@ foreach ($iterator as $fileInfo) {
         continue;
     }
 
+    var_dump('a');
+
     // Print the current item's name
     if ($fileInfo->isDir()) {
         $count++;
