@@ -34,7 +34,14 @@ function getAsn($ip): int
 
     $as = $asCollection->findOne($query);
 
-    var_dump($as);
+    $ipRanges = $as['ipRanges'];
+
+    foreach ($ipRanges as $ipRange) {
+        if($longIp < $ipRange['to'] && $longIp > $ipRange['from']) {
+            var_dump('Yeahhh');
+            var_dump($ipRange);
+        }
+    }
 
     if ($as) {
         return $as['as'];
