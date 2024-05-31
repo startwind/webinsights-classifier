@@ -14,6 +14,8 @@ if (array_key_exists(2, $argv)) {
     $startWith = 0;
 }
 
+$ipStart = 58296818;
+
 $lastRange = ['from' => 0, 'to' => 0];
 $lastAs = 0;
 
@@ -24,7 +26,7 @@ function getAsn($longIp): int
     global $lastAs;
 
     // $longIp = ip2long($ip);
-    if ($longIp < 52533395) {
+    if ($longIp < 58241551) {
         return false;
     }
 
@@ -164,8 +166,11 @@ function processData($domains, $documents): void
 while ($data = fgetcsv($handle)) {
     $count++;
     if ($count >= $startWith) {
-
+        
         $ip = $data[0];
+
+        if ($ip < $ipStart) continue;
+
         $domain = $data[1];
 
         if ($ip) {
