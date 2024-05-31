@@ -38,7 +38,7 @@ foreach ($iterator as $fileInfo) {
         $description = $asInfo['description'];
 
         if (count($ip4) > 0) {
-            $export->exportMany([[$as => ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description]]]);
+            $export->exportMany([$as => ['ipRanges' => $ip4, 'handle' => $handle, 'description' => $description]]);
         }
 
         echo "# $count | " . $as . "\n";
