@@ -19,13 +19,13 @@ $lastAs = 0;
 
 $asExporter = new \Startwind\WebInsights\Hosting\Export\ApiExporter();
 
-function getAsn($ip): int
+function getAsn($longIp): int
 {
     global $asCollection;
     global $lastRange;
     global $lastAs;
 
-    $longIp = ip2long($ip);
+    // $longIp = ip2long($ip);
 
     static $i = 0;
 
@@ -139,8 +139,9 @@ function processData($domains, $documents): void
 while ($data = fgetcsv($handle)) {
     $count++;
     if ($count >= $startWith) {
-        $ip = $data[2];
-        $domain = $data[0];
+
+        $ip = $data[0];
+        $domain = $data[1];
 
         if ($ip) {
             $domains[] = $domain;
@@ -150,7 +151,7 @@ while ($data = fgetcsv($handle)) {
                 'domain' => $domain,
                 'ip' => $ip,
                 'as' => false,
-                'discovery_date' => $data[11],
+                'discovery_date' => $data[2],
                 'history' => [
                     'ip' => [
                         [
