@@ -44,11 +44,10 @@ foreach ($iterator as $fileInfo) {
         }
 
         if ($count % $blockSize === 0) {
+            echo "# $count | " . $as . "\n";
             $export->exportMany($asns);
             $asns = [];
-            echo "# $count | " . $as . "\n";
         }
-
     }
 
     $export->exportMany($asns);
