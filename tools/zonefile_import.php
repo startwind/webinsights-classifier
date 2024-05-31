@@ -24,7 +24,7 @@ function getAsn($longIp): int
     global $lastAs;
 
     // $longIp = ip2long($ip);
-    if ($longIp < 14126057) {
+    if ($longIp < 50459111) {
         return false;
     }
 
@@ -69,7 +69,7 @@ $asn = [];
 $handle = fopen($filename, 'r');
 
 $count = 0;
-$blockSize = 2000;
+$blockSize = 10000;
 $found = 0;
 
 $documents = [];
