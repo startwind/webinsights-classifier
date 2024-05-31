@@ -33,7 +33,11 @@ foreach ($iterator as $fileInfo) {
 
         $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
 
-        $export->export($as, $asInfo['subnets']['ipv4']);
+        $ip4 = $asInfo['subnets']['ipv4'];
+
+        if (count($ip4) > 0) {
+            $export->export($as, $ip4, "", );
+        }
 
         echo "# $count | " . $as . "\n";
     }
