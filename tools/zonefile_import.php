@@ -34,6 +34,8 @@ function getAsn($ip): int
 
     $as = $asCollection->findOne($query);
 
+    var_dump($as);
+
     if ($as) {
         return $as['as'];
     } else {
