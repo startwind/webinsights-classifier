@@ -26,8 +26,9 @@ function getAsn($longIp): int
     global $lastAs;
 
     // $longIp = ip2long($ip);
-
-    static $i = 0;
+    if ($longIp < 14126057) {
+        return false;
+    }
 
     if ($longIp > $lastRange['from'] && $longIp < $lastRange['to']) {
         echo "hit\n";
