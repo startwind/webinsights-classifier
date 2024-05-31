@@ -22,15 +22,15 @@ $asns = [];
 
 // Loop through the directory
 foreach ($iterator as $fileInfo) {
-    $count++;
-    echo "# $count | " . "\n";
-    continue;
     // Skip . and ..
     if ($fileInfo->isDot()) {
         continue;
     }
 
-
+    $count++;
+    echo "# $count | " . "\n";
+    continue;
+    
     $as = $fileInfo->getFilename();
 
     $asInfo = json_decode(file_get_contents($dir . '/' . $as . '/aggregated.json'), true);
