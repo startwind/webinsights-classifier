@@ -159,6 +159,7 @@ function processData($domains, $documents): void
             ];
         } else {
             unset($document['history']['as']);
+            unset($document['as']);
         }
 
         $operations[] = ['insertOne' => [$document]];
