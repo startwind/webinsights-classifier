@@ -68,7 +68,7 @@ $asn = [];
 $handle = fopen($filename, 'r');
 
 $count = 0;
-$blockSize = 1000;
+$blockSize = 2000;
 $found = 0;
 
 $documents = [];
