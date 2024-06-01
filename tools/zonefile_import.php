@@ -101,17 +101,19 @@ function processData($domains, $documents): void
     foreach ($knownDomains as $knownDomain) {
         if ($knownDomain['ip'] != $documents[$knownDomain['domain']]['ip']) {
 
-            if ($documents[$knownDomain['domain']]['ip'] === $lastIp) {
+            $newIp = (int)$documents[$knownDomain['domain']]['ip'];
+
+            if ($newIp === $lastIp) {
                 $as = $lastAs;
             } else {
-                $as = getAsn($documents[$knownDomain['domain']]['ip']);
-                $lastIp = $documents[$knownDomain['domain']]['ip'];
+                $as = getAsn($newIp);
+                $lastIp = $newIp;
                 $lastAs = $as;
             }
 
             $historyIp = [
                 'date' => new \MongoDB\BSON\UTCDateTime(),
-                'value' => $documents[$knownDomain['domain']]['ip']
+                'value' => $newIp
             ];
 
             if ($as && $as != $knownDomain['as']) {
@@ -119,9 +121,9 @@ function processData($domains, $documents): void
                     'date' => new \MongoDB\BSON\UTCDateTime(),
                     'value' => $as
                 ];
-                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
+                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['ip' => $newIp, '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
             } else {
-                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$push' => ['history.ip' => $historyIp]]]];
+                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['ip' => $newIp, '$push' => ['history.ip' => $historyIp]]]];
             }
         }
 
@@ -151,11 +153,13 @@ function processData($domains, $documents): void
 
         if ($as) {
             $document['as'] = $as;
+            $document['history']['as'][] = [
+                'date' => new \MongoDB\BSON\UTCDateTime(),
+                'value' => $as
+            ];
+        } else {
+            unset($document['history']['as']);
         }
-        $document['history']['as'][] = [
-            'date' => new \MongoDB\BSON\UTCDateTime(),
-            'value' => $as
-        ];
 
         $operations[] = ['insertOne' => [$document]];
     }
@@ -181,14 +185,14 @@ while ($data = fgetcsv($handle)) {
 
             $documents[$domain] = [
                 'domain' => $domain,
-                'ip' => $ip,
+                'ip' => (int)$ip,
                 'as' => false,
                 'discovery_date' => $data[2],
                 'history' => [
                     'ip' => [
                         [
                             'date' => new \MongoDB\BSON\UTCDateTime(),
-                            'value' => $ip
+                            'value' => (int)$ip
                         ]
                     ],
                     'as' => [
