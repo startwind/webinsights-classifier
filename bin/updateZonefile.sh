@@ -1,8 +1,11 @@
 #!/bin/bash
 
 echo ""
+echo ""
 echo "STARTING zone file update"
 echo $(date)
+echo ""
+echo ""
 
 set -ex
 
