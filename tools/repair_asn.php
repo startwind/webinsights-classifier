@@ -11,7 +11,7 @@ $database = $client->selectDatabase('classifier');
 $collection = $database->selectCollection('internet');
 
 $iteration = 0;
-$blockSize = 1000;
+$blockSize = 5000;
 $operations = [];
 
 $query = [
