@@ -17,7 +17,8 @@ $operations = [];
 $query = [
     'history.as.date' => [
         '$gt' => new MongoDB\BSON\UTCDateTime(new DateTime('2024-06-02T00:00:00.000Z'))
-    ]
+    ],
+    'lastAs' => ['$exists' => false]
 ];
 
 while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 'limit' => $blockSize])) {
@@ -32,9 +33,6 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
             }
         }
     }
-
-
-    var_dump(array_pop($operations));
 
     $collection->bulkWrite($operations);
     $operations = [];
