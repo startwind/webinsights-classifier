@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo ""
+echo "STARTING zone file update"
 echo $(date)
 
 set -ex
