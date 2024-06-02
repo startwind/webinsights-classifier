@@ -33,7 +33,10 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
         }
     }
 
-    var_dump($operations);
-    die;
+    $collection->bulkWrite($operations);
+
+    $operations = [];
+
+    var_dump($iteration);
 }
 
