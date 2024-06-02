@@ -10,7 +10,7 @@ if [ ! -d "/var/tools/zone/file" ]; then
 fi
 
 # Download the Zonefile via API. This is a gziped file
- wget https://zonefiles.io/a/ixgkco2gjgn94vl384ou/fulldata-gz/1/ -O /var/tools/zone/file/zonefile_full.gz
+wget --no-verbose https://zonefiles.io/a/ixgkco2gjgn94vl384ou/fulldata-gz/1/ -O /var/tools/zone/file/zonefile_full.gz
 
 # Go to the correct directory
 cd /var/tools/zone/file/
