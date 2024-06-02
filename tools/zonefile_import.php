@@ -233,4 +233,4 @@ while ($data = fgetcsv($handle)) {
 // echo "\nPersisting dataset #" . $count;
 processData($domains, $documents);
 
-echo "Finished. Statistics: duration: " . (int)((time() - $start) / 60) . " minutes, domains: " . $stats['domains'] . ', new: ' . $stats['new'] . ', updated: ' . $stats['updated'] . ', without asn: ' . $stats['withoutAsn'] . '.';
+echo "Finished " . date('Y-m-d') . " -> Statistics: duration: " . (int)((time() - $start) / 60) . " minutes, domains: " . $stats['domains'] . ', new: ' . $stats['new'] . ', updated: ' . $stats['updated'] . ', without asn: ' . $stats['withoutAsn'] . '.';

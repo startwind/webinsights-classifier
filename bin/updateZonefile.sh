@@ -15,13 +15,13 @@ fi
 # Go to the correct directory
 cd /var/tools/zone/file/
 
-# Uncompress the gz file
+# Uncompress the .gz file
 gunzip zonefile_full.gz
 
-# ~35 min | Normalize the file so we only have mandadory fields and the IP address is a long and first field
+# ~35 min | Normalize the file so we only have mandatory fields and the IP address is a long and first field
 /usr/bin/php /var/tools/webinsights_classifier/tools/normalize_zone.php /var/tools/zone/file/zonefile_full /var/tools/zone/file/zonefile_normalized.csv
 
-# Remove the origin zonefile to not runinto a disk problem
+# Remove the origin zonefile to not run into a disk problem
 rm zonefile_full
 
 # ~5 min | sort the file by IP so that AS request is much faster and can be cached
