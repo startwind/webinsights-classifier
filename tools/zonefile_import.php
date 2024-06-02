@@ -19,6 +19,8 @@ $ipStart = 1000;
 $lastRange = ['from' => 0, 'to' => 0];
 $lastAs = 0;
 
+$start = time();
+
 function getAsn($longIp): int
 {
     global $asCollection;
@@ -85,9 +87,17 @@ $asCollection = $database->selectCollection('as');
 $domains = [];
 $operations = [];
 
+$stats = [
+    'domains' => 0,
+    'withoutAsn' => 0,
+    'new' => 0,
+    'updated' => 0
+];
+
 function processData($domains, $documents): void
 {
     global $collection;
+    global $stats;
 
     $operations = [];
 
@@ -100,6 +110,8 @@ function processData($domains, $documents): void
 
     foreach ($knownDomains as $knownDomain) {
         if ($knownDomain['ip'] != $documents[$knownDomain['domain']]['ip']) {
+
+            $stats['updated']++;
 
             $newIp = (int)$documents[$knownDomain['domain']]['ip'];
 
@@ -123,6 +135,7 @@ function processData($domains, $documents): void
                 ];
                 $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp], '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
             } else {
+                $stats['withoutAsn']++;
                 $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp], '$push' => ['history.ip' => $historyIp]]]];
             }
         }
@@ -162,6 +175,8 @@ function processData($domains, $documents): void
             unset($document['as']);
         }
 
+        $stats['new']++;
+
         $operations[] = ['insertOne' => [$document]];
     }
 
@@ -171,6 +186,8 @@ function processData($domains, $documents): void
 }
 
 while ($data = fgetcsv($handle)) {
+    $stats['domains']++;
+
     $count++;
     if ($count >= $startWith) {
 
@@ -203,7 +220,7 @@ while ($data = fgetcsv($handle)) {
             ];
 
             if ($found % $blockSize == 0) {
-                echo "\nPersisting dataset #" . $count;
+                // echo "\nPersisting dataset #" . $count;
                 processData($domains, $documents);
 
                 $documents = [];
@@ -213,5 +230,7 @@ while ($data = fgetcsv($handle)) {
     }
 }
 
-echo "\nPersisting dataset #" . $count;
+// echo "\nPersisting dataset #" . $count;
 processData($domains, $documents);
+
+echo "Finished. Statistics: duration: " . (int)((time() - $start) / 60) . " minutes, domains: " . $stats['domains'] . ', new: ' . $stats['new'] . ', updated: ' . $stats['updated'] . ', without asn: ' . $stats['withoutAsn'] . '.';
