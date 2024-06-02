@@ -28,7 +28,7 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
 
         if (count($domainArray['history']['as']) > 1) {
             if ($domainArray['history']['as'][count($domainArray['history']['as']) - 1]['value'] != $domainArray['as']) {
-                $operations[] = ['updateOne' => [['domain' => $domainArray['domain']], ['as' => $domainArray['history']['as'][count($domainArray['history']['as']) - 1]['value'], 'lastAs' => $domainArray['as']]]];
+                $operations[] = ['updateOne' => [[['domain' => $domainArray['domain']], ['as' => $domainArray['history']['as'][count($domainArray['history']['as']) - 1]['value'], 'lastAs' => $domainArray['as']]]]];
             }
         }
     }
@@ -39,7 +39,7 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
 
     $collection->bulkWrite($operations);
     $operations = [];
-    
+
     var_dump($iteration);
 }
 
