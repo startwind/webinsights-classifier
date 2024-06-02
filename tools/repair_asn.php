@@ -2,8 +2,6 @@
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-$dir = $argv[1];
-
 $mongoDBUrl = "mongodb://localhost:27017";
 
 $client = new \MongoDB\Client($mongoDBUrl);
@@ -22,7 +20,7 @@ $query = [
     ]
 ];
 
-while ($domains = $collection->find([$query], ['skip' => $iteration * $blockSize, 'limit' => $blockSize])) {
+while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 'limit' => $blockSize])) {
     $iteration++;
 
     foreach ($domains as $domain) {
