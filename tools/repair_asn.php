@@ -10,7 +10,7 @@ $database = $client->selectDatabase('classifier');
 
 $collection = $database->selectCollection('internet');
 
-$iteration = 254;
+$iteration = 0;
 $blockSize = 10000;
 $operations = [];
 
