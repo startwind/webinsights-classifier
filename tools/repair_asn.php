@@ -10,7 +10,7 @@ $database = $client->selectDatabase('classifier');
 
 $collection = $database->selectCollection('internet');
 
-$iteration = 0;
+$iteration = 254;
 $blockSize = 10000;
 $operations = [];
 
@@ -27,7 +27,7 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
     foreach ($domains as $domain) {
         $domainArray = json_decode(json_encode($domain), true);
 
-        if (count($domainArray['history']['as']) > 1) {
+        if (count($domainArray['history']['as']) > 1 && !array_key_exists('lastAs', $domainArray)) {
             if ($domainArray['history']['as'][count($domainArray['history']['as']) - 1]['value'] != $domainArray['as']) {
                 $operations[] = ['updateOne' => [['domain' => $domainArray['domain']], ['$set' => ['as' => $domainArray['history']['as'][count($domainArray['history']['as']) - 1]['value'], 'lastAs' => $domainArray['as']]]]];
             }
