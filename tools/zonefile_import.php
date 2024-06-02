@@ -133,10 +133,10 @@ function processData($domains, $documents): void
                     'date' => new \MongoDB\BSON\UTCDateTime(),
                     'value' => $as
                 ];
-                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp], '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
+                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp, 'as' => $as, 'lastAs' => $knownDomain['as'] ], '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
             } else {
                 $stats['withoutAsn']++;
-                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp], '$push' => ['history.ip' => $historyIp]]]];
+                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp, 'as' => false], '$push' => ['history.ip' => $historyIp]]]];
             }
         }
 
