@@ -21,7 +21,7 @@ $query = [
     // 'lastAs' => ['$exists' => false]
 ];
 
-while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 'limit' => $blockSize, 'sort' => ['_id' => 1]])) {
+while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 'limit' => $blockSize, 'sort' => ['_id' => -1]])) {
     $iteration++;
 
     foreach ($domains as $domain) {
