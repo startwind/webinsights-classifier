@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo $(date)
+
 set -ex
 
 cd /var/tools/zone
