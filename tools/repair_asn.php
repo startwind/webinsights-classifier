@@ -11,7 +11,7 @@ $database = $client->selectDatabase('classifier');
 $collection = $database->selectCollection('internet');
 
 $iteration = 0;
-$blockSize = 5000;
+$blockSize = 10000;
 $operations = [];
 
 $query = [
@@ -21,7 +21,7 @@ $query = [
     'lastAs' => ['$exists' => false]
 ];
 
-while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 'limit' => $blockSize])) {
+while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 'limit' => $blockSize, 'sort' => ['_id' => 1]])) {
     $iteration++;
 
     foreach ($domains as $domain) {
@@ -38,8 +38,8 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
         $collection->bulkWrite($operations);
     }
 
+    echo "Block " . $iteration * $blockSize . " (elements: " . count($operations) . ", last id: " . $domainArray['_id'] . ")\n";
     $operations = [];
 
-    echo "Block " . $iteration * $blockSize . "\n";
 }
 
