@@ -33,12 +33,13 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
         }
     }
 
-    $collection->bulkWrite($operations);
 
-    $operations = [];
 
     var_dump(array_pop($operations));
 
+    $collection->bulkWrite($operations);
+    $operations = [];
+    
     var_dump($iteration);
 }
 
