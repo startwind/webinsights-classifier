@@ -121,9 +121,9 @@ function processData($domains, $documents): void
                     'date' => new \MongoDB\BSON\UTCDateTime(),
                     'value' => $as
                 ];
-                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['ip' => $newIp, '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
+                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp], '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
             } else {
-                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['ip' => $newIp, '$push' => ['history.ip' => $historyIp]]]];
+                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp], '$push' => ['history.ip' => $historyIp]]]];
             }
         }
 
