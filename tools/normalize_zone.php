@@ -23,7 +23,7 @@ while ($data = fgetcsv($fromHandle)) {
         fputcsv($toHandle, $normalized);
     }
 
-    if ($count % 100000 == 0) {
+    if ($count % 10000000 == 0) {
         echo "Count: " . $count . "\n";
     }
 }
