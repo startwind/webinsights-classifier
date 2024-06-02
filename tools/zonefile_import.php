@@ -116,7 +116,7 @@ function processData($domains, $documents): void
                 'value' => $newIp
             ];
 
-            if ($as && $as != $knownDomain['as']) {
+            if ($as && array_key_exists('as', $knownDomain) && $as != $knownDomain['as']) {
                 $historyAs = [
                     'date' => new \MongoDB\BSON\UTCDateTime(),
                     'value' => $as
