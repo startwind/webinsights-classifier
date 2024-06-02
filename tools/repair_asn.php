@@ -38,7 +38,7 @@ while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 
         $collection->bulkWrite($operations);
     }
 
-    echo "Block " . $iteration * $blockSize . " (elements: " . count($operations) . ", last id: " . $domainArray['_id'] . ")\n";
+    echo "Block " . $iteration * $blockSize . " (elements: " . count($operations) . ", last id: " . $domainArray['_id']['$oid'] . ")\n";
     $operations = [];
 
 }
