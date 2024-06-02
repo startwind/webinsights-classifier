@@ -18,7 +18,7 @@ $query = [
     'history.as.date' => [
         '$gt' => new MongoDB\BSON\UTCDateTime(new DateTime('2024-06-02T00:00:00.000Z'))
     ],
-    'lastAs' => ['$exists' => false]
+    // 'lastAs' => ['$exists' => false]
 ];
 
 while ($domains = $collection->find($query, ['skip' => $iteration * $blockSize, 'limit' => $blockSize])) {
