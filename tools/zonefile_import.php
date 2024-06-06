@@ -128,12 +128,12 @@ function processData($domains, $documents): void
                 'value' => $newIp
             ];
 
-            if ($as && array_key_exists('as', $knownDomain) && $as != $knownDomain['as']) {
+            if ($as && property_exists($knownDomain, 'as') && $as != $knownDomain['as']) {
                 $historyAs = [
                     'date' => new \MongoDB\BSON\UTCDateTime(),
                     'value' => $as
                 ];
-                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp, 'as' => $as, 'lastAs' => $knownDomain['as'] ], '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
+                $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp, 'as' => $as, 'lastAs' => $knownDomain['as']], '$push' => ['history.ip' => $historyIp, 'history.as' => $historyAs]]]];
             } else {
                 $stats['withoutAsn']++;
                 $operations[] = ['updateOne' => [['_id' => $knownDomain['_id']], ['$set' => ['ip' => $newIp, 'as' => false], '$push' => ['history.ip' => $historyIp]]]];
