@@ -20,12 +20,12 @@ class SubDomainClassifier extends UrlClassifier
             return [self::CLASSIFIER_PREFIX . 'main'];
         }
 
-        if (count($parts) > 3) {
-            return [self::CLASSIFIER_PREFIX . 'sub'];
-        }
-
         if ($parts[0] === 'www') {
             return [self::CLASSIFIER_PREFIX . 'main'];
+        }
+
+        if (count($parts) > 3) {
+            return [self::CLASSIFIER_PREFIX . 'sub'];
         }
 
         if (in_array($parts[1], ['com', 'co', 'net', 'edu', 'gov', 'org'])) {
