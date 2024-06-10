@@ -33,10 +33,12 @@ class IPLocationClassifier implements Classifier
             }
 
             if (array_key_exists('as', $data) && $data['as']) {
+                $asParts = explode(' ', $data['as']);
+                $as = str_replace('as', '', strtolower($asParts[0]));
                 $tags[] = self::TAG_HOSTING_LOCATION_PREFIX . 'as:' . TagHelper::normalize($data['as']);
+                $tags[] = self::TAG_HOSTING_LOCATION_PREFIX . 'asn:' . $as;
             }
         }
-
 
         return $tags;
     }

@@ -205,7 +205,7 @@ while ($data = fgetcsv($handle)) {
                 'domain' => $domain,
                 'ip' => (int)$ip,
                 'as' => false,
-                'discovery_date' => $data[2],
+                'discovery_date' => new \MongoDB\BSON\UTCDateTime($data[2]),
                 'history' => [
                     'ip' => [
                         [
