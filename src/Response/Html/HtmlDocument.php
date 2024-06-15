@@ -68,7 +68,7 @@ class HtmlDocument
             preg_match_all($pattern, $this->plainContent, $matches);
 
             if (array_key_exists(1, $matches)) {
-                $results = array_merge($matches[1]);
+                $results = array_merge($results, $matches[1]);
             }
         }
 

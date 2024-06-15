@@ -154,7 +154,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             # Monitoring
             'monitoring' => 'Uptime Monitoring',
             'monitoring:360-monitoring' => '360 Monitoring',
-            'monitoring:koality' => ['koality', 'Site Quality Monitoring'],
+            'monitoring:koality' => ['koality', 'Site Quality Monitoring', 'sqm'],
             'monitoring:nagios' => 'nagios',
             'monitoring:zabbix' => 'zabbix',
             'monitoring:icinga' => 'icinga',

@@ -7,38 +7,20 @@ use Startwind\WebInsights\Response\Html\HtmlDocument;
 
 class SocialMediaClassifier extends HtmlClassifier
 {
-    const TAG = 'html:content:link:social-media:';
-    const TWITTER_TAG = 'social-media:twitter:';
+    public const TAG = 'html:content:link:social-media:';
+
+    public const TAG_HANDLE_PREFIX = 'social-media:';
 
     protected function doHtmlClassification(HtmlDocument $htmlDocument): array
     {
         $tags = [];
 
-        if ($htmlDocument->containsAny([
-            'href="https://www.facebook.com/',
-            'href="//facebook.com/'
-        ])) {
-            $tags[] = self::TAG . 'facebook';
-        }
+        // for Twitter see SocialTwitterClassifier
 
-        if ($htmlDocument->containsAny(['href="https://twitter.com/', 'href="https://www.twitter.com/', 'href="//twitter.com/'])) {
-            $tags[] = self::TAG . 'twitter';
+        // for Facebook see SocialFacebookClassifier
 
-            $matches = $htmlDocument->match([
-                '^href="https://twitter.com/(.*?)"^',
-                '^href="https://www.twitter.com/(.*?)"^'
-            ]);
+        // for LinkedIn see SocialLinkedInClassifier
 
-            foreach ($matches as $match) {
-                if (strlen($match) < 20 && !str_contains($match, '/')) {
-                    $tags[] = self::TWITTER_TAG . $match;
-                }
-            }
-        }
-
-        if ($htmlDocument->containsAny(['href="https://www.linkedin.com/', 'href="https://de.linkedin.com/'])) {
-            $tags[] = self::TAG . 'linkedin';
-        }
 
         if ($htmlDocument->containsAny(['href="https://www.youtube.com/'])) {
             $tags[] = self::TAG . 'youtube';

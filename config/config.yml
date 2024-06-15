@@ -104,9 +104,13 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Meta\KeywordClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Meta\RobotsClassifier
 
-  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\SocialMediaClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\SocialShareClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\NewsletterClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\SocialMediaClassifier
+  -
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\Social\SocialTwitterClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\Social\SocialLinkedInClassifier
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\Social\SocialFacebookClassifier
 
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Browser\BrowserFeatureClassifier
 
