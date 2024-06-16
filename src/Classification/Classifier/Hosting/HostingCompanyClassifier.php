@@ -16,7 +16,8 @@ class HostingCompanyClassifier implements Classifier
             'dan.com',
             'Log in to Plesk to create websites and set up hosting',
             'It is specially designed to help web professionals manage web',
-            'Website coming soon! Stay tuned.'
+            'Website coming soon! Stay tuned.',
+            'Parallels is a worldwide leader in virtualization and automation'
         ])) {
             return [];
         }
@@ -27,7 +28,9 @@ class HostingCompanyClassifier implements Classifier
 
         $minProducts = 4;
 
-        if ($httpResponse->getHtmlDocument()->contains('hosting')) $minProducts = 2;
+        // @todo title does not contain hosting magazine
+
+        if ($httpResponse->getHtmlDocument()->contains('hosting')) $minProducts = 3;
 
         foreach ($existingTags as $existingTag) {
             if (str_starts_with($existingTag, HostingProductsClassifier::TAG_PREFIX)

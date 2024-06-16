@@ -111,6 +111,8 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\Social\SocialTwitterClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\Social\SocialLinkedInClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\Social\SocialFacebookClassifier
+  -
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Content\EmailClassifier
 
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Browser\BrowserFeatureClassifier
 
