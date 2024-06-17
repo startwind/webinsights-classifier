@@ -123,6 +123,8 @@ classifiers:
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\AngularClassifier
   - Startwind\WebInsights\Classification\Classifier\Http\Html\Framework\ReactClassifier
 
+  - Startwind\WebInsights\Classification\Classifier\Http\Html\Seo\SeoAntiPatternClassifier
+
   - Startwind\WebInsights\Classification\Classifier\Http\Http\ContentEncodingClassifier
 
   - Startwind\WebInsights\Classification\Classifier\Http\Http\WebServerClassifier

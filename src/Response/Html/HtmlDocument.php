@@ -102,4 +102,9 @@ class HtmlDocument
     {
         return preg_match($pattern, strtolower($this->plainContent)) > 0;
     }
+
+    public function countTextOccurrences($text): int
+    {
+        return substr_count($this->plainContent, $text);
+    }
 }
