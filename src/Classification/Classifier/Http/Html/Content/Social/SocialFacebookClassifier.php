@@ -31,10 +31,8 @@ class SocialFacebookClassifier implements Classifier
             ]);
 
             foreach ($matches as $match) {
-                if (strlen($match) < 20 && !str_contains($match, '/')) {
-                    if ($match != '') {
-                        $tags[] = self::TAG_PREFIX . $match;
-                    }
+                if (strlen($match) < 20 && !str_contains($match, '/') && strlen($match) > 2) {
+                    $tags[] = self::TAG_PREFIX . $match;
                 }
             }
         }
