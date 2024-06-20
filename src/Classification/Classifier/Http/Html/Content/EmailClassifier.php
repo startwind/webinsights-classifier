@@ -20,7 +20,9 @@ class EmailClassifier implements Classifier, ExtrasClassifier
             $tags[] = self::TAG;
 
             foreach ($matches[0] as $email) {
-                $tags[] = self::TAG . ':' . $email;
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $tags[] = self::TAG . ':' . $email;
+                }
             }
         }
 
