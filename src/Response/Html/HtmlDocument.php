@@ -22,7 +22,11 @@ class HtmlDocument
             $bodyWithoutTags = preg_replace('#<script(.*?)</script>#s', '', $bodyWithoutTags);
             $bodyWithoutTags = preg_replace('#<style(.*?)</style>#s', '', $bodyWithoutTags);
 
-            $this->bodyWithoutTags = $bodyWithoutTags;
+            if ($bodyWithoutTags) {
+                $this->bodyWithoutTags = $bodyWithoutTags;
+            } else {
+                $this->bodyWithoutTags = $plainContent;
+            }
         } else {
             $this->body = $plainContent;
             $this->bodyWithoutTags = $plainContent;
