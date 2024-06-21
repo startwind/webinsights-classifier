@@ -34,6 +34,8 @@ class HostingCompanyClassifier implements Classifier
 
         foreach ($existingTags as $existingTag) {
             if (str_starts_with($existingTag, HostingProductsClassifier::TAG_PREFIX)
+                && !str_starts_with($existingTag, HostingProductsClassifier::TAG_PREFIX . 'cms')
+                && !str_starts_with($existingTag, HostingProductsClassifier::TAG_PREFIX . 'ecommerce')
                 && count(explode(':', $existingTag)) === 4) {
                 $count++;
             }

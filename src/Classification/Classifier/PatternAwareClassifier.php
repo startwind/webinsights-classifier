@@ -2,6 +2,7 @@
 
 namespace Startwind\WebInsights\Classification\Classifier;
 
+use Startwind\WebInsights\Response\Html\HtmlDocument;
 use Startwind\WebInsights\Response\HttpResponse;
 
 abstract class PatternAwareClassifier
@@ -12,6 +13,8 @@ abstract class PatternAwareClassifier
 
     protected const SOURCE_HTML = 'html';
     protected const SOURCE_BODY = 'body';
+
+    protected const SOURCE_CONTENT = 'content';
 
     protected array $keywords = [];
 
@@ -42,9 +45,10 @@ abstract class PatternAwareClassifier
                             if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) $found = true;
                             break;
                         case self::SOURCE_BODY:
-                            if (str_contains(strtolower($httpResponse->getHtmlDocument()->getBody(true)), strtolower($singleKeyword))) {
-                                $found = true;
-                            }
+                            if ($httpResponse->getHtmlDocument()->contains($singleKeyword, false, HtmlDocument::SOURCE_BODY)) $found = true;
+                            break;
+                        case self::SOURCE_CONTENT:
+                            if ($httpResponse->getHtmlDocument()->contains($singleKeyword, false, HtmlDocument::SOURCE_CONTENT)) $found = true;
                             break;
                     }
 

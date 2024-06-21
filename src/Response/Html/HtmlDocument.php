@@ -4,6 +4,10 @@ namespace Startwind\WebInsights\Response\Html;
 
 class HtmlDocument
 {
+    const SOURCE_HTML = 'html';
+    const SOURCE_BODY = 'body';
+    const SOURCE_CONTENT = 'content';
+
     private string $plainContent;
 
     private string $body;
@@ -19,8 +23,9 @@ class HtmlDocument
 
             $bodyWithoutTags = strip_tags($body, '<a><script><style>');
 
-            $bodyWithoutTags = preg_replace('#<script(.*?)</script>#s', '', $bodyWithoutTags);
-            $bodyWithoutTags = preg_replace('#<style(.*?)</style>#s', '', $bodyWithoutTags);
+            $bodyWithoutTags = $this->removeTags($bodyWithoutTags, 'script');
+            $bodyWithoutTags = $this->removeTags($bodyWithoutTags, 'style');
+            $bodyWithoutTags = $this->removeTags($bodyWithoutTags, 'link');
 
             if ($bodyWithoutTags) {
                 $this->bodyWithoutTags = $bodyWithoutTags;
@@ -31,6 +36,26 @@ class HtmlDocument
             $this->body = $plainContent;
             $this->bodyWithoutTags = $plainContent;
         }
+    }
+
+    private function removeTags(string $html, string $tag) : string
+    {
+        $dom = new \DOMDocument();
+
+        $dom->loadHTML($html);
+
+        $script = $dom->getElementsByTagName($tag);
+
+        $remove = [];
+        foreach ($script as $item) {
+            $remove[] = $item;
+        }
+
+        foreach ($remove as $item) {
+            $item->parentNode->removeChild($item);
+        }
+
+        return $dom->saveHTML();
     }
 
     public function getPlainContent(): string
@@ -79,13 +104,21 @@ class HtmlDocument
         return $results;
     }
 
-    public function contains(string $string, bool $caseSensitive = false): bool
+    public function contains(string $string, bool $caseSensitive = false, $source = self::SOURCE_HTML): bool
     {
+        if ($source === self::SOURCE_BODY) {
+            $content = $this->body;
+        } else if ($source === self::SOURCE_CONTENT) {
+            $content = $this->bodyWithoutTags;
+        } else {
+            $content = $this->plainContent;
+        }
+
         if (!$caseSensitive) {
             $string = strtolower($string);
-            $htmlContent = strtolower($this->plainContent);
+            $htmlContent = strtolower($content);
         } else {
-            $htmlContent = $this->plainContent;
+            $htmlContent = $content;
         }
 
         return str_contains($htmlContent, $string);

@@ -11,7 +11,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
     public const TAG_PREFIX = 'company:hosting:products:';
 
     protected array $keywords = [
-        self::SOURCE_BODY => [
+        self::SOURCE_CONTENT => [
             # Website Builder
             'website-builder' => ['website builder', 'homepage baukasten', 'homepage-baukasten'],
             'website-builder:sitejet' => 'Sitejet',
@@ -38,7 +38,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'backup:kaseya' => ['Kaseya'],
             'backup:datto' => ['datto'],
             'backup:storagecraft' => ['StorageCraft'],
-            'backup:rubrik' => ['rubrik'],
+            'backup:rubrik' => [' rubrik', 'rubrik '],
             'backup:cohesity' => ['Cohesity'],
             'backup:spanning' => ['Spanning'],
             'backup:unittrends' => ['UNITRENDS'],
@@ -237,7 +237,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
 
 
             # CPU
-            'cpu:intel' => ['intel'],
+            'cpu:intel' => [' intel', 'intel '],
             'cpu:amd' => ['amd'],
             'cpu:arm' => ['ARM'],
             'cpu:sparc' => ['SPARC'],
@@ -251,7 +251,7 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'automation:ansible' => ['ansible'],
             'automation:terraform' => ['terraform'],
             'automation:kubernetes' => ['kubernetes'],
-            'automation:chef' => ['chef'],
+            'automation:chef' => [' chef', 'chef '],
             'automation:puppet' => ['puppet'],
             'automation:docker' => ['docker'],
 
