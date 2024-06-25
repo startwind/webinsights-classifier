@@ -42,7 +42,7 @@ class HtmlDocument
     {
         $dom = new \DOMDocument();
 
-        $dom->loadHTML($html);
+        @$dom->loadHTML($html);
 
         $script = $dom->getElementsByTagName($tag);
 

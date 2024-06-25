@@ -11,6 +11,12 @@ abstract class UrlHelper
         $host_with_subdomain = $uri->getHost();
         $array = explode(".", $host_with_subdomain);
 
+        /*if (in_array($array[1], ['com', 'co', 'net', 'edu', 'gov', 'org'])) {
+            if (count($array) > 2) {
+                return $array[count($array) - 2] . '.' . $array[count($array) - 1];
+            }
+        }*/
+
         return (array_key_exists(count($array) - 2, $array) ? $array[count($array) - 2] : "") . "." . $array[count($array) - 1];
     }
 

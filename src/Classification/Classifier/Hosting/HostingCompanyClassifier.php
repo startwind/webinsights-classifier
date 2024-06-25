@@ -17,7 +17,12 @@ class HostingCompanyClassifier implements Classifier
             'Log in to Plesk to create websites and set up hosting',
             'It is specially designed to help web professionals manage web',
             'Website coming soon! Stay tuned.',
-            'Parallels is a worldwide leader in virtualization and automation'
+            'Parallels is a worldwide leader in virtualization and automation',
+            'Configuration File (php.ini) Path',
+            'You see this page because you have set up your Web server for serving',
+            'Getting Started With Cloudways PHP Hosting',
+            'Wenn du deinen eigenen Firmen- oder Produktnamen, wie zum Beispiel www.deinname.ch',
+            'Mit einem Webhosting von hosttech.'
         ])) {
             return [];
         }
