@@ -17,7 +17,8 @@ while ($data = fgetcsv($fromHandle)) {
         $normalized = [
             'ip' => $ip,
             'domain' => $data[0],
-            'discovery_date' => $data[11]
+            'discovery_date' => $data[11],
+            'majestic' => $data[10]
         ];
 
         fputcsv($toHandle, $normalized);

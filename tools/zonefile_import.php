@@ -219,6 +219,10 @@ while ($data = fgetcsv($handle)) {
                 ]
             ];
 
+            if ($data[3]) {
+                $documents[$domain]['majestic'] = (int)$data[3];
+            }
+
             if ($found % $blockSize == 0) {
                 // echo "\nPersisting dataset #" . $count;
                 processData($domains, $documents);

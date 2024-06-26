@@ -22,7 +22,8 @@ class HostingCompanyClassifier implements Classifier
             'You see this page because you have set up your Web server for serving',
             'Getting Started With Cloudways PHP Hosting',
             'Wenn du deinen eigenen Firmen- oder Produktnamen, wie zum Beispiel www.deinname.ch',
-            'Mit einem Webhosting von hosttech.'
+            'Mit einem Webhosting von hosttech.',
+            'Diese Testseite nicht mehr anzeigen?'
         ])) {
             return [];
         }
