@@ -27,6 +27,7 @@ class SocialTwitterClassifier implements Classifier
             ]);
 
             foreach ($matches as $match) {
+                $match = trim($match, '/');
                 if (strlen($match) < 20 && strlen($match) > 1 && !str_contains($match, '/')) {
                     $tags[] = self::TAG_PREFIX . $match;
                 }

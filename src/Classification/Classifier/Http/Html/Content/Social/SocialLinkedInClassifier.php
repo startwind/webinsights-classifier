@@ -26,6 +26,7 @@ class SocialLinkedInClassifier implements Classifier
             ]);
 
             foreach ($matches as $match) {
+                $match = trim($match, '/');
                 if (strlen($match) < 20 && !str_contains($match, '/')) {
                     if ($match != '') {
                         $tags[] = self::TAG_PREFIX . $match;
