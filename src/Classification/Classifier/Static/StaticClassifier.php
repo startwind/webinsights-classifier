@@ -18,5 +18,4 @@ class StaticClassifier implements Classifier
     {
         return $this->tags;
     }
-
 }

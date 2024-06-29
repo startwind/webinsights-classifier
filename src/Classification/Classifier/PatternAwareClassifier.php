@@ -29,7 +29,7 @@ abstract class PatternAwareClassifier
                 }
 
                 foreach ($keyword as $index => $singleKeyword) {
-                    if (strlen($singleKeyword) < 4) {
+                    if (strlen($singleKeyword) < 7) {
                         $keyword[] = ' ' . $singleKeyword;
                         $keyword[] = $singleKeyword . ' ';
                         $keyword[] = $singleKeyword . '. ';

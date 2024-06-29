@@ -100,7 +100,7 @@ class ClassifyManyCommand extends ClassificationCommand
 
         while ($httpResponse = $retriever->next()) {
             $memoryUsed = (int)(memory_get_usage() / 1000 / 1000);
-            if ($memoryUsed > 256) {
+            if ($memoryUsed > 500) {
                 $this->getLogger()->alert('Processing next response. Memory usage: ' . $memoryUsed . ' MB.');
             } else {
                 $this->getLogger()->debug('Processing next response. Memory usage: ' . $memoryUsed . ' MB.');

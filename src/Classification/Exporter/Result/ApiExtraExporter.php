@@ -31,7 +31,7 @@ class ApiExtraExporter implements Exporter, OutputAwareExporter
 
     private array $data = [];
 
-    const BLOCK_SIZE = 10;
+    const BLOCK_SIZE = 1000;
 
     private int $count = 0;
     private int $found = 0;
