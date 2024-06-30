@@ -17,10 +17,10 @@ class EmailClassifier implements Classifier, ExtrasClassifier
         $tags = [];
 
         if (preg_match_all($email_regex, $httpResponse->getHtmlDocument()->getPlainContent(), $matches)) {
-            $tags[] = self::TAG;
 
             foreach ($matches[0] as $email) {
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                if (filter_var($email, FILTER_VALIDATE_EMAIL) && !str_contains($email, '.png')) {
+                    $tags[] = self::TAG;
                     $tags[] = self::TAG . ':' . $email;
                 }
             }
