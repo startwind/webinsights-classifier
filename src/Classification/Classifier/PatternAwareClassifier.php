@@ -28,14 +28,14 @@ abstract class PatternAwareClassifier
                     $keyword = [$keyword];
                 }
 
-                foreach ($keyword as $index => $singleKeyword) {
+                /*foreach ($keyword as $index => $singleKeyword) {
                     if (strlen($singleKeyword) < 7) {
                         $keyword[] = ' ' . $singleKeyword;
                         $keyword[] = $singleKeyword . ' ';
                         $keyword[] = $singleKeyword . '. ';
                         unset($keyword[$index]);
                     }
-                }
+                }*/
 
                 foreach ($keyword as $singleKeyword) {
                     $found = false;
@@ -45,10 +45,10 @@ abstract class PatternAwareClassifier
                             if ($httpResponse->getHtmlDocument()->contains($singleKeyword)) $found = true;
                             break;
                         case self::SOURCE_BODY:
-                            if ($httpResponse->getHtmlDocument()->contains($singleKeyword, false, HtmlDocument::SOURCE_BODY)) $found = true;
+                            if ($httpResponse->getHtmlDocument()->contains($singleKeyword, false, HtmlDocument::SOURCE_BODY, true)) $found = true;
                             break;
                         case self::SOURCE_CONTENT:
-                            if ($httpResponse->getHtmlDocument()->contains($singleKeyword, false, HtmlDocument::SOURCE_CONTENT)) $found = true;
+                            if ($httpResponse->getHtmlDocument()->contains($singleKeyword, false, HtmlDocument::SOURCE_CONTENT, true)) $found = true;
                             break;
                     }
 

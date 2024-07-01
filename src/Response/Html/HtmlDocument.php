@@ -38,7 +38,7 @@ class HtmlDocument
         }
     }
 
-    private function removeTags(string $html, string $tag) : string
+    private function removeTags(string $html, string $tag): string
     {
         $dom = new \DOMDocument();
 
@@ -104,7 +104,7 @@ class HtmlDocument
         return $results;
     }
 
-    public function contains(string $string, bool $caseSensitive = false, $source = self::SOURCE_HTML): bool
+    public function contains(string $string, bool $caseSensitive = false, $source = self::SOURCE_HTML, bool $fullWord = false): bool
     {
         if ($source === self::SOURCE_BODY) {
             $content = $this->body;
@@ -121,7 +121,13 @@ class HtmlDocument
             $htmlContent = $content;
         }
 
-        return str_contains($htmlContent, $string);
+        if ($fullWord) {
+            $pattern = '^\b' . $string . '\b^';
+            return preg_match($pattern, $htmlContent) > 0;
+        } else {
+            return str_contains($htmlContent, $string);
+        }
+
     }
 
     public function containsAny(array $strings, bool $caseSensitive = false): bool

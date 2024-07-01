@@ -19,7 +19,12 @@ class EmailClassifier implements Classifier, ExtrasClassifier
         if (preg_match_all($email_regex, $httpResponse->getHtmlDocument()->getPlainContent(), $matches)) {
 
             foreach ($matches[0] as $email) {
-                if (filter_var($email, FILTER_VALIDATE_EMAIL) && !str_contains($email, '.png')) {
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)
+                    && !str_contains($email, '@sentry.')
+                    && !str_contains($email, '.svg')
+                    && !str_contains($email, '.webp')
+                    && !str_contains($email, '.jpg')
+                    && !str_contains($email, '.png')) {
                     $tags[] = self::TAG;
                     $tags[] = self::TAG . ':' . $email;
                 }
