@@ -32,6 +32,8 @@ class HostingCompanyClassifier implements Classifier
 
         if (in_array('http:status-code:403', $existingTags)) return [];
 
+        if (!in_array('company:hosting:products:server', $existingTags)) return [];
+
         $minProducts = 4;
 
         // @todo title does not contain hosting magazine

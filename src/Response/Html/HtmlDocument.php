@@ -127,7 +127,6 @@ class HtmlDocument
         } else {
             return str_contains($htmlContent, $string);
         }
-
     }
 
     public function containsAny(array $strings, bool $caseSensitive = false): bool

@@ -303,11 +303,11 @@ class HostingProductsClassifier extends PatternAwareClassifier
             'social-media:social-pilot' => ['Social Pilot'],
 
             # Server
-            'server:root' => 'root server',
-            'server:dedicated' => 'dedicated server',
+            'server:root' => ['root server', 'root server'],
+            'server:dedicated' => ['dedicated server', 'Dedicated Servers'],
             'server:shared' => ['shared hosting'],
-            'server:vps' => ['vps', 'vServer'],
-            'server:managed-server' => ['managed server', 'managed hosting'],
+            'server:vps' => ['vps', 'vServer', 'vServers'],
+            'server:managed-server' => ['managed server', 'managed hosting', 'managed servers', 'server management'],
 
             # Features
             'features:domain-name-generator' => 'domain name generator',
